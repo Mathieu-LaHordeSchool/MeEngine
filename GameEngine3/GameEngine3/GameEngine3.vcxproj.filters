@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Input">
+      <UniqueIdentifier>{646c5457-131a-4bbd-8974-6ff0983eaa89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Mesh">
+      <UniqueIdentifier>{801c1c70-a38e-4725-9c45-2583d8654363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Timer">
+      <UniqueIdentifier>{7de29567-1e15-4e44-b632-8dd4985c6f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\RendererObject">
+      <UniqueIdentifier>{f48bfa4f-0909-4323-880f-ee7acb4201a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\RendererObject\Shader">
+      <UniqueIdentifier>{7fe3bcbd-c5c2-468f-8b7a-10acb41999c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Texture">
+      <UniqueIdentifier>{a109ca7d-a938-4201-8ffb-9b6b5c3f0048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Window">
+      <UniqueIdentifier>{58f63a50-223c-4afb-88e4-212668f67698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\Shaders">
+      <UniqueIdentifier>{c33d73be-1cfe-41de-acdb-4148fdb6d8e5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="scr\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Buffer.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Inputs.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Map.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Mesh.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\RenderObjectData.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Shader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\ShaderProgram.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Texture.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\VertexArray.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Window.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Input\InputAction.h">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Input\Inputs.h">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Input\KeyCode.h">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh\Mesh.h">
+      <Filter>Fichiers d%27en-tête\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh\tiny_obj_loader.h">
+      <Filter>Fichiers d%27en-tête\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Window\Window.h">
+      <Filter>Fichiers d%27en-tête\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\stb_image.h">
+      <Filter>Fichiers d%27en-tête\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\Texture.h">
+      <Filter>Fichiers d%27en-tête\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Shader\Shader.h">
+      <Filter>Fichiers d%27en-tête\RendererObject\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Shader\ShaderProgram.h">
+      <Filter>Fichiers d%27en-tête\RendererObject\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RendererObject\Buffer.h">
+      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RendererObject\RenderObjectData.h">
+      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RendererObject\VertexArray.h">
+      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Timer\HandleTimer.h">
+      <Filter>Fichiers d%27en-tête\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Map\Map.h">
+      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\fragment.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="Shaders\vertex.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
