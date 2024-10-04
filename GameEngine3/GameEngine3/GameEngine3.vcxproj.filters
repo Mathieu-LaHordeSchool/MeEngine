@@ -48,7 +48,7 @@
     <ClCompile Include="scr\Inputs.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Map.cpp">
+    <ClCompile Include="scr\InstancedMap.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="scr\Mesh.cpp">
@@ -116,7 +116,7 @@
     <ClInclude Include="include\Timer\HandleTimer.h">
       <Filter>Fichiers d%27en-tête\Timer</Filter>
     </ClInclude>
-    <ClInclude Include="include\Map\Map.h">
+    <ClInclude Include="include\RendererObject\InstancedMap.h">
       <Filter>Fichiers d%27en-tête\RendererObject</Filter>
     </ClInclude>
   </ItemGroup>

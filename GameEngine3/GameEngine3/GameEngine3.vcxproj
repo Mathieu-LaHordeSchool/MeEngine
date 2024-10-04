@@ -145,7 +145,7 @@
     <ClCompile Include="scr\Buffer.cpp" />
     <ClCompile Include="scr\Inputs.cpp" />
     <ClCompile Include="scr\main.cpp" />
-    <ClCompile Include="scr\Map.cpp" />
+    <ClCompile Include="scr\InstancedMap.cpp" />
     <ClCompile Include="scr\Mesh.cpp" />
     <ClCompile Include="scr\RenderObjectData.cpp" />
     <ClCompile Include="scr\Shader.cpp" />
@@ -158,10 +158,10 @@
     <ClInclude Include="include\Input\InputAction.h" />
     <ClInclude Include="include\Input\Inputs.h" />
     <ClInclude Include="include\Input\KeyCode.h" />
-    <ClInclude Include="include\Map\Map.h" />
     <ClInclude Include="include\Mesh\Mesh.h" />
     <ClInclude Include="include\Mesh\tiny_obj_loader.h" />
     <ClInclude Include="include\RendererObject\Buffer.h" />
+    <ClInclude Include="include\RendererObject\InstancedMap.h" />
     <ClInclude Include="include\RendererObject\RenderObjectData.h" />
     <ClInclude Include="include\RendererObject\VertexArray.h" />
     <ClInclude Include="include\Shader\Shader.h" />

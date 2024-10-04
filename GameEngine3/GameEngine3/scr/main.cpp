@@ -12,7 +12,7 @@
 #include <RendererObject/Buffer.h>
 #include <RendererObject/VertexArray.h>
 
-#include <RendererObject/Map.h>
+#include <RendererObject/InstancedMap.h>
 
 #include <Mesh/Mesh.h>
 
@@ -36,8 +36,9 @@ int main(int argc, char** argv)
 	Buffer* elementBuffer = new Buffer();
 	elementBuffer->InitBuffer<uint32_t>(cube.Elements);
 
-	Map* instancedMapBuffer = new Map();
-	instancedMapBuffer->AddElement(glm::vec3(0.f, -3.f, 0.f));
+	InstancedMap<glm::mat4>* instancedMapBuffer = new InstancedMap<glm::mat4>();
+	for (size_t i = 0; i < 10; i++)
+		instancedMapBuffer->AddElement(glm::translate(glm::mat4(1.f), glm::vec3(i * 2.f, 0.f, 0.f)));
 
 	VertexArrayObject* VAO = new VertexArrayObject();
 	VAO->BindElementBuffer(elementBuffer);
@@ -45,9 +46,11 @@ int main(int argc, char** argv)
 	VAO->BindingBuffer<float>(0, 0, verticesBuffer, 3);
 	VAO->AttributeBinding(0, 0, 3, GL_FLOAT, GL_FALSE, 0);
 
-	VAO->BindingBuffer<float>(1, 0, instancedMapBuffer->GetMapBuffer(), 3);
-	VAO->AttributeBinding(1, 1, 3, GL_FLOAT, GL_FALSE, 0);
-	VAO->BindMapBuffer(1, 1);
+	VAO->BindingBuffer<glm::mat4>(1, 0, instancedMapBuffer->GetMapBuffer());
+	for (size_t i = 0; i < 4; i++) {
+		VAO->AttributeBinding(1, i + 1, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4) * i);
+		VAO->BindMapBuffer(i + 1, 1);
+	}
 
 	float speed = .1f;
 	glm::vec3 camPos = glm::vec3(0.f, 0.f, -10.f);
