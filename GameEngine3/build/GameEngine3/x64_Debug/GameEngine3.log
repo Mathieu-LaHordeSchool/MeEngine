@@ -1,18 +1,2 @@
-﻿  main.cpp
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Input\Inputs.h(8,8): warning C4099: 'HandleTimer' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-  (compiler le fichier source 'scr/main.cpp')
-  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(3,7):
-  voir la déclaration de 'HandleTimer'
-  
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\main.cpp(63,76): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\main.cpp(63,30): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\main.cpp(64,24): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\main.cpp(108,59): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\RendererObject\Buffer.h(21,27): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-  (compiler le fichier source 'scr/main.cpp')
-  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\RendererObject\Buffer.h(21,27):
-  le contexte d’instanciation du modèle (le plus ancien) est
-  	C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\main.cpp(34,16):
-  	voir la référence à l'instanciation de la fonction modèle 'void Buffer::InitBuffer<float>(std::vector<float,std::allocator<float>>)' en cours de compilation
-  
+﻿  MeshLoader.cpp
   GameEngine3.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\GameEngine3_x64_Debug.exe

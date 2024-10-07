@@ -8,20 +8,7 @@
 class Mesh
 {
 public:
-	explicit Mesh(const char* modelPath, Texture* texture, glm::vec4 color = glm::vec4(1.f)) {
-		this->texture = texture;
-		Color = color;
-		LoadObjModel(modelPath);
-	}
-	explicit Mesh(const char* modelPath) 
-		: Color(glm::vec4(1.f))
-	{
-		LoadObjModel(modelPath);
-	}
-	explicit Mesh()
-		: Color(glm::vec4(1.f))
-	{}
-
+	explicit Mesh() = default;
 	~Mesh() noexcept = default;
 
 public:
@@ -55,17 +42,6 @@ public:
 		3, 2, 6,
 		6, 7, 3
 	};
-	std::vector<float> Colors = {
-		1.f, 1.f, 1.f, 1.f,
-		1.f, 1.f, 1.f, 1.f,
-		1.f, 1.f, 1.f, 1.f,
-		1.f, 1.f, 1.f, 1.f,
-
-		1.f, 1.f, 1.f, 1.f,
-		1.f, 1.f, 1.f, 1.f,
-		1.f, 1.f, 1.f, 1.f,
-		1.f, 1.f, 1.f, 1.f
-	};
 	std::vector<float> Normals = {
 		 1.f, 1.f,  1.f,
 		 1.f, 1.f,  1.f,
@@ -77,7 +53,7 @@ public:
 		 1.f, 1.f,  1.f,
 		 1.f, 1.f,  1.f
 	};
-	std::vector<float> TexsUv = {
+	std::vector<float> Uvs = {
 		1.f, 1.f,
 		1.f, 0.f,
 		0.f, 0.f,
@@ -88,10 +64,4 @@ public:
 		0.f, 0.f,
 		0.f, 1.f
 	};
-
-	Texture* texture;
-	glm::vec4 Color;
-
-private:
-	void LoadObjModel(const char* modelPath);
 };

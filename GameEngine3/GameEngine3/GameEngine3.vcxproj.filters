@@ -72,6 +72,12 @@
     <ClCompile Include="scr\Window.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="scr\Renderer.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\MeshLoader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Input\InputAction.h">
@@ -118,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="include\RendererObject\InstancedMap.h">
       <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RendererObject\Renderer.h">
+      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh\MeshLoader.h">
+      <Filter>Fichiers d%27en-tête\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

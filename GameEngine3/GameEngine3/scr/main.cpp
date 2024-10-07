@@ -15,6 +15,7 @@
 #include <RendererObject/InstancedMap.h>
 
 #include <Mesh/Mesh.h>
+#include <Mesh/MeshLoader.h>
 
 #include <Input/Inputs.h>
 #include <Input/KeyCode.h>
@@ -24,7 +25,8 @@ int main(int argc, char** argv)
 	Window* window = new Window("Game Engine", 700, 500);
 	Inputs* inputs = new Inputs();
 
-	Mesh cube = Mesh("Models/boss.obj");
+	MeshLoader loader = MeshLoader();
+	Mesh cube = loader.LoadMesh("Models/boss.obj");
 
 	Shader* vs = new Shader("Shaders/vertex.vert", EShaderType::Vertex);
 	Shader* fs = new Shader("Shaders/fragment.frag", EShaderType::Fragment);

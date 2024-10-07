@@ -147,6 +147,8 @@
     <ClCompile Include="scr\main.cpp" />
     <ClCompile Include="scr\InstancedMap.cpp" />
     <ClCompile Include="scr\Mesh.cpp" />
+    <ClCompile Include="scr\MeshLoader.cpp" />
+    <ClCompile Include="scr\Renderer.cpp" />
     <ClCompile Include="scr\RenderObjectData.cpp" />
     <ClCompile Include="scr\Shader.cpp" />
     <ClCompile Include="scr\ShaderProgram.cpp" />
@@ -159,9 +161,11 @@
     <ClInclude Include="include\Input\Inputs.h" />
     <ClInclude Include="include\Input\KeyCode.h" />
     <ClInclude Include="include\Mesh\Mesh.h" />
+    <ClInclude Include="include\Mesh\MeshLoader.h" />
     <ClInclude Include="include\Mesh\tiny_obj_loader.h" />
     <ClInclude Include="include\RendererObject\Buffer.h" />
     <ClInclude Include="include\RendererObject\InstancedMap.h" />
+    <ClInclude Include="include\RendererObject\Renderer.h" />
     <ClInclude Include="include\RendererObject\RenderObjectData.h" />
     <ClInclude Include="include\RendererObject\VertexArray.h" />
     <ClInclude Include="include\Shader\Shader.h" />
