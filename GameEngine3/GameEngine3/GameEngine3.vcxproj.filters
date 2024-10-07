@@ -37,6 +37,9 @@
     <Filter Include="Fichiers de ressources\Shaders">
       <UniqueIdentifier>{c33d73be-1cfe-41de-acdb-4148fdb6d8e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\EntityComponent">
+      <UniqueIdentifier>{12e4fd01-78c6-489b-b72a-33c0c47fd73f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scr\main.cpp">
@@ -76,6 +79,15 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="scr\MeshLoader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Scene.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\TransformData.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -130,6 +142,18 @@
     </ClInclude>
     <ClInclude Include="include\Mesh\MeshLoader.h">
       <Filter>Fichiers d%27en-tête\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityComponent\Scene.h">
+      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityComponent\Entity.h">
+      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityComponent\Component.h">
+      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityComponent\TransformData.h">
+      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

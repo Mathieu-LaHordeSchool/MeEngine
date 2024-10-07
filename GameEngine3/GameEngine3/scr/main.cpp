@@ -20,6 +20,9 @@
 #include <Input/Inputs.h>
 #include <Input/KeyCode.h>
 
+#include <EntityComponent/Scene.h>
+#include <EntityComponent/Entity.h>
+
 int main(int argc, char** argv)
 {
 	Window* window = new Window("Game Engine", 700, 500);
@@ -27,6 +30,11 @@ int main(int argc, char** argv)
 
 	MeshLoader loader = MeshLoader();
 	Mesh cube = loader.LoadMesh("Models/boss.obj");
+
+	Scene* mainScene = new Scene();
+
+	Entity* poule = mainScene->CreateObject("poule");
+
 
 	Shader* vs = new Shader("Shaders/vertex.vert", EShaderType::Vertex);
 	Shader* fs = new Shader("Shaders/fragment.frag", EShaderType::Fragment);
@@ -65,7 +73,6 @@ int main(int argc, char** argv)
 		VAO->AttributeBinding(2, i + 2, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4) * i);
 		VAO->BindMapBuffer(i + 2, 1);
 	}
-
 
 	float speed = .1f;
 	glm::vec3 camPos = glm::vec3(0.f, 0.f, -10.f);
