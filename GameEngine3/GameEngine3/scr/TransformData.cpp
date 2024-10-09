@@ -3,7 +3,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-glm::mat4 TransformData::GetTransformMatrix()
+glm::mat4 TransformData::GetTransformMatrix() const
 {
 	glm::mat4 matrix(1.f);
 	matrix = glm::rotate(matrix, glm::radians(rotation.x), glm::vec3(1.f, 0.f, 0.f));

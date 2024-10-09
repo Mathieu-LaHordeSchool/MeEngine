@@ -1,4 +1,6 @@
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\Entity.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Entity.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Buffer.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Buffer.obj
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Camera.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Camera.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Inputs.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Inputs.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\main.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\main.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\InstancedMap.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\InstancedMap.obj
@@ -6,8 +8,11 @@ C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Mesh.cpp;C:\LaHorde\GameEngine
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\MeshLoader.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\MeshLoader.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Renderer.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Renderer.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\RenderObjectData.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\RenderObjectData.obj
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Scene.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Scene.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Shader.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Shader.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\ShaderProgram.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\ShaderProgram.obj
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\StaticMesh.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\StaticMesh.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Texture.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Texture.obj
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\TransformData.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\TransformData.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\VertexArray.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\VertexArray.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Window.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Window.obj

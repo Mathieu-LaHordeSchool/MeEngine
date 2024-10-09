@@ -15,20 +15,7 @@ Buffer* RenderObjectData::GetOrCreateVertexBuffer(std::vector<float> data)
 
 	return vertexBuffers[data];
 }
-Buffer* RenderObjectData::GetOrCreateColorBuffer(std::vector<float> data)
-{
-	if (colorBuffers.count(data) == 0) {
-		// std::cout << "create color buffer" << std::endl;
-
-		Buffer* newBuffer = new Buffer();
-		newBuffer->InitBuffer<float>(data);
-		colorBuffers[data] = newBuffer;
-		return newBuffer;
-	}
-
-	return colorBuffers[data];
-}
-Buffer* RenderObjectData::GetOrCreateTextureBuffer(std::vector<float> data)
+Buffer* RenderObjectData::GetOrCreateUvsBuffer(std::vector<float> data)
 {
 	if (textureCoordBuffers.count(data) == 0) {
 		// std::cout << "create texture buffer" << std::endl;

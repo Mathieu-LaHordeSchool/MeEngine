@@ -11,4 +11,6 @@ private:
 
 public:
 	Entity* CreateObject(const char* name);
+
+	void Render(class Renderer* render);
 };

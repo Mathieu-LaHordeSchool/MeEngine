@@ -2,13 +2,19 @@
 
 #include <unordered_map>
 
-class Entity;
-class Mesh;
-
 class Renderer 
 {
 public:
-	std::unordered_map<Entity*, Mesh> geometry;
+	struct Internal;
+	Internal* m_renderer;
 
-	void Render();
+	explicit Renderer();
+	~Renderer() noexcept = default;
+
+	void PushCamera(const class Camera& cam);
+	void PushGeometry(const class TransformData& trans, const class Mesh& mesh);
+
+	void Execute();
+	void CreateAndBindBuffers(const class Mesh& mesh);
+	void Draw(const class TransformData& trans, const class Mesh& mesh);
 };

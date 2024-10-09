@@ -22,6 +22,6 @@ public:
 	virtual void Update(HandleTimer t)		{}
 	virtual void BindInputs(Inputs* inputs) {}
 
-	virtual char* GetType()					{}
+	virtual const char* GetType() const		{ return ""; }
 	virtual void Render(Renderer* render)	{}
 };

@@ -1,2 +1,7 @@
-﻿  MeshLoader.cpp
+﻿  main.cpp
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Input\Inputs.h(8,8): warning C4099: 'HandleTimer' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+  (compiler le fichier source 'scr/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(3,7):
+  voir la déclaration de 'HandleTimer'
+  
   GameEngine3.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\GameEngine3_x64_Debug.exe

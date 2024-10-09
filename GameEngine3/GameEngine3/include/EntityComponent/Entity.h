@@ -1,26 +1,25 @@
 #pragma once
 
 #include <unordered_map>
-#include <EntityComponent/TransformData.h>
 
 class Component;
-class Scene;
+class TransformData;
 
-class Entity 
-	: public TransformData
+class Entity
 {
 private:
-	Scene* ownScene;
-	std::unordered_map<char*, Component*> components;
+	struct Internal;
+	Internal* m_entity;
 
 public:
-	explicit Entity(Scene* scn) {
-		ownScene = scn;
-	}
+	explicit Entity(class Scene* scn);
 	~Entity() noexcept = default;
+
+	TransformData* Transform();
 
 	Component* AddComponent(Component* comp);
 	Component* GetComponent(Component* comp);
+	void Render(class Renderer* render);
 
 	template<typename COMP>
 	COMP* AddComponent() {

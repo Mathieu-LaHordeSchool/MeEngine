@@ -40,6 +40,9 @@
     <Filter Include="Fichiers d%27en-tête\EntityComponent">
       <UniqueIdentifier>{12e4fd01-78c6-489b-b72a-33c0c47fd73f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\EntityComponent\Components">
+      <UniqueIdentifier>{bee8da63-67ed-4fd4-a948-4f22841b6186}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scr\main.cpp">
@@ -88,6 +91,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="scr\TransformData.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Camera.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\StaticMesh.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -154,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="include\EntityComponent\TransformData.h">
       <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityComponent\Components\Camera.h">
+      <Filter>Fichiers d%27en-tête\EntityComponent\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityComponent\Components\StaticMesh.h">
+      <Filter>Fichiers d%27en-tête\EntityComponent\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

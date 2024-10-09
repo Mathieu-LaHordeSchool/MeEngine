@@ -6,5 +6,5 @@ in vec3 normal;
 
 void main() 
 {
-	oFragColor = vec4(normal, 1.f);
+	oFragColor = vec4(abs(normal), 1.f);
 }
