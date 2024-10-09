@@ -1,10 +1,9 @@
 
-#include <EntityComponent/Components/StaticMesh.h>
-
-#include <Mesh/Mesh.h>
-#include <RendererObject/Renderer.h>
-#include <EntityComponent/TransformData.h>
-#include <EntityComponent/Entity.h>
+#include <Engine/EntityComponent/Components/StaticMesh.h>
+#include <Engine/Mesh/Mesh.h>
+#include <Engine/RendererObject/Renderer.h>
+#include <Engine/EntityComponent/TransformData.h>
+#include <Engine/EntityComponent/Entity.h>
 
 struct StaticMesh::Internal
 {

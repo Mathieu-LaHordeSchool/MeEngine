@@ -1,12 +1,12 @@
 
-#include <Mesh/MeshLoader.h>
-
-#include <Mesh/Mesh.h>
+#include <Engine/Mesh/MeshLoader.h>
+#include <Engine/Mesh/Mesh.h>
 
 #include <unordered_map>
+#include <iostream>
 
 #define TINYOBJLOADER_IMPLEMENTATION
-#include <Mesh/tiny_obj_loader.h>
+#include <Engine/Mesh/tiny_obj_loader.h>
 
 // Update the VertexData structure to include color.
 struct VertexData {

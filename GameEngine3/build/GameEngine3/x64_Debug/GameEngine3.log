@@ -1,73 +1,63 @@
-﻿  Camera.cpp
-/scr/EntityComponent/Components/Camera.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\EntityComponent\Components\Camera.cpp' : No such file or directory
-  (compiler le fichier source '/scr/EntityComponent/Components/Camera.cpp')
-  
-  StaticMesh.cpp
-/scr/EntityComponent/Components/StaticMesh.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\EntityComponent\Components\StaticMesh.cpp' : No such file or directory
-  (compiler le fichier source '/scr/EntityComponent/Components/StaticMesh.cpp')
-  
-  Entity.cpp
-/scr/EntityComponent/Entity.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\EntityComponent\Entity.cpp' : No such file or directory
-  (compiler le fichier source '/scr/EntityComponent/Entity.cpp')
-  
-  Scene.cpp
-/scr/EntityComponent/Scene.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\EntityComponent\Scene.cpp' : No such file or directory
-  (compiler le fichier source '/scr/EntityComponent/Scene.cpp')
-  
-  TransformData.cpp
-/scr/EntityComponent/TransformData.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\EntityComponent\TransformData.cpp' : No such file or directory
-  (compiler le fichier source '/scr/EntityComponent/TransformData.cpp')
-  
-  Inputs.cpp
-/scr/Input/Inputs.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\Input\Inputs.cpp' : No such file or directory
-  (compiler le fichier source '/scr/Input/Inputs.cpp')
+﻿  MeshLoader.cpp
+  Renderer.cpp
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(125,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\RendererObject\Buffer.h(21,27): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+  (compiler le fichier source 'scr/Engine/RendererObject/Renderer.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\RendererObject\Buffer.h(21,27):
+  le contexte d’instanciation du modèle (le plus ancien) est
+  	C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(93,27):
+  	voir la référence à l'instanciation de la fonction modèle 'void Buffer::InitBuffer<float>(std::vector<float,std::allocator<float>>)' en cours de compilation
   
   main.cpp
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Mesh\Mesh.h(4,10): error C1083: Impossible d'ouvrir le fichier include : 'Texture/texture.h' : No such file or directory
+C:\LaHorde\GameEngine\GameEngine3\external\include\GLFW\glfw3.h(1186,16): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+  (compiler le fichier source 'scr/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Window\Window.h(3,7):
+  voir la déclaration de 'GLFWwindow'
+  
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
   (compiler le fichier source 'scr/main.cpp')
   
-  Mesh.cpp
-/scr/Mesh/Mesh.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\Mesh\Mesh.cpp' : No such file or directory
-  (compiler le fichier source '/scr/Mesh/Mesh.cpp')
-  
-  MeshLoader.cpp
-/scr/Mesh/MeshLoader.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\Mesh\MeshLoader.cpp' : No such file or directory
-  (compiler le fichier source '/scr/Mesh/MeshLoader.cpp')
-  
-  Buffer.cpp
-/scr/RendererObject/Buffer.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\RendererObject\Buffer.cpp' : No such file or directory
-  (compiler le fichier source '/scr/RendererObject/Buffer.cpp')
-  
-  InstancedMap.cpp
-/scr/RendererObject/InstancedMap.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\RendererObject\InstancedMap.cpp' : No such file or directory
-  (compiler le fichier source '/scr/RendererObject/InstancedMap.cpp')
-  
-  Renderer.cpp
-/scr/RendererObject/Renderer.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\RendererObject\Renderer.cpp' : No such file or directory
-  (compiler le fichier source '/scr/RendererObject/Renderer.cpp')
-  
-  RenderObjectData.cpp
-/scr/RendererObject/RenderObjectData.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\RendererObject\RenderObjectData.cpp' : No such file or directory
-  (compiler le fichier source '/scr/RendererObject/RenderObjectData.cpp')
-  
-  Shader.cpp
-/scr/RendererObject/Shader/Shader.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\RendererObject\Shader\Shader.cpp' : No such file or directory
-  (compiler le fichier source '/scr/RendererObject/Shader/Shader.cpp')
-  
-  ShaderProgram.cpp
-/scr/RendererObject/Shader/ShaderProgram.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\RendererObject\Shader\ShaderProgram.cpp' : No such file or directory
-  (compiler le fichier source '/scr/RendererObject/Shader/ShaderProgram.cpp')
-  
-  VertexArray.cpp
-/scr/RendererObject/VertexArray.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\RendererObject\VertexArray.cpp' : No such file or directory
-  (compiler le fichier source '/scr/RendererObject/VertexArray.cpp')
-  
-  Texture.cpp
-/scr/Texture/Texture.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\Texture\Texture.cpp' : No such file or directory
-  (compiler le fichier source '/scr/Texture/Texture.cpp')
-  
-  Window.cpp
-/scr/Window/Window.cpp(1,1): error C1083: Impossible d'ouvrir le fichier source : 'scr\Window\Window.cpp' : No such file or directory
-  (compiler le fichier source '/scr/Window/Window.cpp')
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Input\Inputs.h(8,8): warning C4099: 'HandleTimer' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+  (compiler le fichier source 'scr/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Timer\HandleTimer.h(5,7):
+  voir la déclaration de 'HandleTimer'
   
   Génération de code en cours...
+glew32s.lib(glew.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glew32s.lib(glew.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+MSVCRTD.lib(initializers.obj) : warning LNK4098: conflit entre la bibliothèque par défaut 'msvcrt.lib' et les autres bibliothèques ; utilisez /NODEFAULTLIB:library
+MSVCRTD.lib(initializers.obj) : warning LNK4098: conflit entre la bibliothèque par défaut 'libcmt.lib' et les autres bibliothèques ; utilisez /NODEFAULTLIB:library
+LINK : warning LNK4217: le symbole '__glewDeleteBuffers' défini dans 'glew32s.lib(glew.obj)' est importé par 'Buffer.obj' dans la fonction '"public: __cdecl Buffer::~Buffer(void)" (??1Buffer@@QEAA@XZ)'
+LINK : warning LNK4217: le symbole '__glewCreateBuffers' défini dans 'glew32s.lib(glew.obj)' est importé par 'Buffer.obj' dans la fonction '"public: __cdecl Buffer::Buffer(void)" (??0Buffer@@QEAA@XZ)'
+LINK : warning LNK4217: le symbole '__glewMapNamedBufferRange' défini dans 'glew32s.lib(glew.obj)' est importé par 'Buffer.obj' dans la fonction '"public: void __cdecl Buffer::InitBuffer(int,void *)" (?InitBuffer@Buffer@@QEAAXHPEAX@Z)'
+LINK : warning LNK4217: le symbole '__glewNamedBufferStorage' défini dans 'glew32s.lib(glew.obj)' est importé par 'Buffer.obj' dans la fonction '"public: void __cdecl Buffer::InitBuffer(int,void *)" (?InitBuffer@Buffer@@QEAAXHPEAX@Z)'
+LINK : warning LNK4217: le symbole '__glewNamedBufferSubData' défini dans 'glew32s.lib(glew.obj)' est importé par 'Buffer.obj' dans la fonction '"public: void __cdecl Buffer::SubData(int,int,void *)" (?SubData@Buffer@@QEAAXHHPEAX@Z)'
+LINK : warning LNK4217: le symbole '__glewUnmapNamedBuffer' défini dans 'glew32s.lib(glew.obj)' est importé par 'Buffer.obj' dans la fonction '"public: __cdecl Buffer::~Buffer(void)" (??1Buffer@@QEAA@XZ)'
+LINK : warning LNK4217: le symbole '__glewGetUniformLocation' défini dans 'glew32s.lib(glew.obj)' est importé par 'Renderer.obj' dans la fonction '"public: void __cdecl Renderer::Draw(class TransformData const &,class Mesh const &)" (?Draw@Renderer@@QEAAXAEBVTransformData@@AEBVMesh@@@Z)'
+LINK : warning LNK4217: le symbole '__glewUniformMatrix4fv' défini dans 'glew32s.lib(glew.obj)' est importé par 'Renderer.obj' dans la fonction '"public: void __cdecl Renderer::Draw(class TransformData const &,class Mesh const &)" (?Draw@Renderer@@QEAAXAEBVTransformData@@AEBVMesh@@@Z)'
+LINK : warning LNK4217: le symbole '__glewCompileShader' défini dans 'glew32s.lib(glew.obj)' est importé par 'Shader.obj' dans la fonction '"private: void __cdecl Shader::ComplieFragmentShader(char const *)" (?ComplieFragmentShader@Shader@@AEAAXPEBD@Z)'
+LINK : warning LNK4217: le symbole '__glewCreateShader' défini dans 'glew32s.lib(glew.obj)' est importé par 'Shader.obj' dans la fonction '"private: void __cdecl Shader::ComplieFragmentShader(char const *)" (?ComplieFragmentShader@Shader@@AEAAXPEBD@Z)'
+LINK : warning LNK4217: le symbole '__glewDeleteShader' défini dans 'glew32s.lib(glew.obj)' est importé par 'Shader.obj' dans la fonction '"public: __cdecl Shader::~Shader(void)" (??1Shader@@QEAA@XZ)'
+LINK : warning LNK4286: le symbole '__glewDeleteShader' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj'
+LINK : warning LNK4217: le symbole '__glewGetShaderInfoLog' défini dans 'glew32s.lib(glew.obj)' est importé par 'Shader.obj' dans la fonction '"private: void __cdecl Shader::ComplieFragmentShader(char const *)" (?ComplieFragmentShader@Shader@@AEAAXPEBD@Z)'
+LINK : warning LNK4286: le symbole '__glewGetShaderInfoLog' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj'
+LINK : warning LNK4217: le symbole '__glewGetShaderiv' défini dans 'glew32s.lib(glew.obj)' est importé par 'Shader.obj' dans la fonction '"private: void __cdecl Shader::ComplieFragmentShader(char const *)" (?ComplieFragmentShader@Shader@@AEAAXPEBD@Z)'
+LINK : warning LNK4217: le symbole '__glewShaderSource' défini dans 'glew32s.lib(glew.obj)' est importé par 'Shader.obj' dans la fonction '"private: void __cdecl Shader::ComplieFragmentShader(char const *)" (?ComplieFragmentShader@Shader@@AEAAXPEBD@Z)'
+LINK : warning LNK4217: le symbole '__glewAttachShader' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj' dans la fonction '"public: __cdecl ShaderProgram::ShaderProgram(class Shader *,class Shader *)" (??0ShaderProgram@@QEAA@PEAVShader@@0@Z)'
+LINK : warning LNK4217: le symbole '__glewCreateProgram' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj' dans la fonction '"public: __cdecl ShaderProgram::ShaderProgram(class Shader *,class Shader *)" (??0ShaderProgram@@QEAA@PEAVShader@@0@Z)'
+LINK : warning LNK4217: le symbole '__glewDeleteProgram' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj' dans la fonction '"public: __cdecl ShaderProgram::~ShaderProgram(void)" (??1ShaderProgram@@QEAA@XZ)'
+LINK : warning LNK4217: le symbole '__glewGetProgramiv' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj' dans la fonction '"public: __cdecl ShaderProgram::ShaderProgram(class Shader *,class Shader *)" (??0ShaderProgram@@QEAA@PEAVShader@@0@Z)'
+LINK : warning LNK4217: le symbole '__glewLinkProgram' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj' dans la fonction '"public: __cdecl ShaderProgram::ShaderProgram(class Shader *,class Shader *)" (??0ShaderProgram@@QEAA@PEAVShader@@0@Z)'
+LINK : warning LNK4217: le symbole '__glewUseProgram' défini dans 'glew32s.lib(glew.obj)' est importé par 'ShaderProgram.obj' dans la fonction '"public: void __cdecl ShaderProgram::StartShaderProgram(void)" (?StartShaderProgram@ShaderProgram@@QEAAXXZ)'
+LINK : warning LNK4217: le symbole '__glewVertexAttribDivisor' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: void __cdecl VertexArrayObject::BindAttribDivisor(int,int)" (?BindAttribDivisor@VertexArrayObject@@QEAAXHH@Z)'
+LINK : warning LNK4217: le symbole '__glewCreateVertexArrays' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: __cdecl VertexArrayObject::VertexArrayObject(void)" (??0VertexArrayObject@@QEAA@XZ)'
+LINK : warning LNK4217: le symbole '__glewEnableVertexArrayAttrib' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: void __cdecl VertexArrayObject::AttributeBinding(int,int,int,unsigned int,unsigned int,int)" (?AttributeBinding@VertexArrayObject@@QEAAXHHHIIH@Z)'
+LINK : warning LNK4217: le symbole '__glewVertexArrayAttribBinding' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: void __cdecl VertexArrayObject::AttributeBinding(int,int,int,unsigned int,unsigned int,int)" (?AttributeBinding@VertexArrayObject@@QEAAXHHHIIH@Z)'
+LINK : warning LNK4217: le symbole '__glewVertexArrayAttribFormat' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: void __cdecl VertexArrayObject::AttributeBinding(int,int,int,unsigned int,unsigned int,int)" (?AttributeBinding@VertexArrayObject@@QEAAXHHHIIH@Z)'
+LINK : warning LNK4217: le symbole '__glewVertexArrayBindingDivisor' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: void __cdecl VertexArrayObject::BindMapBuffer(int,int)" (?BindMapBuffer@VertexArrayObject@@QEAAXHH@Z)'
+LINK : warning LNK4217: le symbole '__glewVertexArrayElementBuffer' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: void __cdecl VertexArrayObject::BindElementBuffer(class Buffer *)" (?BindElementBuffer@VertexArrayObject@@QEAAXPEAVBuffer@@@Z)'
+LINK : warning LNK4217: le symbole '__glewVertexArrayVertexBuffer' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"private: void __cdecl VertexArrayObject::BindingBuffer(int,int,class Buffer *,int)" (?BindingBuffer@VertexArrayObject@@AEAAXHHPEAVBuffer@@H@Z)'
+LINK : warning LNK4217: le symbole '__glewBindVertexArray' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: void __cdecl VertexArrayObject::BindVertexArray(void)" (?BindVertexArray@VertexArrayObject@@QEAAXXZ)'
+LINK : warning LNK4217: le symbole '__glewDeleteVertexArrays' défini dans 'glew32s.lib(glew.obj)' est importé par 'VertexArray.obj' dans la fonction '"public: __cdecl VertexArrayObject::~VertexArrayObject(void)" (??1VertexArrayObject@@QEAA@XZ)'
+LINK : warning LNK4217: le symbole '__glewActiveTexture' défini dans 'glew32s.lib(glew.obj)' est importé par 'Texture.obj' dans la fonction '"public: void __cdecl Texture::BindTexture(unsigned int)" (?BindTexture@Texture@@QEAAXI@Z)'
+LINK : warning LNK4217: le symbole '__glewGenerateMipmap' défini dans 'glew32s.lib(glew.obj)' est importé par 'Texture.obj' dans la fonction '"private: void __cdecl Texture::LoadTexture(char const *)" (?LoadTexture@Texture@@AEAAXPEBD@Z)'
+  GameEngine3.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\GameEngine3_x64_Debug.exe

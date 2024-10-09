@@ -1,9 +1,6 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <Texture/texture.h>
 #include <vector>
-#include <iostream>
 
 class Mesh
 {

@@ -1,8 +1,7 @@
 
-#include <EntityComponent/Components/Camera.h>
-
-#include <EntityComponent/Entity.h>
-#include <RendererObject/Renderer.h>
+#include <Engine/EntityComponent/Components/Camera.h>
+#include <Engine/EntityComponent/Entity.h>
+#include <Engine/RendererObject/Renderer.h>
 
 Camera::Camera(Entity* owner)
 	: Component(owner)

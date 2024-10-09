@@ -1,18 +1,14 @@
 
-#include <RendererObject/Renderer.h>
-
-#include <RendererObject/Shader/Shader.h>
-#include <RendererObject/Shader/ShaderProgram.h>
-
-#include <RendererObject/Buffer.h>
-#include <RendererObject/VertexArray.h>
-#include <RendererObject/RenderObjectData.h>
-
-#include <Mesh/Mesh.h>
-#include <EntityComponent/TransformData.h>
-#include <EntityComponent/Entity.h>
-
-#include <EntityComponent/Components/Camera.h>
+#include <Engine/RendererObject/Renderer.h>
+#include <Engine/RendererObject/Shader/Shader.h>
+#include <Engine/RendererObject/Shader/ShaderProgram.h>
+#include <Engine/RendererObject/Buffer.h>
+#include <Engine/RendererObject/VertexArray.h>
+#include <Engine/RendererObject/RenderObjectData.h>
+#include <Engine/Mesh/Mesh.h>
+#include <Engine/EntityComponent/TransformData.h>
+#include <Engine/EntityComponent/Entity.h>
+#include <Engine/EntityComponent/Components/Camera.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

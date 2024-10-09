@@ -1,8 +1,9 @@
 #pragma once
 
 #include <cstdint>
-#include <RendererObject/Buffer.h>
 #include <GL/glew.h>
+
+class Buffer;
 
 class VertexArrayObject
 {
@@ -12,7 +13,7 @@ public:
 
 public:
 	template<typename T> void BindingBuffer(int bindingIndex, int offset, Buffer* buffer, int sizeT = 1) {
-		glVertexArrayVertexBuffer(vaoId, bindingIndex, buffer->GetBuffer(), offset, sizeof(T) * sizeT);
+		BindingBuffer(bindingIndex, offset, buffer, sizeof(T) * sizeT);
 	}
 	void AttributeBinding(int bindIndex, int layoutIndex, int size, unsigned int type, unsigned int normalize, int offset);
 
@@ -27,4 +28,6 @@ public:
 
 private:
 	uint32_t vaoId;
+
+	void BindingBuffer(int bindingIndex, int offset, Buffer* buffer, int stripe);
 };

@@ -1,10 +1,9 @@
 #pragma once
 
-#include <RendererObject/Buffer.h>
-#include <RendererObject/VertexArray.h>
-
 #include <vector>
 #include <map>
+
+class Buffer;
 
 class RenderObjectData
 {

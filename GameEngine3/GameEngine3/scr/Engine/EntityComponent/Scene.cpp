@@ -1,11 +1,9 @@
 
-#include <EntityComponent/Scene.h>
-
-#include <EntityComponent/Entity.h>
-#include <RendererObject/Renderer.h>
-#include <EntityComponent/TransformData.h>
-
-#include <Timer/HandleTimer.h>
+#include <Engine/EntityComponent/Scene.h>
+#include <Engine/EntityComponent/Entity.h>
+#include <Engine/RendererObject/Renderer.h>
+#include <Engine/EntityComponent/TransformData.h>
+#include <Engine/Timer/HandleTimer.h>
 
 struct Scene::Internal
 {

@@ -1,7 +1,7 @@
-#include <RendererObject/VertexArray.h>
+#include <Engine/RendererObject/VertexArray.h>
 
 #include <GL/glew.h>
-#include <RendererObject/Buffer.h>
+#include <Engine/RendererObject/Buffer.h>
 
 VertexArrayObject::VertexArrayObject()
 {
@@ -11,6 +11,11 @@ VertexArrayObject::VertexArrayObject()
 VertexArrayObject::~VertexArrayObject() noexcept
 {
 	glDeleteVertexArrays(1, &vaoId);
+}
+
+void VertexArrayObject::BindingBuffer(int bindingIndex, int offset, Buffer* buffer, int stripe)
+{
+	glVertexArrayVertexBuffer(vaoId, bindingIndex, buffer->GetBuffer(), offset, stripe);
 }
 
 void VertexArrayObject::AttributeBinding(int bindIndex, int layoutIndex, int size, unsigned int type, unsigned int normalize, int offset)

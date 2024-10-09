@@ -1,6 +1,6 @@
 #pragma once
 
-#include <EntityComponent/Component.h>
+#include <Engine/EntityComponent/Component.h>
 
 class Camera
 	: public Component

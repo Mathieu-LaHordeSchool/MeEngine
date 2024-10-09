@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-class Renderer 
+class Renderer
 {
 public:
 	struct Internal;

@@ -1,9 +1,8 @@
 
-#include <EntityComponent/Entity.h>
-
-#include <EntityComponent/Component.h>
-#include <EntityComponent/Scene.h>
-#include <EntityComponent/TransformData.h>
+#include <Engine/EntityComponent/Entity.h>
+#include <Engine/EntityComponent/Component.h>
+#include <Engine/EntityComponent/Scene.h>
+#include <Engine/EntityComponent/TransformData.h>
 
 struct Entity::Internal
 {
