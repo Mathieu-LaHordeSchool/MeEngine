@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Timer/HandleTimer.h>
-
 class Inputs;
 class Entity;
 class Renderer;
@@ -19,7 +17,7 @@ public:
 	virtual void Start()					{}
 	virtual void Awake()					{}
 
-	virtual void Update(HandleTimer t)		{}
+	virtual void Update()					{}
 	virtual void BindInputs(Inputs* inputs) {}
 
 	virtual const char* GetType() const		{ return ""; }

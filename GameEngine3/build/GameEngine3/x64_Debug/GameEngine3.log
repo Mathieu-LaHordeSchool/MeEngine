@@ -1,7 +1,46 @@
-﻿  main.cpp
+﻿  Entity.cpp
+  Camera.cpp
+  Inputs.cpp
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+  (compiler le fichier source 'scr/Inputs.cpp')
+  
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Input\Inputs.h(8,8): warning C4099: 'HandleTimer' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-  (compiler le fichier source 'scr/main.cpp')
-  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(3,7):
+  (compiler le fichier source 'scr/Inputs.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(5,7):
   voir la déclaration de 'HandleTimer'
   
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Input\Inputs.h(27,33): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+  (compiler le fichier source 'scr/Inputs.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\external\include\GLFW\glfw3.h(1186,16):
+  voir la déclaration de 'GLFWwindow'
+  
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Window\Window.h(3,7): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+  (compiler le fichier source 'scr/Inputs.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\external\include\GLFW\glfw3.h(1186,16):
+  voir la déclaration de 'GLFWwindow'
+  
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Inputs.cpp(81,20): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Inputs.cpp(82,20): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+  Renderer.cpp
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Renderer.cpp(124,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+  Scene.cpp
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+  (compiler le fichier source 'scr/Scene.cpp')
+  
+  StaticMesh.cpp
+  main.cpp
+C:\LaHorde\GameEngine\GameEngine3\external\include\GLFW\glfw3.h(1186,16): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+  (compiler le fichier source 'scr/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Window\Window.h(3,7):
+  voir la déclaration de 'GLFWwindow'
+  
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+  (compiler le fichier source 'scr/main.cpp')
+  
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Input\Inputs.h(8,8): warning C4099: 'HandleTimer' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+  (compiler le fichier source 'scr/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Timer\HandleTimer.h(5,7):
+  voir la déclaration de 'HandleTimer'
+  
+  Génération de code en cours...
   GameEngine3.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\GameEngine3_x64_Debug.exe

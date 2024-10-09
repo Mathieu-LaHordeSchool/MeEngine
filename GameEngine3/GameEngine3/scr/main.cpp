@@ -25,30 +25,33 @@ int main(int argc, char** argv)
 	MeshLoader loader = MeshLoader();
 	Mesh pouleMesh = loader.LoadMesh("Models/boss.obj");
 
-	Scene* mainScene = new Scene();
+	Scene mainScene;
 
-	Entity* poule = mainScene->CreateObject("poule");
+	Entity* poule = mainScene.CreateObject("poule");
+	Entity* cam = mainScene.CreateObject("Camera");
+
 	poule->Transform()->rotation.y = 180.f;
-
-	Entity* cam = mainScene->CreateObject("Camera");
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	cam->AddComponent<Camera>();
 
 	float speed = .1f;	
-	inputs->CreateInputAction("z", KeyCode::W)->BindPressAction([&](HandleTimer t) {
+	inputs->CreateInputAction("z", KeyCode::W)->BindPressAction([&]() {
 		cam->Transform()->position.z += speed;
 	});
-	inputs->CreateInputAction("s", KeyCode::S)->BindPressAction([&](HandleTimer t) {
+	inputs->CreateInputAction("s", KeyCode::S)->BindPressAction([&]() {
 		cam->Transform()->position.z -= speed;
 	});
+
+	mainScene.Start();
 
 	do
 	{
 		window->PoolEvent();
 		inputs->UpdateInputs(window);
+		mainScene.Update();
 
-		mainScene->Render(render);
+		mainScene.Render(render);
 		render->Execute();
 
 		window->SwapBuffer();

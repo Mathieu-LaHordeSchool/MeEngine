@@ -39,3 +39,16 @@ void Entity::Render(Renderer* render)
 		comp->Render(render);
 	}
 }
+
+void Entity::Start()
+{
+	for (auto& [key, comp] : m_entity->components) {
+		comp->Start();
+	}
+}
+void Entity::Update()
+{
+	for (auto& [key, comp] : m_entity->components) {
+		comp->Update();
+	}
+}

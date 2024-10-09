@@ -19,7 +19,10 @@ public:
 
 	Component* AddComponent(Component* comp);
 	Component* GetComponent(Component* comp);
+
 	void Render(class Renderer* render);
+	void Start();
+	void Update();
 
 	template<typename COMP>
 	COMP* AddComponent() {
