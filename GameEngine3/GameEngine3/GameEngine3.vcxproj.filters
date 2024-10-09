@@ -13,162 +13,192 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Input">
-      <UniqueIdentifier>{646c5457-131a-4bbd-8974-6ff0983eaa89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Mesh">
-      <UniqueIdentifier>{801c1c70-a38e-4725-9c45-2583d8654363}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Timer">
-      <UniqueIdentifier>{7de29567-1e15-4e44-b632-8dd4985c6f7a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\RendererObject">
-      <UniqueIdentifier>{f48bfa4f-0909-4323-880f-ee7acb4201a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\RendererObject\Shader">
-      <UniqueIdentifier>{7fe3bcbd-c5c2-468f-8b7a-10acb41999c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Texture">
-      <UniqueIdentifier>{a109ca7d-a938-4201-8ffb-9b6b5c3f0048}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Window">
-      <UniqueIdentifier>{58f63a50-223c-4afb-88e4-212668f67698}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers de ressources\Shaders">
       <UniqueIdentifier>{c33d73be-1cfe-41de-acdb-4148fdb6d8e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\EntityComponent">
+    <Filter Include="Fichiers d%27en-tête\Engine">
+      <UniqueIdentifier>{8e291933-3559-4a68-87a2-8536176b9679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\EntityComponent">
       <UniqueIdentifier>{12e4fd01-78c6-489b-b72a-33c0c47fd73f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\EntityComponent\Components">
+    <Filter Include="Fichiers d%27en-tête\Engine\EntityComponent\Components">
       <UniqueIdentifier>{bee8da63-67ed-4fd4-a948-4f22841b6186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\Input">
+      <UniqueIdentifier>{646c5457-131a-4bbd-8974-6ff0983eaa89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\Mesh">
+      <UniqueIdentifier>{801c1c70-a38e-4725-9c45-2583d8654363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\RendererObject">
+      <UniqueIdentifier>{f48bfa4f-0909-4323-880f-ee7acb4201a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\RendererObject\Shader">
+      <UniqueIdentifier>{7fe3bcbd-c5c2-468f-8b7a-10acb41999c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\Texture">
+      <UniqueIdentifier>{a109ca7d-a938-4201-8ffb-9b6b5c3f0048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\Timer">
+      <UniqueIdentifier>{7de29567-1e15-4e44-b632-8dd4985c6f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\Window">
+      <UniqueIdentifier>{58f63a50-223c-4afb-88e4-212668f67698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine">
+      <UniqueIdentifier>{95d21116-ad5a-4f10-900c-206b90b7d1e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\EntityComponent">
+      <UniqueIdentifier>{bd569750-770b-4832-aef9-cc72d3c9ca10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\EntityComponent\Components">
+      <UniqueIdentifier>{348fe82d-bcf8-41f0-9c79-b8b0c36e068d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\Input">
+      <UniqueIdentifier>{bed29cdc-ac85-4811-b028-9c45ea87b15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\Mesh">
+      <UniqueIdentifier>{45a3de9d-8ce9-4b22-90a6-3433eb755eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\Window">
+      <UniqueIdentifier>{2afebbc3-a4fa-4632-a030-10edb1bea3ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\Texture">
+      <UniqueIdentifier>{a18ca912-fc1e-4cde-aa80-8af235649402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\RendererObject">
+      <UniqueIdentifier>{fff180cf-424c-455b-b769-9ed1608de698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\RendererObject\Shader">
+      <UniqueIdentifier>{c2f39310-0d6e-4561-ad7b-15d5efce6354}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scr\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Buffer.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\EntityComponent\Entity.cpp">
+      <Filter>Fichiers sources\Engine\EntityComponent</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Inputs.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\EntityComponent\Scene.cpp">
+      <Filter>Fichiers sources\Engine\EntityComponent</Filter>
     </ClCompile>
-    <ClCompile Include="scr\InstancedMap.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\EntityComponent\TransformData.cpp">
+      <Filter>Fichiers sources\Engine\EntityComponent</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Mesh.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\Input\Inputs.cpp">
+      <Filter>Fichiers sources\Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="scr\RenderObjectData.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\Mesh\Mesh.cpp">
+      <Filter>Fichiers sources\Engine\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Shader.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\Mesh\MeshLoader.cpp">
+      <Filter>Fichiers sources\Engine\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="scr\ShaderProgram.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\Window\Window.cpp">
+      <Filter>Fichiers sources\Engine\Window</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Texture.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\Texture\Texture.cpp">
+      <Filter>Fichiers sources\Engine\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="scr\VertexArray.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\EntityComponent\Components\Camera.cpp">
+      <Filter>Fichiers sources\Engine\EntityComponent\Components</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Window.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\EntityComponent\Components\StaticMesh.cpp">
+      <Filter>Fichiers sources\Engine\EntityComponent\Components</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Renderer.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\RendererObject\Buffer.cpp">
+      <Filter>Fichiers sources\Engine\RendererObject</Filter>
     </ClCompile>
-    <ClCompile Include="scr\MeshLoader.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\RendererObject\InstancedMap.cpp">
+      <Filter>Fichiers sources\Engine\RendererObject</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Scene.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\RendererObject\Renderer.cpp">
+      <Filter>Fichiers sources\Engine\RendererObject</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\RendererObject\RenderObjectData.cpp">
+      <Filter>Fichiers sources\Engine\RendererObject</Filter>
     </ClCompile>
-    <ClCompile Include="scr\TransformData.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\RendererObject\VertexArray.cpp">
+      <Filter>Fichiers sources\Engine\RendererObject</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Camera.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\RendererObject\Shader\Shader.cpp">
+      <Filter>Fichiers sources\Engine\RendererObject\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="scr\StaticMesh.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="scr\RendererObject\Shader\ShaderProgram.cpp">
+      <Filter>Fichiers sources\Engine\RendererObject\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Input\InputAction.h">
-      <Filter>Fichiers d%27en-tête\Input</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="include\Input\Inputs.h">
-      <Filter>Fichiers d%27en-tête\Input</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="include\Input\KeyCode.h">
-      <Filter>Fichiers d%27en-tête\Input</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="include\Mesh\Mesh.h">
-      <Filter>Fichiers d%27en-tête\Mesh</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="include\Mesh\tiny_obj_loader.h">
-      <Filter>Fichiers d%27en-tête\Mesh</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="include\Window\Window.h">
-      <Filter>Fichiers d%27en-tête\Window</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Window</Filter>
     </ClInclude>
     <ClInclude Include="include\Texture\stb_image.h">
-      <Filter>Fichiers d%27en-tête\Texture</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Texture</Filter>
     </ClInclude>
     <ClInclude Include="include\Texture\Texture.h">
-      <Filter>Fichiers d%27en-tête\Texture</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Texture</Filter>
     </ClInclude>
     <ClInclude Include="include\Shader\Shader.h">
-      <Filter>Fichiers d%27en-tête\RendererObject\Shader</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject\Shader</Filter>
     </ClInclude>
     <ClInclude Include="include\Shader\ShaderProgram.h">
-      <Filter>Fichiers d%27en-tête\RendererObject\Shader</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject\Shader</Filter>
     </ClInclude>
     <ClInclude Include="include\RendererObject\Buffer.h">
-      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject</Filter>
     </ClInclude>
     <ClInclude Include="include\RendererObject\RenderObjectData.h">
-      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject</Filter>
     </ClInclude>
     <ClInclude Include="include\RendererObject\VertexArray.h">
-      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject</Filter>
     </ClInclude>
     <ClInclude Include="include\Timer\HandleTimer.h">
-      <Filter>Fichiers d%27en-tête\Timer</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Timer</Filter>
     </ClInclude>
     <ClInclude Include="include\RendererObject\InstancedMap.h">
-      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject</Filter>
     </ClInclude>
     <ClInclude Include="include\RendererObject\Renderer.h">
-      <Filter>Fichiers d%27en-tête\RendererObject</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject</Filter>
     </ClInclude>
     <ClInclude Include="include\Mesh\MeshLoader.h">
-      <Filter>Fichiers d%27en-tête\Mesh</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityComponent\Scene.h">
-      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityComponent\Entity.h">
-      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityComponent\Component.h">
-      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityComponent\TransformData.h">
-      <Filter>Fichiers d%27en-tête\EntityComponent</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityComponent\Components\Camera.h">
-      <Filter>Fichiers d%27en-tête\EntityComponent\Components</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityComponent\Components\StaticMesh.h">
-      <Filter>Fichiers d%27en-tête\EntityComponent\Components</Filter>
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -142,24 +142,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="scr\Buffer.cpp" />
-    <ClCompile Include="scr\Camera.cpp" />
-    <ClCompile Include="scr\Inputs.cpp" />
+    <ClCompile Include="scr\EntityComponent\Components\Camera.cpp" />
+    <ClCompile Include="scr\EntityComponent\Components\StaticMesh.cpp" />
+    <ClCompile Include="scr\EntityComponent\Entity.cpp" />
+    <ClCompile Include="scr\EntityComponent\Scene.cpp" />
+    <ClCompile Include="scr\EntityComponent\TransformData.cpp" />
+    <ClCompile Include="scr\Input\Inputs.cpp" />
     <ClCompile Include="scr\main.cpp" />
-    <ClCompile Include="scr\InstancedMap.cpp" />
-    <ClCompile Include="scr\Mesh.cpp" />
-    <ClCompile Include="scr\MeshLoader.cpp" />
-    <ClCompile Include="scr\Renderer.cpp" />
-    <ClCompile Include="scr\RenderObjectData.cpp" />
-    <ClCompile Include="scr\Scene.cpp" />
-    <ClCompile Include="scr\Shader.cpp" />
-    <ClCompile Include="scr\ShaderProgram.cpp" />
-    <ClCompile Include="scr\StaticMesh.cpp" />
-    <ClCompile Include="scr\Texture.cpp" />
-    <ClCompile Include="scr\TransformData.cpp" />
-    <ClCompile Include="scr\VertexArray.cpp" />
-    <ClCompile Include="scr\Window.cpp" />
+    <ClCompile Include="scr\Mesh\Mesh.cpp" />
+    <ClCompile Include="scr\Mesh\MeshLoader.cpp" />
+    <ClCompile Include="scr\RendererObject\Buffer.cpp" />
+    <ClCompile Include="scr\RendererObject\InstancedMap.cpp" />
+    <ClCompile Include="scr\RendererObject\Renderer.cpp" />
+    <ClCompile Include="scr\RendererObject\RenderObjectData.cpp" />
+    <ClCompile Include="scr\RendererObject\Shader\Shader.cpp" />
+    <ClCompile Include="scr\RendererObject\Shader\ShaderProgram.cpp" />
+    <ClCompile Include="scr\RendererObject\VertexArray.cpp" />
+    <ClCompile Include="scr\Texture\Texture.cpp" />
+    <ClCompile Include="scr\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\EntityComponent\Component.h" />

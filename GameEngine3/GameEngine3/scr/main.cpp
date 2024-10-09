@@ -1,20 +1,20 @@
 
 #include <glm/glm.hpp>
 
-#include <Window/Window.h>
-#include <Mesh/Mesh.h>
-#include <Mesh/MeshLoader.h>
+#include <Engine/Window/Window.h>
+#include <Engine/Mesh/Mesh.h>
+#include <Engine/Mesh/MeshLoader.h>
 
-#include <Input/Inputs.h>
-#include <Input/KeyCode.h>
+#include <Engine/Input/Inputs.h>
+#include <Engine/Input/KeyCode.h>
 
-#include <EntityComponent/Scene.h>
-#include <EntityComponent/Entity.h>
-#include <EntityComponent/TransformData.h>
-#include <RendererObject/Renderer.h>
+#include <Engine/EntityComponent/Scene.h>
+#include <Engine/EntityComponent/Entity.h>
+#include <Engine/EntityComponent/TransformData.h>
+#include <Engine/RendererObject/Renderer.h>
 
-#include <EntityComponent/Components/Camera.h>
-#include <EntityComponent/Components/StaticMesh.h>
+#include <Engine/EntityComponent/Components/Camera.h>
+#include <Engine/EntityComponent/Components/StaticMesh.h>
 
 int main(int argc, char** argv)
 {
@@ -36,12 +36,8 @@ int main(int argc, char** argv)
 	cam->AddComponent<Camera>();
 
 	float speed = .1f;	
-	inputs->CreateInputAction("z", KeyCode::W)->BindPressAction([&]() {
-		cam->Transform()->position.z += speed;
-	});
-	inputs->CreateInputAction("s", KeyCode::S)->BindPressAction([&]() {
-		cam->Transform()->position.z -= speed;
-	});
+	inputs->CreateInputAction("z", KeyCode::W)->BindPressAction([&]() { cam->Transform()->position.z += speed; });
+	inputs->CreateInputAction("s", KeyCode::S)->BindPressAction([&]() { cam->Transform()->position.z -= speed; });
 
 	mainScene.Start();
 
