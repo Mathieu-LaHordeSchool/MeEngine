@@ -7,9 +7,9 @@
 
 #include <GLFW/glfw3.h>
 
-void Inputs::UpdateInputs(HandleTimer timer, Window* window)
+void Inputs::UpdateInputs(Window* window)
 {
-	updateMousePosition(window->GetWindow(), timer);
+	updateMousePosition(window->GetWindow());
 
 	for (auto& [key, value] : inputs)
 	{
@@ -25,28 +25,28 @@ void Inputs::UpdateInputs(HandleTimer timer, Window* window)
 		if (state == GLFW_PRESS) {
 			if (!value->isPress) {
 				for (auto& pressAction : value->pressDownAction) {
-					pressAction(timer);
+					pressAction();
 				}
 				value->isPress   = true;
 				value->isRelease = false;
 			}
 			else {
 				for (auto& pressAction : value->pressAction) {
-					pressAction(timer);
+					pressAction();
 				}
 			}
 		}
 		else if (state == GLFW_RELEASE) {
 			if (!value->isRelease) {
 				for (auto& releaseAction : value->releaseUpAction) {
-					releaseAction(timer);
+					releaseAction();
 				}
 				value->isRelease = true;
 				value->isPress   = false;
 			}
 			else {
 				for (auto& releaseAction : value->releaseAction) {
-					releaseAction(timer);
+					releaseAction();
 				}
 			}
 		}
@@ -68,12 +68,12 @@ InputAction* Inputs::GetInputbyName(const char* name)
 	return inputs[name];
 }
 
-void Inputs::BindMouseDeltaPosition(std::function<void(float, float, HandleTimer)> act)
+void Inputs::BindMouseDeltaPosition(std::function<void(float, float)> act)
 {
 	MouseDeltaChangedActions.push_back(act);
 }
 
-void Inputs::updateMousePosition(GLFWwindow* window, HandleTimer timer)
+void Inputs::updateMousePosition(GLFWwindow* window)
 {
 	double mX, mY;
 	glfwGetCursorPos(window, &mX, &mY);
@@ -83,7 +83,7 @@ void Inputs::updateMousePosition(GLFWwindow* window, HandleTimer timer)
 
 	if (deltaMouseX + deltaMouseY != 0.f)
 		for (auto& act : MouseDeltaChangedActions)
-			act(deltaMouseX, deltaMouseY, timer);
+			act(deltaMouseX, deltaMouseY);
 
 	mouseX = mX;
 	mouseY = mY;

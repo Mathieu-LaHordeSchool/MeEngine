@@ -1,6 +1,4 @@
 
-#include <iostream>
-
 #include <glm/glm.hpp>
 
 #include <Window/Window.h>
@@ -48,7 +46,7 @@ int main(int argc, char** argv)
 	do
 	{
 		window->PoolEvent();
-		inputs->UpdateInputs({}, window);
+		inputs->UpdateInputs(window);
 
 		mainScene->Render(render);
 		render->Execute();
