@@ -14,3 +14,19 @@ glm::mat4 TransformData::GetTransformMatrix() const
 
 	return matrix;
 }
+
+glm::vec3 TransformData::GetTransformForward() const
+{
+	// Assumons que rotation est en radians (glm utilise généralement des radians)
+	float yaw = rotation.y;
+	float pitch = rotation.x;
+
+	// Calcul du vecteur forward en utilisant les angles de yaw (Y) et pitch (X)
+	glm::vec3 forward;
+	forward.x = cos(pitch) * sin(yaw);
+	forward.y = sin(pitch);
+	forward.z = cos(pitch) * cos(yaw);
+
+	// Normaliser le vecteur pour qu'il soit unitaire
+	return glm::normalize(forward);
+}
