@@ -10,7 +10,7 @@ public:
 
 	void Update() {
 		lastTime = glfwGetTime();
-		dt = time - lastTime;
+		dt = lastTime - time;
 		time = lastTime;
 	}
 };
