@@ -18,4 +18,5 @@ public:
 	void Render(class Renderer* render) override;
 
 	void SetMesh(const class Mesh& mesh);
+	class Mesh GetMesh() const;
 };

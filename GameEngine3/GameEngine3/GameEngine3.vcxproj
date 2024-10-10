@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="scr\Engine\EntityComponent\Components\Camera.cpp" />
+    <ClCompile Include="scr\Engine\EntityComponent\Components\Material.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\Components\StaticMesh.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\Entity.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\Scene.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="include\Engine\EntityComponent\Component.h" />
     <ClInclude Include="include\Engine\EntityComponent\Components\Camera.h" />
+    <ClInclude Include="include\Engine\EntityComponent\Components\Material.h" />
     <ClInclude Include="include\Engine\EntityComponent\Components\StaticMesh.h" />
     <ClInclude Include="include\Engine\EntityComponent\Entity.h" />
     <ClInclude Include="include\Engine\EntityComponent\Scene.h" />
@@ -187,10 +189,6 @@
     <ClInclude Include="include\Engine\Timer\HandleTimer.h" />
     <ClInclude Include="include\Engine\Window\Window.h" />
     <ClInclude Include="include\Game\Components\CharacterController.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\fragment.frag" />
-    <None Include="Shaders\vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

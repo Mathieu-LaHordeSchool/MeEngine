@@ -20,6 +20,7 @@ public:
 
 	Component* AddComponent(Component* comp);
 	Component* GetComponent(Component* comp);
+	bool	   HasComponent(Component* comp);
 
 	Scene* GetScene() const;
 	void Render(class Renderer* render);
@@ -34,5 +35,9 @@ public:
 	template<typename COMP>
 	COMP* GetComponent() {
 		return static_cast<COMP*>(GetComponent(new COMP(this)));
+	}
+	template<typename COMP>
+	bool HasComponent() {
+		return HasComponent(new COMP(this));
 	}
 };

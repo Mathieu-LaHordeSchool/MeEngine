@@ -18,10 +18,15 @@ StaticMesh::StaticMesh(Entity* owner)
 
 void StaticMesh::Render(Renderer* render)
 {
-	render->PushGeometry(*owner->Transform(), m_staticMesh->mesh);
+	render->PushGeometry(GetOwner());
 }
 
 void StaticMesh::SetMesh(const Mesh& mesh)
 {
 	m_staticMesh->mesh = mesh;
+}
+
+Mesh StaticMesh::GetMesh() const
+{
+	return m_staticMesh->mesh;
 }

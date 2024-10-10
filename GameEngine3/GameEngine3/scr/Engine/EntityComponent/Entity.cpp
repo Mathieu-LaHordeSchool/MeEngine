@@ -24,12 +24,21 @@ TransformData* Entity::Transform()
 
 Component* Entity::AddComponent(Component* comp)
 {
-	m_entity->components[comp->GetType()] = comp;
-	return m_entity->components[comp->GetType()];
+	const char* type = comp->GetType();
+	m_entity->components[type] = comp;
+	return m_entity->components[type];
 }
 Component* Entity::GetComponent(Component* comp)
 {
+	if (m_entity->components.count(comp->GetType()) == 0)
+		return nullptr;
+
 	return m_entity->components[comp->GetType()];
+}
+
+bool Entity::HasComponent(Component* comp)
+{
+	return m_entity->components.count(comp->GetType());
 }
 
 Scene* Entity::GetScene() const

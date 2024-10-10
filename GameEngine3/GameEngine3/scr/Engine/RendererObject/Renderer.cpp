@@ -8,7 +8,10 @@
 #include <Engine/Mesh/Mesh.h>
 #include <Engine/EntityComponent/TransformData.h>
 #include <Engine/EntityComponent/Entity.h>
+
+#include <Engine/EntityComponent/Components/StaticMesh.h>
 #include <Engine/EntityComponent/Components/Camera.h>
+#include <Engine/EntityComponent/Components/Material.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -16,16 +19,18 @@
 
 struct Renderer::Internal
 {
-	std::vector<std::tuple<TransformData, Mesh>> geometrys;
+	std::vector<std::tuple<TransformData*, Material*, Mesh>> geometrys;
 	std::vector<Camera> cameras;
 
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 
-	Shader* vsShader = new Shader("Shaders/vertex.vert", EShaderType::Vertex);
-	Shader* fsNoTextureShader = new Shader("Shaders/fragment.frag", EShaderType::Fragment);
+	Shader* vsShader = new Shader("Ressources/Shaders/vertex.vert", EShaderType::Vertex);
+	Shader* fsNoTextureShader = new Shader("Ressources/Shaders/fragmentNoTexture.frag", EShaderType::Fragment);
+	Shader* fsTextureShader = new Shader("Ressources/Shaders/fragmentTexture.frag", EShaderType::Fragment);
 
 	ShaderProgram* shaderProgramNoTexture = new ShaderProgram(vsShader, fsNoTextureShader);
+	ShaderProgram* shaderProgramTexture = new ShaderProgram(vsShader, fsTextureShader);
 
 	Buffer* vertexsBuffer = new Buffer();
 	Buffer* normalsBuffer = new Buffer();
@@ -47,13 +52,17 @@ Renderer::Renderer()
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Renderer::PushCamera(const Camera& cam)
+void Renderer::PushCamera(Entity* entity)
 {
-	m_renderer->cameras.push_back(cam);
+	Camera* cam = entity->GetComponent<Camera>();
+	m_renderer->cameras.push_back(*cam);
 }
-void Renderer::PushGeometry(const TransformData& trans, const Mesh& mesh)
+void Renderer::PushGeometry(Entity* entity)
 {
-	m_renderer->geometrys.push_back(std::make_tuple(trans, mesh));
+	StaticMesh* staticMesh = entity->GetComponent<StaticMesh>();
+	Material* material = entity->GetComponent<Material>();
+
+	m_renderer->geometrys.push_back(std::make_tuple(entity->Transform(), material, staticMesh->GetMesh()));
 }
 
 void Renderer::Execute()
@@ -61,31 +70,40 @@ void Renderer::Execute()
 	glClearColor(.1f, .2f, .3f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto& [transform, mesh] : m_renderer->geometrys)
+	for (auto& tuple : m_renderer->geometrys)
 	{
+		TransformData*	transform	= std::get<0>(tuple);
+		Material*		material	= std::get<1>(tuple);
+		Mesh			mesh		= std::get<2>(tuple);
+
 		CreateAndBindBuffers(mesh);
-		Camera cam = m_renderer->cameras[0];
-		TransformData* trans = cam.owner->Transform();
-		glm::vec3 camPos = trans->GetWorldPosition();
-		glm::vec3 fwd = trans->GetTransformForward();
-
-		m_renderer->viewMatrix = glm::lookAt(
-			camPos,
-			fwd + camPos, // direction
-			glm::vec3(0.f, 1.f, 0.f)  // vector up
-		);
-
-		m_renderer->projectionMatrix = glm::perspective(
-			glm::radians(cam.fov),
-			cam.width / cam.height,
-			cam.zNear, cam.zFar
-		);
+		CalculViewMatrix();
 
 		Draw(transform, mesh);
 	}
 
 	m_renderer->geometrys.clear();
 	m_renderer->cameras.clear();
+}
+
+void Renderer::CalculViewMatrix()
+{
+	Camera cam = m_renderer->cameras[0];
+	TransformData* trans = cam.GetOwner()->Transform();
+	glm::vec3 camPos = trans->GetWorldPosition();
+	glm::vec3 fwd = trans->GetTransformForward();
+
+	m_renderer->viewMatrix = glm::lookAt(
+		camPos,
+		fwd + camPos, // direction
+		glm::vec3(0.f, 1.f, 0.f)  // vector up
+	);
+
+	m_renderer->projectionMatrix = glm::perspective(
+		glm::radians(cam.fov),
+		cam.width / cam.height,
+		cam.zNear, cam.zFar
+	);
 }
 
 void Renderer::CreateAndBindBuffers(const Mesh& mesh)
@@ -101,7 +119,7 @@ void Renderer::CreateAndBindBuffers(const Mesh& mesh)
 	m_renderer->vao->BindingBuffer<uint32_t>(2, 0, m_renderer->uvsBuffer, 2);
 }
 
-void Renderer::Draw(const TransformData& trans, const Mesh& mesh)
+void Renderer::Draw(const TransformData* trans, const Mesh& mesh)
 {
 	ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
 	VertexArrayObject* VAO = m_renderer->vao;
@@ -113,7 +131,7 @@ void Renderer::Draw(const TransformData& trans, const Mesh& mesh)
 	int proj = glGetUniformLocation(sp->GetShaderProgram(), "uProjectionMatrix");
 	int model = glGetUniformLocation(sp->GetShaderProgram(), "uModel");
 
-	glm::mat4 modelTrans = trans.GetTransformMatrix();
+	glm::mat4 modelTrans = trans->GetTransformMatrix();
 
 	glUniformMatrix4fv(view, 1, GL_FALSE, &m_renderer->viewMatrix[0][0]);
 	glUniformMatrix4fv(proj, 1, GL_FALSE, &m_renderer->projectionMatrix[0][0]);

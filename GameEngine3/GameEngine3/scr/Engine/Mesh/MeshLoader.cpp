@@ -86,6 +86,7 @@ Mesh MeshLoader::LoadMesh(const char* modelPath)
     }
 
     Mesh newMesh = Mesh();
+    newMesh.path = modelPath;
     newMesh.Vertices.swap(vertices);
     newMesh.Normals.swap(normals);
     newMesh.Uvs.swap(texcoords);

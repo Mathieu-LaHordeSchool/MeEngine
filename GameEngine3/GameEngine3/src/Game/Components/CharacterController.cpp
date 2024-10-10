@@ -33,28 +33,28 @@ void CharacterController::BindInputs(Inputs* inputs)
 
 void CharacterController::MoveZ(float scale)
 {
-	float dt = owner->GetScene()->GetHandleTimer().dt;
-	glm::vec3 fwd = owner->Transform()->GetTransformForward();
-	owner->Transform()->Translate(fwd, moveSpeed * dt * scale);
+	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
+	glm::vec3 fwd = camera->Transform()->GetTransformForward();
+	GetOwner()->Transform()->Translate(fwd, moveSpeed * dt * scale);
 }
 void CharacterController::MoveX(float scale)
 {
-	float dt = owner->GetScene()->GetHandleTimer().dt;
-	glm::vec3 fwd = owner->Transform()->GetTransformForward();
+	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
+	glm::vec3 fwd = camera->Transform()->GetTransformForward();
 	glm::vec3 right = glm::cross(fwd, glm::vec3(0.f, 1.f, 0.f));
-	owner->Transform()->Translate(right, moveSpeed * dt * scale);
+	GetOwner()->Transform()->Translate(right, moveSpeed * dt * scale);
 }
 void CharacterController::MoveY(float scale)
 {
-	float dt = owner->GetScene()->GetHandleTimer().dt;
+	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
 	glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
-	owner->Transform()->Translate(up, moveSpeed * dt * scale);
+	GetOwner()->Transform()->Translate(up, moveSpeed * dt * scale);
 }
 
 void CharacterController::Rotate(float x, float y)
 {
-	float dt = owner->GetScene()->GetHandleTimer().dt;
-	TransformData* trans = owner->Transform();
+	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
+	TransformData* trans = camera->Transform();
 
 	float rotXmovement = y * rotateSpeed * dt * -1.f;
 	if (abs(trans->GetLocalRotation().x + rotXmovement) < glm::radians(80.f))

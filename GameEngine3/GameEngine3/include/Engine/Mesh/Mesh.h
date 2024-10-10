@@ -7,8 +7,8 @@ class Mesh
 public:
 	explicit Mesh() = default;
 	~Mesh() noexcept = default;
-
-public:
+	
+	const char* path;
 	std::vector<float> Vertices = {
 		-0.5f, -0.5f,  0.5f,
 		 0.5f, -0.5f,  0.5f,

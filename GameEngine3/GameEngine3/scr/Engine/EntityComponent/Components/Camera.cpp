@@ -16,7 +16,7 @@ Camera::Camera(Entity* owner)
 
 void Camera::Render(Renderer* render)
 {
-	render->PushCamera(*this);
+	render->PushCamera(GetOwner());
 }
 
 void Camera::SetRenderCameraSize(float h, float w)

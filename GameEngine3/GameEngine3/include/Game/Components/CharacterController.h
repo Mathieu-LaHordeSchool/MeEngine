@@ -3,6 +3,7 @@
 #include <Engine/EntityComponent/Component.h>
 
 class Window;
+class Entity;
 
 class CharacterController
 	: public Component
@@ -24,4 +25,5 @@ public:
 	float moveSpeed = 10.f;
 	float rotateSpeed = 1.f;
 	Window* window;
+	Entity* camera;
 };
