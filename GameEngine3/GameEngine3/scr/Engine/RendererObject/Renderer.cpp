@@ -58,15 +58,20 @@ void Renderer::PushGeometry(const TransformData& trans, const Mesh& mesh)
 
 void Renderer::Execute()
 {
+	glClearColor(.1f, .2f, .3f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	for (auto& [transform, mesh] : m_renderer->geometrys)
 	{
 		CreateAndBindBuffers(mesh);
 		Camera cam = m_renderer->cameras[0];
-		glm::vec3 camPos = cam.owner->Transform()->position;
+		TransformData* trans = cam.owner->Transform();
+		glm::vec3 camPos = trans->position;
+		glm::vec3 fwd = trans->GetTransformForward();
 
 		m_renderer->viewMatrix = glm::lookAt(
 			camPos,
-			glm::vec3(0.f, 0.f, 1.f) + camPos, // direction
+			fwd + camPos, // direction
 			glm::vec3(0.f, 1.f, 0.f)  // vector up
 		);
 
@@ -105,9 +110,6 @@ void Renderer::Draw(const TransformData& trans, const Mesh& mesh)
 {
 	ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
 	VertexArrayObject* VAO = m_renderer->vao;
-
-	glClearColor(.1f, .2f, .3f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
