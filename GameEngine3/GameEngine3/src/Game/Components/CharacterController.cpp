@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include <Game/Components/CharacterController.h>
 
 #include <Engine/EntityComponent/Entity.h>
@@ -6,10 +8,16 @@
 #include <Engine/Input/KeyCode.h>
 #include <Engine/EntityComponent/TransformData.h>
 #include <Engine/EntityComponent/Scene.h>
+#include <Engine/Window/Window.h>
 
 CharacterController::CharacterController(Entity* owner)
 	: Component(owner)
 {}
+
+void CharacterController::Start()
+{
+	window->SetEnableMouse(false);
+}
 
 void CharacterController::BindInputs(Inputs* inputs)
 {
@@ -20,7 +28,7 @@ void CharacterController::BindInputs(Inputs* inputs)
 
 	inputs->CreateInputAction("up", KeyCode::SPACE)->BindPressAction([this]() { MoveY(1.f); });
 	inputs->CreateInputAction("down", KeyCode::LEFT_SHIFT)->BindPressAction([this]() { MoveY(-1.f); });
-	inputs->BindMouseDeltaPosition([this](float x, float y) { Rotate(y, x * -1.f); });
+	inputs->BindMouseDeltaPosition([this](float x, float y) { Rotate(x, y); });
 }
 
 void CharacterController::MoveZ(float scale)
@@ -47,6 +55,10 @@ void CharacterController::Rotate(float x, float y)
 {
 	float dt = owner->GetScene()->GetHandleTimer().dt;
 	TransformData* trans = owner->Transform();
-	trans->Rotate(glm::vec3(1.f, 0.f, 0.f), rotateSpeed * dt);
-	trans->Rotate(glm::vec3(0.f, 1.f, 0.f), rotateSpeed * dt);
+
+	float rotXmovement = y * rotateSpeed * dt * -1.f;
+	if (abs(trans->GetLocalRotation().x + rotXmovement) < glm::radians(80.f))
+		trans->Rotate(glm::vec3(1.f, 0.f, 0.f), rotXmovement);
+
+	trans->Rotate(glm::vec3(0.f, 1.f, 0.f), x * rotateSpeed * dt * -1.f);
 }

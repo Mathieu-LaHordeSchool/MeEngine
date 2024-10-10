@@ -24,13 +24,17 @@ public:
 	glm::vec3 GetLocalRotation() const;
 	glm::vec3 GetLocalScale() const;
 
-	void Translate(glm::vec3 axis, float value);
-	void Rotate(glm::vec3 axis, float value);
-	void Scale(glm::vec3 axis, float value);
+	void Translate(const glm::vec3&, float value);
+	void Rotate(const glm::vec3&, float value);
+	void Scale(const glm::vec3&, float value);
 
-	void SetPosition(glm::vec3 pos);
-	void SetRotation(glm::vec3 rot);
-	void SetScale(glm::vec3 scale);
+	void SetLocalPosition(const glm::vec3& pos);
+	void SetLocalRotation(const glm::vec3& rot);
+	void SetLocalScale(const glm::vec3& scale);
+
+	void SetWorldPosition(const glm::vec3& pos);
+	void SetWorldRotation(const glm::vec3& rot);
+	void SetWorldScale(const glm::vec3& scale);
 
 	glm::mat4 GetTransformMatrix() const;
 	glm::vec3 GetTransformForward() const;

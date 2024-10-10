@@ -16,6 +16,7 @@ public:
 	void SwapBuffer();
 	void PoolEvent();
 	void Terminate();
+	void SetEnableMouse(bool enable);
 
 	inline GLFWwindow* GetWindow() const { return window; }
 };

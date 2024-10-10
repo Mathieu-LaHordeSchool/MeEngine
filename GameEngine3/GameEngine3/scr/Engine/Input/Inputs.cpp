@@ -9,7 +9,8 @@
 
 void Inputs::UpdateInputs(Window* window)
 {
-	updateMousePosition(window->GetWindow());
+	GLFWwindow* glWindow = window->GetWindow();
+	updateMousePosition(glWindow);
 
 	for (auto& [key, value] : inputs)
 	{
@@ -17,8 +18,8 @@ void Inputs::UpdateInputs(Window* window)
 
 		switch (value->inputType)
 		{
-		case Keyboard:	state = glfwGetKey			(window->GetWindow(), value->key);	break;
-		case Mouse:		state = glfwGetMouseButton	(window->GetWindow(), value->key);	break;
+		case Keyboard:	state = glfwGetKey			(glWindow, value->key);	break;
+		case Mouse:		state = glfwGetMouseButton	(glWindow, value->key);	break;
 		default:	break;
 		}
 

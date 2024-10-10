@@ -2,12 +2,16 @@
 
 #include <Engine/EntityComponent/Component.h>
 
+class Window;
+
 class CharacterController
 	: public Component
 {
 public:
 	explicit CharacterController(class Entity* owner);
 	~CharacterController() noexcept = default;
+
+	void Start() override;
 
 	void BindInputs(Inputs* inputs) override;
 	const char* GetType() const override { return "CharacterControllerComponentType"; }
@@ -19,4 +23,5 @@ public:
 
 	float moveSpeed = 10.f;
 	float rotateSpeed = 1.f;
+	Window* window;
 };

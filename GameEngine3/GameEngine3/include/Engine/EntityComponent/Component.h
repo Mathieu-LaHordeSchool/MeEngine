@@ -15,7 +15,6 @@ public:
 	Entity* owner;
 
 	virtual void Start()					{}
-	virtual void Awake()					{}
 
 	virtual void Update()					{}
 	virtual void BindInputs(Inputs* inputs) {}

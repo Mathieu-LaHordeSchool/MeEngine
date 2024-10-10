@@ -1,5 +1,6 @@
 
 #include <glm/glm.hpp>
+#include <iostream>
 
 #include <Engine/Window/Window.h>
 #include <Engine/Mesh/Mesh.h>
@@ -26,23 +27,29 @@ int main(int argc, char** argv)
 
 	MeshLoader loader = MeshLoader();
 	Mesh pouleMesh = loader.LoadMesh("Models/boss.obj");
+	Mesh cubeMesh = loader.LoadMesh("Models/default.obj");
 
 	Scene mainScene;
 
-	Entity* poule = mainScene.CreateObject("poule");
-	Entity* poule2 = mainScene.CreateObject("poule2", poule->Transform());
+	Entity* cube1 = mainScene.CreateObject("poule");
+	Entity* poule = mainScene.CreateObject("poule2", cube1->Transform());
 
 	Entity* character = mainScene.CreateObject("Character");
 	Entity* cam = mainScene.CreateObject("Camera");
 
-	character->Transform()->SetPosition(glm::vec3(0.f, 3.f, 0.f));
-	poule->Transform()->SetRotation(glm::vec3(90.f, 180.f, 0.f));
-	poule2->Transform()->SetPosition(glm::vec3(0.f, 2.f, 0.f));
+	cube1->Transform()->SetLocalRotation(glm::vec3(0.f, 180.f, 0.f));
+	cube1->Transform()->Translate(glm::vec3(1.f, 0.f, 0.f), 10.f);
+	cube1->Transform()->Scale(glm::vec3(1.f), .1f);
 
+	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
+
+	cube1->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
-	poule2->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
-	cam->AddComponent<CharacterController>();
+
+	CharacterController* controller = cam->AddComponent<CharacterController>();
 	cam->AddComponent<Camera>();
+
+	controller->window = window;
 
 	mainScene.BindInput(inputs);
 	mainScene.Start();
@@ -52,6 +59,10 @@ int main(int argc, char** argv)
 		window->PoolEvent();
 		inputs->UpdateInputs(window);
 		mainScene.Update();
+
+		float time = mainScene.GetHandleTimer().time;
+		cube1->Transform()->Rotate(glm::vec3(0.f, 1.f, 0.f), 1.f);
+		cube1->Transform()->Translate(glm::vec3(cos(time * 2.f), 0.f, 0.f), .1f);
 
 		mainScene.Render(render);
 		render->Execute();

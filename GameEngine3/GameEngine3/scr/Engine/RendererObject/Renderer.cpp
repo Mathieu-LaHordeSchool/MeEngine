@@ -90,15 +90,10 @@ void Renderer::Execute()
 
 void Renderer::CreateAndBindBuffers(const Mesh& mesh)
 {
-	//m_renderer->vertexsBuffer = m_renderer->bufferData->GetOrCreateVertexBuffer(mesh.Vertices);
-	//m_renderer->normalsBuffer = m_renderer->bufferData->GetOrCreateNormalBuffer(mesh.Normals);
-	//m_renderer->uvsBuffer = m_renderer->bufferData->GetOrCreateUvsBuffer(mesh.Uvs);
-	//m_renderer->elementsBuffer = m_renderer->bufferData->GetOrCreateElementBuffer(mesh.Elements);
-
-	m_renderer->vertexsBuffer->InitBuffer<float>(mesh.Vertices);
-	m_renderer->normalsBuffer->InitBuffer<float>(mesh.Normals);
-	m_renderer->uvsBuffer->InitBuffer<uint32_t>(mesh.Elements);
-	m_renderer->elementsBuffer->InitBuffer<uint32_t>(mesh.Elements);
+	m_renderer->vertexsBuffer = m_renderer->bufferData->GetOrCreateVertexBuffer(mesh.Vertices);
+	m_renderer->normalsBuffer = m_renderer->bufferData->GetOrCreateNormalBuffer(mesh.Normals);
+	m_renderer->uvsBuffer = m_renderer->bufferData->GetOrCreateUvsBuffer(mesh.Uvs);
+	m_renderer->elementsBuffer = m_renderer->bufferData->GetOrCreateElementBuffer(mesh.Elements);
 
 	m_renderer->vao->BindElementBuffer(m_renderer->elementsBuffer);
 	m_renderer->vao->BindingBuffer<float>(0, 0, m_renderer->vertexsBuffer, 3);
