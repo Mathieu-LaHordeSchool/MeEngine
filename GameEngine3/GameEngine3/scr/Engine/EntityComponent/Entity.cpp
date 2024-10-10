@@ -32,6 +32,11 @@ Component* Entity::GetComponent(Component* comp)
 	return m_entity->components[comp->GetType()];
 }
 
+Scene* Entity::GetScene() const
+{
+	return m_entity->ownScene;
+}
+
 void Entity::Render(Renderer* render)
 {
 	for (auto& [key, comp] : m_entity->components) {
@@ -43,6 +48,12 @@ void Entity::Start()
 {
 	for (auto& [key, comp] : m_entity->components) {
 		comp->Start();
+	}
+}
+void Entity::BindInputs(Inputs* inputs)
+{
+	for (auto& [key, comp] : m_entity->components) {
+		comp->BindInputs(inputs);
 	}
 }
 void Entity::Update()

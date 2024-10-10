@@ -16,6 +16,8 @@
 #include <Engine/EntityComponent/Components/Camera.h>
 #include <Engine/EntityComponent/Components/StaticMesh.h>
 
+#include <Game/Components/CharacterController.h>
+
 int main(int argc, char** argv)
 {
 	Window* window = new Window("Game Engine", 700, 500);
@@ -28,17 +30,21 @@ int main(int argc, char** argv)
 	Scene mainScene;
 
 	Entity* poule = mainScene.CreateObject("poule");
+	Entity* poule2 = mainScene.CreateObject("poule2", poule->Transform());
+
+	Entity* character = mainScene.CreateObject("Character");
 	Entity* cam = mainScene.CreateObject("Camera");
 
-	poule->Transform()->rotation.y = 180.f;
+	character->Transform()->position.y = 3.f;
+	poule->Transform()->rotation = glm::vec3(90.f, 180.f, 0.f);
+	poule2->Transform()->position.y = 2.f;
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
+	poule2->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
+	cam->AddComponent<CharacterController>();
 	cam->AddComponent<Camera>();
 
-	float speed = .1f;	
-	inputs->CreateInputAction("z", KeyCode::W)->BindPressAction([&]() { cam->Transform()->position.z += speed; });
-	inputs->CreateInputAction("s", KeyCode::S)->BindPressAction([&]() { cam->Transform()->position.z -= speed; });
-
+	mainScene.BindInput(inputs);
 	mainScene.Start();
 
 	do

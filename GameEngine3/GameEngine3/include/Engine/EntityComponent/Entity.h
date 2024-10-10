@@ -4,6 +4,7 @@
 
 class Component;
 class TransformData;
+class Scene;
 
 class Entity
 {
@@ -20,8 +21,10 @@ public:
 	Component* AddComponent(Component* comp);
 	Component* GetComponent(Component* comp);
 
+	Scene* GetScene() const;
 	void Render(class Renderer* render);
 	void Start();
+	void BindInputs(class Inputs* inputs);
 	void Update();
 
 	template<typename COMP>

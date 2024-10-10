@@ -16,11 +16,12 @@ Scene::Scene()
 {
 }
 
-Entity* Scene::CreateObject(const char* name)
+Entity* Scene::CreateObject(const char* name, TransformData* parent /* = nullptr */)
 {
 	Entity* newEntity = new Entity(this);
 	m_scene->entitys.push_back(newEntity);
 	newEntity->Transform()->name = name;
+	newEntity->Transform()->parent = parent;
 
 	return newEntity;
 }
@@ -34,6 +35,12 @@ void Scene::Start()
 {
 	for (auto& e : m_scene->entitys) {
 		e->Start();
+	}
+}
+void Scene::BindInput(Inputs* inputs)
+{
+	for (auto& e : m_scene->entitys) {
+		e->BindInputs(inputs);
 	}
 }
 void Scene::Update()
