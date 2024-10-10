@@ -35,9 +35,9 @@ int main(int argc, char** argv)
 	Entity* character = mainScene.CreateObject("Character");
 	Entity* cam = mainScene.CreateObject("Camera");
 
-	character->Transform()->position.y = 3.f;
-	poule->Transform()->rotation = glm::vec3(90.f, 180.f, 0.f);
-	poule2->Transform()->position.y = 2.f;
+	character->Transform()->SetPosition(glm::vec3(0.f, 3.f, 0.f));
+	poule->Transform()->SetRotation(glm::vec3(90.f, 180.f, 0.f));
+	poule2->Transform()->SetPosition(glm::vec3(0.f, 2.f, 0.f));
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule2->AddComponent<StaticMesh>()->SetMesh(pouleMesh);

@@ -18,5 +18,5 @@ public:
 	void Rotate(float x, float y);
 
 	float moveSpeed = 10.f;
-	float rotateSpeed = 5.f;
+	float rotateSpeed = 1.f;
 };

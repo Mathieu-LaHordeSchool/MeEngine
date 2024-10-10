@@ -66,7 +66,7 @@ void Renderer::Execute()
 		CreateAndBindBuffers(mesh);
 		Camera cam = m_renderer->cameras[0];
 		TransformData* trans = cam.owner->Transform();
-		glm::vec3 camPos = trans->position;
+		glm::vec3 camPos = trans->GetWorldPosition();
 		glm::vec3 fwd = trans->GetTransformForward();
 
 		m_renderer->viewMatrix = glm::lookAt(

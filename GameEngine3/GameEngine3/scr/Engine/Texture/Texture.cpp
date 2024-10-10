@@ -1,7 +1,7 @@
-#include <Texture/Texture.h>
+#include <Engine/Texture/Texture.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <Texture/stb_image.h>
+#include <Engine/Texture/stb_image.h>
 #include <GL/glew.h>
 #include <iostream>
 

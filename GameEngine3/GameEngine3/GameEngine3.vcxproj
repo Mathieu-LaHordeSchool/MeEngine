@@ -160,6 +160,7 @@
     <ClCompile Include="scr\Engine\Texture\Texture.cpp" />
     <ClCompile Include="scr\Engine\Window\Window.cpp" />
     <ClCompile Include="scr\main.cpp" />
+    <ClCompile Include="src\Game\Components\CharacterController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Engine\EntityComponent\Component.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="include\Engine\Texture\Texture.h" />
     <ClInclude Include="include\Engine\Timer\HandleTimer.h" />
     <ClInclude Include="include\Engine\Window\Window.h" />
+    <ClInclude Include="include\Game\Components\CharacterController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment.frag" />

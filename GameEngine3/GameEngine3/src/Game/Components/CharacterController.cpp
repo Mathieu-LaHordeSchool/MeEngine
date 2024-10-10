@@ -20,37 +20,33 @@ void CharacterController::BindInputs(Inputs* inputs)
 
 	inputs->CreateInputAction("up", KeyCode::SPACE)->BindPressAction([this]() { MoveY(1.f); });
 	inputs->CreateInputAction("down", KeyCode::LEFT_SHIFT)->BindPressAction([this]() { MoveY(-1.f); });
-
-	inputs->CreateInputAction("rightRot", KeyCode::RIGHT)->BindPressAction([this]()	{ Rotate(0.f,  1.f);});
-	inputs->CreateInputAction("leftRot", KeyCode::LEFT)->BindPressAction([this]()		{ Rotate(0.f, -1.f);});
-	inputs->CreateInputAction("upRot", KeyCode::UP)->BindPressAction([this]()			{ Rotate(1.f,  0.f);});
-	inputs->CreateInputAction("downRot", KeyCode::DOWN)->BindPressAction([this]()		{ Rotate(-1.f, 0.f);});
+	inputs->BindMouseDeltaPosition([this](float x, float y) { Rotate(y, x * -1.f); });
 }
 
 void CharacterController::MoveZ(float scale)
 {
 	float dt = owner->GetScene()->GetHandleTimer().dt;
 	glm::vec3 fwd = owner->Transform()->GetTransformForward();
-	owner->Transform()->position += fwd * moveSpeed * dt * scale;
+	owner->Transform()->Translate(fwd, moveSpeed * dt * scale);
 }
 void CharacterController::MoveX(float scale)
 {
 	float dt = owner->GetScene()->GetHandleTimer().dt;
 	glm::vec3 fwd = owner->Transform()->GetTransformForward();
 	glm::vec3 right = glm::cross(fwd, glm::vec3(0.f, 1.f, 0.f));
-	owner->Transform()->position += right * moveSpeed * dt * scale;
+	owner->Transform()->Translate(right, moveSpeed * dt * scale);
 }
 void CharacterController::MoveY(float scale)
 {
 	float dt = owner->GetScene()->GetHandleTimer().dt;
 	glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
-	owner->Transform()->position += up * moveSpeed * dt * scale;
+	owner->Transform()->Translate(up, moveSpeed * dt * scale);
 }
 
 void CharacterController::Rotate(float x, float y)
 {
 	float dt = owner->GetScene()->GetHandleTimer().dt;
 	TransformData* trans = owner->Transform();
-	trans->rotation.x += x * rotateSpeed * dt;
-	trans->rotation.y += y * rotateSpeed * dt;
+	trans->Rotate(glm::vec3(1.f, 0.f, 0.f), rotateSpeed * dt);
+	trans->Rotate(glm::vec3(0.f, 1.f, 0.f), rotateSpeed * dt);
 }

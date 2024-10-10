@@ -16,3 +16,4 @@ C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\VertexAr
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\Texture\Texture.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Texture.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\Window\Window.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Window.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\main.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\main.obj
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\src\Game\Components\CharacterController.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\CharacterController.obj
