@@ -19,8 +19,8 @@ public:
 	TransformData* Transform();
 
 	Component* AddComponent(Component* comp);
-	Component* GetComponent(Component* comp);
-	bool	   HasComponent(Component* comp);
+	Component* GetComponent(int comp);
+	bool	   HasComponent(int comp);
 
 	Scene* GetScene() const;
 	void Render(class Renderer* render);
@@ -34,10 +34,10 @@ public:
 	}
 	template<typename COMP>
 	COMP* GetComponent() {
-		return static_cast<COMP*>(GetComponent(new COMP(this)));
+		return static_cast<COMP*>(GetComponent(COMP::GetStaticType()));
 	}
 	template<typename COMP>
 	bool HasComponent() {
-		return HasComponent(new COMP(this));
+		return HasComponent(COMP::GetStaticType());
 	}
 };

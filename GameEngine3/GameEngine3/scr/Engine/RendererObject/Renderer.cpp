@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include <Engine/RendererObject/Renderer.h>
 #include <Engine/RendererObject/Shader/Shader.h>
 #include <Engine/RendererObject/Shader/ShaderProgram.h>
@@ -8,6 +10,8 @@
 #include <Engine/Mesh/Mesh.h>
 #include <Engine/EntityComponent/TransformData.h>
 #include <Engine/EntityComponent/Entity.h>
+#include <Engine/Window/Window.h>
+#include <Engine/Texture/Texture.h>
 
 #include <Engine/EntityComponent/Components/StaticMesh.h>
 #include <Engine/EntityComponent/Components/Camera.h>
@@ -19,8 +23,10 @@
 
 struct Renderer::Internal
 {
+	Window* window;
+
 	std::vector<std::tuple<TransformData*, Material*, Mesh>> geometrys;
-	std::vector<Camera> cameras;
+	Camera* camera;
 
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
@@ -38,24 +44,25 @@ struct Renderer::Internal
 	Buffer* elementsBuffer = new Buffer();
 
 	VertexArrayObject* vao = new VertexArrayObject();
-
 	RenderObjectData* bufferData = new RenderObjectData();
 };
 
-Renderer::Renderer()
+Renderer::Renderer(Window* window)
 	: m_renderer(new Internal())
 {
 	m_renderer->vao->AttributeBinding(0, 0, 3, GL_FLOAT, GL_FALSE, 0); // for vertices
 	m_renderer->vao->AttributeBinding(1, 1, 3, GL_FLOAT, GL_FALSE, 0); // for normals
 	m_renderer->vao->AttributeBinding(2, 2, 2, GL_UNSIGNED_INT, GL_FALSE, 0); // for uvs
 
+	m_renderer->window = window;
+
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Renderer::PushCamera(Entity* entity)
+void Renderer::SetCamera(Entity* entity)
 {
-	Camera* cam = entity->GetComponent<Camera>();
-	m_renderer->cameras.push_back(*cam);
+	if (entity->HasComponent<Camera>())
+		m_renderer->camera = entity->GetComponent<Camera>();
 }
 void Renderer::PushGeometry(Entity* entity)
 {
@@ -63,6 +70,11 @@ void Renderer::PushGeometry(Entity* entity)
 	Material* material = entity->GetComponent<Material>();
 
 	m_renderer->geometrys.push_back(std::make_tuple(entity->Transform(), material, staticMesh->GetMesh()));
+}
+
+void Renderer::ClearAllRendererData()
+{
+	m_renderer->geometrys.clear();
 }
 
 void Renderer::Execute()
@@ -79,19 +91,20 @@ void Renderer::Execute()
 		CreateAndBindBuffers(mesh);
 		CalculViewMatrix();
 
-		Draw(transform, mesh);
+		if (!material)
+			Draw(transform, mesh);
+		else
+			Draw(transform, material, mesh);
 	}
-
-	m_renderer->geometrys.clear();
-	m_renderer->cameras.clear();
 }
 
 void Renderer::CalculViewMatrix()
 {
-	Camera cam = m_renderer->cameras[0];
-	TransformData* trans = cam.GetOwner()->Transform();
+	Camera* cam = m_renderer->camera;
+	TransformData* trans = cam->GetOwner()->Transform();
 	glm::vec3 camPos = trans->GetWorldPosition();
 	glm::vec3 fwd = trans->GetTransformForward();
+	glm::vec2 sizeWindow = m_renderer->window->GetSize();
 
 	m_renderer->viewMatrix = glm::lookAt(
 		camPos,
@@ -99,10 +112,14 @@ void Renderer::CalculViewMatrix()
 		glm::vec3(0.f, 1.f, 0.f)  // vector up
 	);
 
+	float fov = cam->GetFov();
+	float zNear = cam->GetNearRender();
+	float zFar = cam->GetFarRender();
+
 	m_renderer->projectionMatrix = glm::perspective(
-		glm::radians(cam.fov),
-		cam.width / cam.height,
-		cam.zNear, cam.zFar
+		glm::radians(fov),
+		sizeWindow.x / sizeWindow.y,
+		zNear, zFar
 	);
 }
 
@@ -116,10 +133,10 @@ void Renderer::CreateAndBindBuffers(const Mesh& mesh)
 	m_renderer->vao->BindElementBuffer(m_renderer->elementsBuffer);
 	m_renderer->vao->BindingBuffer<float>(0, 0, m_renderer->vertexsBuffer, 3);
 	m_renderer->vao->BindingBuffer<float>(1, 0, m_renderer->normalsBuffer, 3);
-	m_renderer->vao->BindingBuffer<uint32_t>(2, 0, m_renderer->uvsBuffer, 2);
+	m_renderer->vao->BindingBuffer<float>(2, 0, m_renderer->uvsBuffer, 2);
 }
 
-void Renderer::Draw(const TransformData* trans, const Mesh& mesh)
+void Renderer::Draw(TransformData* trans, const Mesh& mesh)
 {
 	ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
 	VertexArrayObject* VAO = m_renderer->vao;
@@ -127,16 +144,34 @@ void Renderer::Draw(const TransformData* trans, const Mesh& mesh)
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
 
-	int view = glGetUniformLocation(sp->GetShaderProgram(), "uViewMatrix");
-	int proj = glGetUniformLocation(sp->GetShaderProgram(), "uProjectionMatrix");
-	int model = glGetUniformLocation(sp->GetShaderProgram(), "uModel");
+	glm::mat4 modelTrans = trans->GetTransformMatrix();
+	sp->SetMat4("uViewMatrix", m_renderer->viewMatrix);
+	sp->SetMat4("uProjectionMatrix", m_renderer->projectionMatrix);
+	sp->SetMat4("uModel", modelTrans);
+
+	glDrawElements(GL_TRIANGLES, mesh.Vertices.size(), GL_UNSIGNED_INT, 0);
+
+	VAO->UnbindVertexArray();
+	sp->StopShaderProgram();
+}
+void Renderer::Draw(TransformData* trans, Material* material, const Mesh& mesh)
+{
+	ShaderProgram* sp = m_renderer->shaderProgramTexture;
+	VertexArrayObject* VAO = m_renderer->vao;
+
+	sp->StartShaderProgram();
+	VAO->BindVertexArray();
 
 	glm::mat4 modelTrans = trans->GetTransformMatrix();
+	sp->SetMat4("uViewMatrix", m_renderer->viewMatrix);
+	sp->SetMat4("uProjectionMatrix", m_renderer->projectionMatrix);
+	sp->SetMat4("uModel", modelTrans);
 
-	glUniformMatrix4fv(view, 1, GL_FALSE, &m_renderer->viewMatrix[0][0]);
-	glUniformMatrix4fv(proj, 1, GL_FALSE, &m_renderer->projectionMatrix[0][0]);
-	glUniformMatrix4fv(model, 1, GL_FALSE, &modelTrans[0][0]);
-
+	material->GetAlbedoTexture()->BindTexture(GL_TEXTURE0);
+	glm::vec4 color = material->GetColor();
+	sp->SetSampler2D("albedoTexture", GL_TEXTURE0);
+	sp->SetVec4("color", color);
+	
 	glDrawElements(GL_TRIANGLES, mesh.Vertices.size(), GL_UNSIGNED_INT, 0);
 
 	VAO->UnbindVertexArray();

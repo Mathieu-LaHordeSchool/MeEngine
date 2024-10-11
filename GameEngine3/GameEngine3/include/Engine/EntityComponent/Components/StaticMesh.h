@@ -9,13 +9,13 @@ class StaticMesh
 	Internal* m_staticMesh;
 
 public:
+	GetComponentType(90003)
+
 	explicit StaticMesh(class Entity* owner);
 	~StaticMesh() noexcept = default;
 
-	const char* GetType() const override {
-		return "StaticMeshTypeComponent";
-	}
 	void Render(class Renderer* render) override;
+	Component* Clone() override;
 
 	void SetMesh(const class Mesh& mesh);
 	class Mesh GetMesh() const;

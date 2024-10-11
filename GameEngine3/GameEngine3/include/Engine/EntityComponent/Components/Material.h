@@ -12,10 +12,12 @@ class Material
 	Internal* m_material;
 
 public:
+	GetComponentType(90002)
+
 	explicit Material(class Entity* owner);
 	~Material() noexcept = default;
 
-	const char* GetType() const override { return "MaterialComponentType"; }
+	Component* Clone() override;
 
 	GetSetInternalValueHPP(AlbedoTexture, Texture*)
 	GetSetInternalValueHPP(Color, glm::vec4)

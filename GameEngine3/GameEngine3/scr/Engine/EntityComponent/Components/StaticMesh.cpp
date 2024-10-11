@@ -21,6 +21,14 @@ void StaticMesh::Render(Renderer* render)
 	render->PushGeometry(GetOwner());
 }
 
+Component* StaticMesh::Clone()
+{
+	StaticMesh* cln = new StaticMesh(GetOwner());
+	cln->m_staticMesh = m_staticMesh;
+
+	return cln;
+}
+
 void StaticMesh::SetMesh(const Mesh& mesh)
 {
 	m_staticMesh->mesh = mesh;

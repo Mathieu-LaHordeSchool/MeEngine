@@ -1,22 +1,25 @@
 #pragma once
 
-class GLFWwindow;
+#include <glm/glm.hpp>
+
+struct GLFWwindow;
 
 class Window 
 {
+private:
+	struct Internal;
+	Internal* m_window;
+
 public:
 	explicit Window(const char* title, int w, int h);
 	~Window() noexcept;
 
-private:
-	GLFWwindow* window;
-
-public:
 	bool IsClose();
 	void SwapBuffer();
 	void PoolEvent();
 	void Terminate();
 	void SetEnableMouse(bool enable);
+	glm::vec2 GetSize() const;
 
-	inline GLFWwindow* GetWindow() const { return window; }
+	GLFWwindow* GetWindow() const;
 };

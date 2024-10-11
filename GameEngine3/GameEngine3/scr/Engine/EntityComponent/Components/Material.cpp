@@ -15,5 +15,13 @@ Material::Material(Entity* owner)
 {
 }
 
+Component* Material::Clone()
+{
+    Material* cln = new Material(GetOwner());
+    cln->m_material = m_material;
+
+    return cln;
+}
+
 GetSetInternalValueCPP(AlbedoTexture, albedo, Texture*, Material, m_material)
 GetSetInternalValueCPP(Color, color, glm::vec4, Material, m_material)

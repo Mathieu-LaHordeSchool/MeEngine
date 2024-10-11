@@ -3,33 +3,31 @@
 #include <Engine/EntityComponent/Entity.h>
 #include <Engine/RendererObject/Renderer.h>
 
+struct Camera::Internal
+{
+	float zNear = .1f;
+	float zFar = 1000.f;
+	float fov = 90.f;
+};
+
 Camera::Camera(Entity* owner)
 	: Component(owner)
+	, m_camera(new Internal())
 {
-	this->width = 700.f;
-	this->height = 500.f;
-
-	this->zNear = 0.1f;
-	this->zFar = 1000.f;
-	this->fov = 90.f;
 }
 
 void Camera::Render(Renderer* render)
 {
-	render->PushCamera(GetOwner());
+	render->SetCamera(GetOwner());
+}
+Component* Camera::Clone()
+{
+	Camera* cln = new Camera(GetOwner());
+	cln->m_camera = m_camera;
+
+	return cln;
 }
 
-void Camera::SetRenderCameraSize(float h, float w)
-{
-	width = w;
-	height = h;
-}
-void Camera::SetRenderCameraDistance(float near, float far)
-{
-	zNear = near;
-	zFar = far;
-}
-void Camera::SetRenderCmaeraFov(float fov)
-{
-	this->fov = fov;
-}
+GetSetInternalValueCPP(Fov, fov, float, Camera, m_camera)
+GetSetInternalValueCPP(NearRender, zNear, float, Camera, m_camera)
+GetSetInternalValueCPP(FarRender, zFar, float, Camera, m_camera)

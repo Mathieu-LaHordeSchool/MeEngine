@@ -1,7 +1,8 @@
 #pragma once
 
-
 #include <glm/glm.hpp>
+
+class Entity;
 
 class TransformData
 {
@@ -12,9 +13,6 @@ private:
 public:
 	explicit TransformData();
 	~TransformData() noexcept;
-
-	const char* name;
-	TransformData* parent;
 
 	glm::vec3 GetWorldPosition() const;
 	glm::vec3 GetWorldRotation() const;
@@ -38,4 +36,12 @@ public:
 
 	glm::mat4 GetTransformMatrix() const;
 	glm::vec3 GetTransformForward() const;
+
+	void SetParent(TransformData* trans);
+	void SetName(const char* name);
+
+	void SetOwner(Entity* owner);
+	Entity* GetOwner() const;
+
+	TransformData* Clone() const;
 };

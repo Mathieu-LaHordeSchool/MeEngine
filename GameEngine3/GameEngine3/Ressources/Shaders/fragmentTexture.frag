@@ -2,9 +2,12 @@
 
 layout(location = 0) out vec4 oFragColor;
 
-in vec3 normal;
+uniform sampler2D albedoTexture;
+uniform vec4 color;
 
-void main() 
+in vec2 uvs;
+
+void main()
 {
-	oFragColor = vec4(abs(normal), 1.f);
+	oFragColor = vec4(texture(albedoTexture, uvs)) * color;
 }

@@ -7,7 +7,7 @@
 Buffer* RenderObjectData::GetOrCreateVertexBuffer(std::vector<float> data)
 {
 	if (vertexBuffers.count(data) == 0) {
-		std::cout << "create vertex buffer" << std::endl;
+		// std::cout << "create vertex buffer" << std::endl;
 
 		Buffer* newBuffer = new Buffer();
 		newBuffer->InitBuffer<float>(data);
@@ -20,7 +20,7 @@ Buffer* RenderObjectData::GetOrCreateVertexBuffer(std::vector<float> data)
 Buffer* RenderObjectData::GetOrCreateUvsBuffer(std::vector<float> data)
 {
 	if (textureCoordBuffers.count(data) == 0) {
-		std::cout << "create texture buffer" << std::endl;
+		// std::cout << "create texture buffer" << std::endl;
 
 		Buffer* newBuffer = new Buffer();
 		newBuffer->InitBuffer<float>(data);
@@ -33,7 +33,7 @@ Buffer* RenderObjectData::GetOrCreateUvsBuffer(std::vector<float> data)
 Buffer* RenderObjectData::GetOrCreateElementBuffer(std::vector<uint32_t> data)
 {
 	if (elementBuffers.count(data) == 0) {
-		std::cout << "create element buffer" << std::endl;
+		// std::cout << "create element buffer" << std::endl;
 
 		Buffer* newBuffer = new Buffer();
 		newBuffer->InitBuffer<uint32_t>(data);
@@ -47,7 +47,7 @@ Buffer* RenderObjectData::GetOrCreateElementBuffer(std::vector<uint32_t> data)
 Buffer* RenderObjectData::GetOrCreateNormalBuffer(std::vector<float> data)
 {
 	if (normalBuffer.count(data) == 0) {
-		std::cout << "create normal buffer" << std::endl;
+		// std::cout << "create normal buffer" << std::endl;
 
 		Buffer* newBuffer = new Buffer();
 		newBuffer->InitBuffer<float>(data);

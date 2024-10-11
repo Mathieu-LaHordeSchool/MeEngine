@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 class Entity;
 class HandleTimer;
 class TransformData;
@@ -11,6 +13,7 @@ private:
 	Internal* m_scene;
 
 	void UpdateTimer();
+	void LoopOnEntity(std::function<void(Entity*)> func);
 
 public:
 	explicit Scene();

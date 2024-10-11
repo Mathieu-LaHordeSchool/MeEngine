@@ -10,8 +10,21 @@
 
 #include <stdexcept>
 
-Window::Window(const char* title, int w, int h)
+struct Window::Internal
 {
+	GLFWwindow* window;
+
+	int width, height;
+	const char* title;
+};
+
+Window::Window(const char* title, int w, int h)
+	: m_window(new Internal())
+{
+	m_window->width = w;
+	m_window->height = h;
+	m_window->title = title;
+
 	glfwInit();
 
 	// Set context as OpenGL 4.6 Core, forward compat, with debug depending on build config
@@ -29,11 +42,11 @@ Window::Window(const char* title, int w, int h)
 	glfwWindowHint(GLFW_DOUBLEBUFFER,			GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE,				GL_FALSE);
 
-	window = glfwCreateWindow(w, h, title, nullptr, nullptr);
-	if (!window)
+	m_window->window = glfwCreateWindow(w, h, title, nullptr, nullptr);
+	if (!m_window->window)
 		throw std::runtime_error("Unable to initialize GLFW");
 
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(m_window->window);
 
 	glewExperimental = true;
 	auto glewResult = glewInit();
@@ -41,17 +54,17 @@ Window::Window(const char* title, int w, int h)
 
 Window::~Window()
 {
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(m_window->window);
 }
 
 bool Window::IsClose()
 {
-	return glfwWindowShouldClose(window);
+	return glfwWindowShouldClose(m_window->window);
 }
 
 void Window::SwapBuffer()
 {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_window->window);
 }
 
 void Window::PoolEvent()
@@ -67,7 +80,17 @@ void Window::Terminate()
 void Window::SetEnableMouse(bool enable)
 {
 	if (!enable)
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(m_window->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	else
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(m_window->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+glm::vec2 Window::GetSize() const
+{
+	return glm::vec2(m_window->width, m_window->height);
+}
+
+GLFWwindow* Window::GetWindow() const 
+{
+	return m_window->window;
 }

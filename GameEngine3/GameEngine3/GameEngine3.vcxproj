@@ -145,6 +145,7 @@
     <ClCompile Include="scr\Engine\EntityComponent\Components\Camera.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\Components\Material.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\Components\StaticMesh.cpp" />
+    <ClCompile Include="scr\Engine\EntityComponent\EnableObject.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\Entity.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\Scene.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\TransformData.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="include\Engine\EntityComponent\Components\Camera.h" />
     <ClInclude Include="include\Engine\EntityComponent\Components\Material.h" />
     <ClInclude Include="include\Engine\EntityComponent\Components\StaticMesh.h" />
+    <ClInclude Include="include\Engine\EntityComponent\EnableObject.h" />
     <ClInclude Include="include\Engine\EntityComponent\Entity.h" />
     <ClInclude Include="include\Engine\EntityComponent\Scene.h" />
     <ClInclude Include="include\Engine\EntityComponent\TransformData.h" />
@@ -189,6 +191,11 @@
     <ClInclude Include="include\Engine\Timer\HandleTimer.h" />
     <ClInclude Include="include\Engine\Window\Window.h" />
     <ClInclude Include="include\Game\Components\CharacterController.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\Shaders\fragmentNoTexture.frag" />
+    <None Include="Ressources\Shaders\fragmentTexture.frag" />
+    <None Include="Ressources\Shaders\vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

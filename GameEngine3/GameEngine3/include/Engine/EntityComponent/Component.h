@@ -12,6 +12,14 @@ ClassVar Class::Get##NameMeth() const { \
     return Internal->NameVar; \
 }
 
+#define GetComponentType(ComponentID) \
+int GetType() const override { \
+return ComponentID; \
+} \
+static int GetStaticType() { \
+return ComponentID; \
+} \
+
 class Inputs;
 class Entity;
 class Renderer;
@@ -33,7 +41,8 @@ public:
 
 	virtual void Update()					{}
 	virtual void BindInputs(Inputs* inputs) {}
+	virtual int GetType() const		{ return 0; }
 
-	virtual const char* GetType() const		{ return ""; }
 	virtual void Render(Renderer* render)	{}
+	virtual Component* Clone()				{ return nullptr; }
 };

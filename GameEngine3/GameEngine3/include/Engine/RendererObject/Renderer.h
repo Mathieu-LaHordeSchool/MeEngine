@@ -8,14 +8,16 @@ public:
 	struct Internal;
 	Internal* m_renderer;
 
-	explicit Renderer();
+	explicit Renderer(class Window* window);
 	~Renderer() noexcept = default;
 
-	void PushCamera(class Entity* cam);
+	void SetCamera(class Entity* cam);
 	void PushGeometry(class Entity* cam);
 
+	void ClearAllRendererData();
 	void Execute();
 	void CalculViewMatrix();
 	void CreateAndBindBuffers(const class Mesh& mesh);
-	void Draw(const class TransformData* trans, const class Mesh& mesh);
+	void Draw(class TransformData* trans, const class Mesh& mesh);
+	void Draw(class TransformData* trans, class Material* material, const class Mesh& mesh);
 };

@@ -9,11 +9,16 @@ uniform mat4 uModel;
 uniform mat4 uViewMatrix;
 uniform mat4 uProjectionMatrix;
 
+out vec3 position;
 out vec3 normal;
+out vec2 uvs;
 
 void main() 
 {
+	position = aVerticePosition;
 	normal = aNormal;
+	uvs = aUvs;
+
 	mat4 mvp = uProjectionMatrix * uViewMatrix * uModel;
 	gl_Position = mvp * vec4(aVerticePosition, 1.f);
 }

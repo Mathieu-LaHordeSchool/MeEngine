@@ -2,9 +2,7 @@
 
 layout(location = 0) out vec4 oFragColor;
 
-in vec3 normal;
-
 void main() 
 {
-	oFragColor = vec4(abs(normal), 1.f);
+	oFragColor = vec4(vec3(.3f), 1.f);
 }

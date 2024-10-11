@@ -5,18 +5,19 @@
 class Camera
 	: public Component
 {
+	struct Internal;
+	Internal* m_camera;
+
 public:
+	GetComponentType(90001)
+
 	explicit Camera(class Entity* owner);
 	~Camera() noexcept = default;
 
-	const char* GetType() const override { return "CameraComponentType"; }
-	void Render(Renderer* render);
+	void Render(Renderer* render) override;
+	Component* Clone() override;
 
-	void SetRenderCameraSize(float h, float w);
-	void SetRenderCameraDistance(float near, float far);
-	void SetRenderCmaeraFov(float fov);
-
-	float height, width;
-	float zNear, zFar;
-	float fov;
+	GetSetInternalValueHPP(Fov, float)
+	GetSetInternalValueHPP(NearRender, float)
+	GetSetInternalValueHPP(FarRender, float)
 };
