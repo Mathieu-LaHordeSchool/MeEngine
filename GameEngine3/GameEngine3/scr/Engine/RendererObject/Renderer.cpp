@@ -92,9 +92,10 @@ void Renderer::Execute()
 		TransformData*	transform	= std::get<0>(tuple);
 		Material*		material	= std::get<1>(tuple);
 		Mesh			mesh		= std::get<2>(tuple);
+		Camera*			cam			= m_renderer->camera;
 
+		CalculViewMatrix(cam);
 		CreateAndBindBuffers(mesh);
-		CalculViewMatrix();
 
 		if (!material)
 			Draw(transform, mesh);
@@ -103,9 +104,8 @@ void Renderer::Execute()
 	}
 }
 
-void Renderer::CalculViewMatrix()
+void Renderer::CalculViewMatrix(Camera* cam)
 {
-	Camera* cam = m_renderer->camera;
 	TransformData* trans = cam->GetOwner()->Transform();
 	glm::vec3 camPos = trans->GetWorldPosition();
 	glm::vec3 fwd = trans->GetTransformForward();

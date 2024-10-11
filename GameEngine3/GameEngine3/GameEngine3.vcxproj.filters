@@ -224,6 +224,9 @@
     <ClInclude Include="include\Game\Components\CharacterController.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
+    <ClInclude Include="include\Engine\RendererObject\Frustum.h">
+      <Filter>Fichiers d%27en-tête\Engine\RendererObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Ressources\Shaders\fragmentNoTexture.frag">

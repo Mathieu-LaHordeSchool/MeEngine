@@ -36,23 +36,11 @@ int main(int argc, char** argv)
 	Entity* character = mainScene.CreateObject("Character");
 	Entity* cam = mainScene.CreateObject("Camera", character->Transform());
 
-	Entity* min = mainScene.CreateObject("", poule->Transform());
-	min->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
-	min->Transform()->SetWorldScale(glm::vec3(.1f));
-
-	Entity* max = mainScene.CreateObject("", poule->Transform());
-	max->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
-	max->Transform()->SetWorldScale(glm::vec3(.1f));
-
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
+
 	Material* mat = poule->AddComponent<Material>();
 	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
-
-	glm::vec3 posMin, posMax;
-	pouleMesh.GetBoundsMesh(posMin, posMax);
-	min->Transform()->SetLocalPosition(posMin);
-	max->Transform()->SetLocalPosition(posMax);
 
 	cam->AddComponent<Camera>();
 	cam->Transform()->SetLocalPosition(glm::vec3(0.f, 2.f, 0.f));

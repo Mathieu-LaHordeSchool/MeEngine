@@ -27,3 +27,20 @@ void Mesh::GetBoundsMesh(glm::vec3& min, glm::vec3& max)
         max.z = std::max(max.z, pos.z);
     }
 }
+void Mesh::GetCornersOfBounds(glm::vec3* corners)
+{
+    // Récupère les points minimum et maximum du bounding box
+    glm::vec3 min, max;
+    GetBoundsMesh(min, max);
+
+    // Les 8 coins de la boîte englobante
+    corners[0] = glm::vec3(min.x, min.y, min.z); // Coin inférieur-gauche-arrière
+    corners[1] = glm::vec3(max.x, min.y, min.z); // Coin inférieur-droit-arrière
+    corners[2] = glm::vec3(min.x, max.y, min.z); // Coin supérieur-gauche-arrière
+    corners[3] = glm::vec3(max.x, max.y, min.z); // Coin supérieur-droit-arrière
+
+    corners[4] = glm::vec3(min.x, min.y, max.z); // Coin inférieur-gauche-avant
+    corners[5] = glm::vec3(max.x, min.y, max.z); // Coin inférieur-droit-avant
+    corners[6] = glm::vec3(min.x, max.y, max.z); // Coin supérieur-gauche-avant
+    corners[7] = glm::vec3(max.x, max.y, max.z); // Coin supérieur-droit-avant
+}

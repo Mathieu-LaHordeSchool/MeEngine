@@ -17,6 +17,8 @@ public:
 	void Render(Renderer* render) override;
 	Component* Clone() override;
 
+	bool InFieldOfView(class Mesh mesh, class TransformData* trans, const glm::mat4& viewMatrix);
+
 	GetSetInternalValueHPP(Fov, float)
 	GetSetInternalValueHPP(NearRender, float)
 	GetSetInternalValueHPP(FarRender, float)

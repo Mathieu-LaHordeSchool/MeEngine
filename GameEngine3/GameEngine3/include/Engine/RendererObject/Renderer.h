@@ -16,7 +16,7 @@ public:
 
 	void ClearAllRendererData();
 	void Execute();
-	void CalculViewMatrix();
+	void CalculViewMatrix(class Camera* cam);
 	void CreateAndBindBuffers(const class Mesh& mesh);
 	void Draw(class TransformData* trans, const class Mesh& mesh);
 	void Draw(class TransformData* trans, class Material* material, const class Mesh& mesh);

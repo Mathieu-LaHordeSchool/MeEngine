@@ -64,4 +64,5 @@ public:
 	};
 
 	void GetBoundsMesh(glm::vec3& min, glm::vec3& max);
+	void GetCornersOfBounds(glm::vec3* corners);
 };

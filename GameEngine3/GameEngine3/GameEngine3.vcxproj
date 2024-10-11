@@ -180,6 +180,7 @@
     <ClInclude Include="include\Engine\Mesh\MeshLoader.h" />
     <ClInclude Include="include\Engine\Mesh\tiny_obj_loader.h" />
     <ClInclude Include="include\Engine\RendererObject\Buffer.h" />
+    <ClInclude Include="include\Engine\RendererObject\Frustum.h" />
     <ClInclude Include="include\Engine\RendererObject\InstancedMap.h" />
     <ClInclude Include="include\Engine\RendererObject\Renderer.h" />
     <ClInclude Include="include\Engine\RendererObject\RenderObjectData.h" />

@@ -1,2 +1,4 @@
-﻿  TransformData.cpp
+﻿  Renderer.cpp
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(169,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(192,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
   GameEngine3.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\GameEngine3_x64_Debug.exe
