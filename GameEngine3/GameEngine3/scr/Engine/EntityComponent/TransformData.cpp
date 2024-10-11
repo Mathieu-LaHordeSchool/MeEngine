@@ -1,6 +1,8 @@
 
 #include <Engine/EntityComponent/TransformData.h>
 
+#include <Engine/EntityComponent/Entity.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -9,11 +11,17 @@ struct TransformData::Internal
 	glm::vec3 position;
 	glm::vec3 rotation;
 	glm::vec3 scale = glm::vec3(1.f);
+
+	const char* name;
+	TransformData* parent;
+	Entity* owner;
+
+	glm::mat4 model;
+	bool needModelUpdate = true;
 };
 
 TransformData::TransformData()
 	: m_transform(new Internal())
-	, name(""), parent(nullptr)
 {}
 TransformData::~TransformData() noexcept
 {}
@@ -22,8 +30,8 @@ glm::vec3 TransformData::GetWorldPosition() const
 {
 	glm::vec3 localPosition = GetLocalPosition();
 
-	if (parent) {
-		glm::mat4 parentTransformMatrix = parent->GetTransformMatrix();
+	if (m_transform->parent) {
+		glm::mat4 parentTransformMatrix = m_transform->parent->GetTransformMatrix();
 		glm::vec4 transformedPosition = parentTransformMatrix * glm::vec4(localPosition, 1.0f);
 		return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
 	}
@@ -35,8 +43,8 @@ glm::vec3 TransformData::GetWorldRotation() const
 {
 	glm::vec3 rotation = m_transform->rotation;
 
-	if (parent)
-		return rotation + parent->GetLocalRotation();
+	if (m_transform->parent)
+		return rotation + m_transform->parent->GetLocalRotation();
 
 	return rotation;
 }
@@ -44,8 +52,8 @@ glm::vec3 TransformData::GetWorldScale() const
 {
 	glm::vec3 scale = m_transform->scale;
 
-	if (parent)
-		return scale * parent->GetLocalScale();
+	if (m_transform->parent)
+		return scale * m_transform->parent->GetLocalScale();
 
 	return scale;
 }
@@ -91,18 +99,18 @@ void TransformData::SetLocalScale(const glm::vec3& scale)
 
 void TransformData::SetWorldPosition(const glm::vec3& pos)
 {
-	glm::vec3 parentPos = parent ? parent->GetWorldPosition() : glm::vec3(0.f);
-	SetLocalPosition(GetWorldPosition() - parentPos);
+	glm::vec3 parentPos = m_transform->parent ? m_transform->parent->GetWorldPosition() : glm::vec3(0.f);
+	SetLocalPosition(pos - parentPos);
 }
 void TransformData::SetWorldRotation(const glm::vec3& rot)
 {
-	glm::vec3 parentRot = parent ? parent->GetWorldRotation() : glm::vec3(0.f);
-	SetLocalRotation(GetWorldRotation() - parentRot);
+	glm::vec3 parentRot = m_transform->parent ? m_transform->parent->GetWorldRotation() : glm::vec3(0.f);
+	SetLocalRotation(rot - parentRot);
 }
 void TransformData::SetWorldScale(const glm::vec3& scale)
 {
-	glm::vec3 parentScl = parent ? parent->GetWorldScale() : glm::vec3(1.f);
-	SetLocalScale(GetWorldScale() - parentScl);
+	glm::vec3 parentScl = m_transform->parent ? m_transform->parent->GetWorldScale() : glm::vec3(0.f);
+	SetLocalScale(scale - parentScl);
 }
 
 glm::mat4 TransformData::GetTransformMatrix() const
@@ -131,4 +139,30 @@ glm::vec3 TransformData::GetTransformForward() const
 	forward.z = cos(pitch) * cos(yaw);
 
 	return glm::normalize(forward);
+}
+
+void TransformData::SetParent(TransformData* trans)
+{
+	m_transform->parent = trans;
+}
+void TransformData::SetName(const char* name)
+{
+	m_transform->name = name;
+}
+
+void TransformData::SetOwner(Entity* owner)
+{
+	m_transform->owner = owner;
+}
+Entity* TransformData::GetOwner() const
+{
+	return m_transform->owner;
+}
+
+TransformData* TransformData::Clone() const
+{
+	TransformData* cln = new TransformData();
+	cln->m_transform = m_transform;
+
+	return cln;
 }
