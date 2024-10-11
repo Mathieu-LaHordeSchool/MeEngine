@@ -99,18 +99,40 @@ void TransformData::SetLocalScale(const glm::vec3& scale)
 
 void TransformData::SetWorldPosition(const glm::vec3& pos)
 {
-	glm::vec3 parentPos = m_transform->parent ? m_transform->parent->GetWorldPosition() : glm::vec3(0.f);
-	SetLocalPosition(pos - parentPos);
+	if (m_transform->parent)
+	{
+		glm::mat4 parentMatrix = glm::inverse(m_transform->parent->GetTransformMatrix());
+		glm::vec4 localPos = parentMatrix * glm::vec4(pos, 1.0f);
+		SetLocalPosition(glm::vec3(localPos));
+	}
+	else
+	{
+		SetLocalPosition(pos);
+	}
 }
 void TransformData::SetWorldRotation(const glm::vec3& rot)
 {
-	glm::vec3 parentRot = m_transform->parent ? m_transform->parent->GetWorldRotation() : glm::vec3(0.f);
-	SetLocalRotation(rot - parentRot);
+	if (m_transform->parent)
+	{
+		glm::vec3 parentRot = m_transform->parent->GetWorldRotation();
+		SetLocalRotation(rot - parentRot);
+	}
+	else
+	{
+		SetLocalRotation(rot);
+	}
 }
 void TransformData::SetWorldScale(const glm::vec3& scale)
 {
-	glm::vec3 parentScl = m_transform->parent ? m_transform->parent->GetWorldScale() : glm::vec3(0.f);
-	SetLocalScale(scale - parentScl);
+	if (m_transform->parent)
+	{
+		glm::vec3 parentScale = m_transform->parent->GetWorldScale();
+		SetLocalScale(scale / parentScale);
+	}
+	else
+	{
+		SetLocalScale(scale);
+	}
 }
 
 glm::mat4 TransformData::GetTransformMatrix() const

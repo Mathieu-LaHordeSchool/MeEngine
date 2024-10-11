@@ -32,20 +32,27 @@ int main(int argc, char** argv)
 
 	Scene mainScene;
 
-	Entity* cube1 = mainScene.CreateObject("poule");
-	Entity* poule = mainScene.CreateObject("poule2", cube1->Transform());
+	Entity* poule = mainScene.CreateObject("poule");
 	Entity* character = mainScene.CreateObject("Character");
 	Entity* cam = mainScene.CreateObject("Camera", character->Transform());
 
-	cube1->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
-	cube1->Transform()->SetLocalRotation(glm::vec3(0.f, 180.f, 0.f));
-	cube1->Transform()->Translate(glm::vec3(1.f, 0.f, 0.f), 10.f);
-	cube1->Transform()->Scale(glm::vec3(1.f), .1f);
-	Material* mat = cube1->AddComponent<Material>();
-	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
+	Entity* min = mainScene.CreateObject("", poule->Transform());
+	min->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
+	min->Transform()->SetWorldScale(glm::vec3(.1f));
+
+	Entity* max = mainScene.CreateObject("", poule->Transform());
+	max->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
+	max->Transform()->SetWorldScale(glm::vec3(.1f));
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
+	Material* mat = poule->AddComponent<Material>();
+	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
+
+	glm::vec3 posMin, posMax;
+	pouleMesh.GetBoundsMesh(posMin, posMax);
+	min->Transform()->SetLocalPosition(posMin);
+	max->Transform()->SetLocalPosition(posMax);
 
 	cam->AddComponent<Camera>();
 	cam->Transform()->SetLocalPosition(glm::vec3(0.f, 2.f, 0.f));
@@ -54,13 +61,6 @@ int main(int argc, char** argv)
 	controller->camera = cam;
 	character->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
 	controller->window = window;
-
-	for (size_t i = 0; i < 10; i++)
-	{
-		Entity* tt = mainScene.CreateObject("");
-		tt->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
-		tt->Transform()->SetWorldPosition(glm::vec3(i * 3.f, -5.f, 0.f));
-	}
 
 	mainScene.BindInput(inputs);
 	mainScene.Start();

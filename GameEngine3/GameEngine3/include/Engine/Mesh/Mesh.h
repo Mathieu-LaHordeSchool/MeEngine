@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <glm/glm.hpp>
 
 class Mesh
 {
@@ -61,4 +62,6 @@ public:
 		0.f, 0.f,
 		0.f, 1.f
 	};
+
+	void GetBoundsMesh(glm::vec3& min, glm::vec3& max);
 };

@@ -135,14 +135,14 @@
     <ClCompile Include="scr\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Components\CharacterController.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="scr\Engine\EntityComponent\Components\Material.cpp">
       <Filter>Fichiers sources\Engine\EntityComponent\Components</Filter>
     </ClCompile>
     <ClCompile Include="scr\Engine\EntityComponent\EnableObject.cpp">
       <Filter>Fichiers sources\Engine\EntityComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Components\CharacterController.cpp">
+      <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,14 +215,14 @@
     <ClInclude Include="include\Engine\Window\Window.h">
       <Filter>Fichiers d%27en-tête\Engine\Window</Filter>
     </ClInclude>
-    <ClInclude Include="include\Game\Components\CharacterController.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="include\Engine\EntityComponent\Components\Material.h">
       <Filter>Fichiers d%27en-tête\Engine\EntityComponent\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\Engine\EntityComponent\EnableObject.h">
       <Filter>Fichiers d%27en-tête\Engine\EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Components\CharacterController.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
