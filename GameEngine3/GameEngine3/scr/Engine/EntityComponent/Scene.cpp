@@ -5,23 +5,27 @@
 #include <Engine/EntityComponent/TransformData.h>
 #include <Engine/Timer/HandleTimer.h>
 
+#include <map>
+#include <vector>
+
 struct Scene::Internal
 {
-	std::vector<Entity*> entitys;
+	std::map<Entity*, std::vector<Entity*>> entitys;
 	HandleTimer handleTimer;
 };
 
 Scene::Scene()
 	: m_scene(new Internal())
-{
-}
+{}
 
 Entity* Scene::CreateObject(const char* name, TransformData* parent /* = nullptr */)
 {
 	Entity* newEntity = new Entity(this);
-	m_scene->entitys.push_back(newEntity);
-	newEntity->Transform()->name = name;
-	newEntity->Transform()->parent = parent;
+	m_scene->entitys[parent ? parent->GetOwner() : nullptr].push_back(newEntity);
+
+	newEntity->Transform()->SetName(name);
+	newEntity->Transform()->SetParent(parent);
+	newEntity->Transform()->SetOwner(newEntity);
 
 	return newEntity;
 }
@@ -33,33 +37,48 @@ HandleTimer Scene::GetHandleTimer() const
 
 void Scene::Start()
 {
-	for (auto& e : m_scene->entitys) {
+	LoopOnEntity([this](auto e) {
 		e->Start();
-	}
+	});
 }
 void Scene::BindInput(Inputs* inputs)
 {
-	for (auto& e : m_scene->entitys) {
+	LoopOnEntity([this, &inputs](auto e) {
 		e->BindInputs(inputs);
-	}
+	});
 }
 void Scene::Update()
 {
 	UpdateTimer();
 
-	for (auto& e : m_scene->entitys) {
+	LoopOnEntity([this](auto e) {
 		e->Update();
-	}
+	});
+}
+void Scene::Render(Renderer* render)
+{
+	render->ClearAllRendererData();
+
+	LoopOnEntity([this, &render](auto e) {
+		e->Render(render);
+	});
 }
 
 void Scene::UpdateTimer()
 {
 	m_scene->handleTimer.Update();
 }
-
-void Scene::Render(Renderer* render)
+void Scene::LoopOnEntity(std::function<void(Entity*)> func)
 {
-	for (auto& e : m_scene->entitys) {
-		e->Render(render);
-	}
+	std::function<void(Entity*)> recursive;
+	recursive = [this, &recursive, &func](auto e) {
+		if (m_scene->entitys.count(e)) {
+			for (Entity* entity : m_scene->entitys[e]) {
+				func(entity);
+				recursive(entity);
+			}
+		}
+	};
+
+	recursive(nullptr);
 }

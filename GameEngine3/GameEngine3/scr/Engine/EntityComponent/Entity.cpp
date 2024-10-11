@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include <Engine/EntityComponent/Entity.h>
 #include <Engine/EntityComponent/Component.h>
 #include <Engine/EntityComponent/Scene.h>
@@ -7,7 +9,7 @@
 struct Entity::Internal
 {
 	Scene* ownScene;
-	std::unordered_map<const char*, Component*> components;
+	std::unordered_map<int, Component*> components;
 	TransformData* transform = new TransformData();
 };
 
@@ -24,21 +26,20 @@ TransformData* Entity::Transform()
 
 Component* Entity::AddComponent(Component* comp)
 {
-	const char* type = comp->GetType();
+	int type = comp->GetType();
 	m_entity->components[type] = comp;
 	return m_entity->components[type];
 }
-Component* Entity::GetComponent(Component* comp)
+Component* Entity::GetComponent(int comp)
 {
-	if (m_entity->components.count(comp->GetType()) == 0)
+	if (m_entity->components.count(comp) == 0)
 		return nullptr;
 
-	return m_entity->components[comp->GetType()];
+	return m_entity->components[comp];
 }
-
-bool Entity::HasComponent(Component* comp)
+bool Entity::HasComponent(int comp)
 {
-	return m_entity->components.count(comp->GetType());
+	return m_entity->components.count(comp);
 }
 
 Scene* Entity::GetScene() const
@@ -48,6 +49,8 @@ Scene* Entity::GetScene() const
 
 void Entity::Render(Renderer* render)
 {
+	// std::cout << m_entity->components.size() << std::endl;
+
 	for (auto& [key, comp] : m_entity->components) {
 		comp->Render(render);
 	}
