@@ -1,12 +1,14 @@
 #pragma once
 
 #include <unordered_map>
+#include <Engine/EntityComponent/EnableObject.h>
 
 class Component;
 class TransformData;
 class Scene;
 
 class Entity
+	: public EnableObject
 {
 private:
 	struct Internal;

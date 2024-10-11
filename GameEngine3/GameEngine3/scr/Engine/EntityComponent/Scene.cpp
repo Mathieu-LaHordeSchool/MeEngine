@@ -74,6 +74,9 @@ void Scene::LoopOnEntity(std::function<void(Entity*)> func)
 	recursive = [this, &recursive, &func](auto e) {
 		if (m_scene->entitys.count(e)) {
 			for (Entity* entity : m_scene->entitys[e]) {
+				if (!entity->GetActive())
+					continue;
+
 				func(entity);
 				recursive(entity);
 			}

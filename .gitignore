@@ -35,10 +35,6 @@
 *.out
 *.app
 
-# Visual Studio
 .vs/
-
-# Ignore build directory
-/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/c++

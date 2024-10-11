@@ -69,6 +69,11 @@ void Renderer::PushGeometry(Entity* entity)
 	StaticMesh* staticMesh = entity->GetComponent<StaticMesh>();
 	Material* material = entity->GetComponent<Material>();
 
+	if (material) {
+		if (!material->GetActive())
+			material = nullptr;
+	}
+
 	m_renderer->geometrys.push_back(std::make_tuple(entity->Transform(), material, staticMesh->GetMesh()));
 }
 

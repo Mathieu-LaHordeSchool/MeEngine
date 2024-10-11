@@ -23,8 +23,8 @@ void CharacterController::BindInputs(Inputs* inputs)
 {
 	inputs->CreateInputAction("z", KeyCode::W)->BindPressAction([this]() { MoveZ(1.f);  });
 	inputs->CreateInputAction("s", KeyCode::S)->BindPressAction([this]() { MoveZ(-1.f); });
-	inputs->CreateInputAction("q", KeyCode::A)->BindPressAction([this]() { MoveX(-1.f);  });
-	inputs->CreateInputAction("d", KeyCode::D)->BindPressAction([this]() { MoveX(1.f); });
+	inputs->CreateInputAction("q", KeyCode::A)->BindPressAction([this]() { MoveX(1.f);  });
+	inputs->CreateInputAction("d", KeyCode::D)->BindPressAction([this]() { MoveX(-1.f); });
 
 	inputs->CreateInputAction("up", KeyCode::SPACE)->BindPressAction([this]() { MoveY(1.f); });
 	inputs->CreateInputAction("down", KeyCode::LEFT_SHIFT)->BindPressAction([this]() { MoveY(-1.f); });
@@ -40,8 +40,7 @@ void CharacterController::MoveZ(float scale)
 void CharacterController::MoveX(float scale)
 {
 	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
-	glm::vec3 fwd = camera->Transform()->GetTransformForward();
-	glm::vec3 right = glm::cross(fwd, glm::vec3(0.f, 1.f, 0.f));
+	glm::vec3 right = camera->Transform()->GetTransformRight();
 	GetOwner()->Transform()->Translate(right, moveSpeed * dt * scale);
 }
 void CharacterController::MoveY(float scale)

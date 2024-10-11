@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 {
 	Window* window = new Window("Game Engine", 700, 500);
 	Inputs* inputs = new Inputs();
-	Renderer* render = new Renderer();
+	Renderer* render = new Renderer(window);
 
 	MeshLoader loader = MeshLoader();
 	Mesh pouleMesh = loader.LoadMesh("Ressources/Models/boss.obj");
@@ -41,7 +41,8 @@ int main(int argc, char** argv)
 	cube1->Transform()->SetLocalRotation(glm::vec3(0.f, 180.f, 0.f));
 	cube1->Transform()->Translate(glm::vec3(1.f, 0.f, 0.f), 10.f);
 	cube1->Transform()->Scale(glm::vec3(1.f), .1f);
-	cube1->AddComponent<Material>();
+	Material* mat = cube1->AddComponent<Material>();
+	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
@@ -54,11 +55,11 @@ int main(int argc, char** argv)
 	character->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
 	controller->window = window;
 
-	for (size_t i = 0; i < 50; i++)
+	for (size_t i = 0; i < 10; i++)
 	{
 		Entity* tt = mainScene.CreateObject("");
 		tt->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
-		tt->Transform()->Translate(glm::vec3(1.f, 0.f, 0.f), i * 3.f);
+		tt->Transform()->SetWorldPosition(glm::vec3(i * 3.f, -5.f, 0.f));
 	}
 
 	mainScene.BindInput(inputs);

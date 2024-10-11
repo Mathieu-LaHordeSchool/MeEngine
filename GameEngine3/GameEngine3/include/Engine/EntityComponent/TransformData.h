@@ -35,7 +35,10 @@ public:
 	void SetWorldScale(const glm::vec3& scale);
 
 	glm::mat4 GetTransformMatrix() const;
+
 	glm::vec3 GetTransformForward() const;
+	glm::vec3 GetTransformRight() const;
+	glm::vec3 GetTransformUp() const;
 
 	void SetParent(TransformData* trans);
 	void SetName(const char* name);

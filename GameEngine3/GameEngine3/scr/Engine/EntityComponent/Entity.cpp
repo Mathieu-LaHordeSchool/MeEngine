@@ -47,30 +47,39 @@ Scene* Entity::GetScene() const
 	return m_entity->ownScene;
 }
 
-void Entity::Render(Renderer* render)
-{
-	// std::cout << m_entity->components.size() << std::endl;
-
-	for (auto& [key, comp] : m_entity->components) {
-		comp->Render(render);
-	}
-}
-
 void Entity::Start()
 {
 	for (auto& [key, comp] : m_entity->components) {
+		if (!comp->GetActive())
+			continue;
+
 		comp->Start();
+	}
+}
+void Entity::Render(Renderer* render)
+{
+	for (auto& [key, comp] : m_entity->components) {
+		if (!comp->GetActive())
+			continue;
+
+		comp->Render(render);
 	}
 }
 void Entity::BindInputs(Inputs* inputs)
 {
 	for (auto& [key, comp] : m_entity->components) {
+		if (!comp->GetActive())
+			continue;
+
 		comp->BindInputs(inputs);
 	}
 }
 void Entity::Update()
 {
 	for (auto& [key, comp] : m_entity->components) {
+		if (!comp->GetActive())
+			continue;
+
 		comp->Update();
 	}
 }

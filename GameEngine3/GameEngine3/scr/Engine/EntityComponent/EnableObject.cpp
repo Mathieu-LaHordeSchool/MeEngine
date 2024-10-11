@@ -3,7 +3,7 @@
 
 struct EnableObject::Internal
 {
-	bool enable;
+	bool enable = true;
 };
 
 EnableObject::EnableObject()

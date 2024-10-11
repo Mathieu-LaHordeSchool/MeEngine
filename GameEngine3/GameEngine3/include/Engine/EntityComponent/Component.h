@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Engine/EntityComponent/EnableObject.h>
+
 #define GetSetInternalValueHPP(Name, Class) \
 void Set##Name(Class Name); \
 Class Get##Name() const; \
@@ -24,7 +26,8 @@ class Inputs;
 class Entity;
 class Renderer;
 
-class Component 
+class Component
+	: public EnableObject
 {
 private:
 	Entity* owner;

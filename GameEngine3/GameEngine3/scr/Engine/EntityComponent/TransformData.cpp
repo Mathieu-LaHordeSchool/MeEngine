@@ -128,6 +128,7 @@ glm::mat4 TransformData::GetTransformMatrix() const
 
 	return matrix;
 }
+
 glm::vec3 TransformData::GetTransformForward() const
 {
 	float yaw = GetWorldRotation().y;
@@ -139,6 +140,18 @@ glm::vec3 TransformData::GetTransformForward() const
 	forward.z = cos(pitch) * cos(yaw);
 
 	return glm::normalize(forward);
+}
+glm::vec3 TransformData::GetTransformRight() const
+{
+	glm::vec3 fwd = GetTransformForward();
+	return glm::normalize(glm::cross(glm::vec3(0.f, 1.f, 0.f), fwd));
+}
+glm::vec3 TransformData::GetTransformUp() const
+{
+	glm::vec3 right = GetTransformRight();
+	glm::vec3 fwd = GetTransformForward();
+
+	return glm::normalize(glm::cross(right, fwd));
 }
 
 void TransformData::SetParent(TransformData* trans)
