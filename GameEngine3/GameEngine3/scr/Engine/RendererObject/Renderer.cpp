@@ -58,7 +58,7 @@ Renderer::Renderer(Window* window)
 {
 	m_renderer->vao->AttributeBinding(0, 0, 3, GL_FLOAT, GL_FALSE, 0); // for vertices
 	m_renderer->vao->AttributeBinding(1, 1, 3, GL_FLOAT, GL_FALSE, 0); // for normals
-	m_renderer->vao->AttributeBinding(2, 2, 2, GL_UNSIGNED_INT, GL_FALSE, 0); // for uvs
+	m_renderer->vao->AttributeBinding(2, 2, 2, GL_FLOAT, GL_FALSE, 0); // for uvs
 
 	m_renderer->window = window;
 
