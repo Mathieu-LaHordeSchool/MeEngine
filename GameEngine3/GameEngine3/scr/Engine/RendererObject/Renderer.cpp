@@ -63,6 +63,9 @@ Renderer::Renderer(Window* window)
 	m_renderer->window = window;
 
 	glEnable(GL_DEPTH_TEST);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Renderer::SetCamera(Entity* entity)
@@ -147,10 +150,10 @@ void Renderer::DrawUIs()
 		Texture* texture = std::get<2>(u);
 
 		CreateAndBindBuffers(m_renderer->baseMesh);
-		DrawUI(transform, texture);
+		DrawUI(transform, element, texture);
 	}
 }
-void Renderer::DrawUI(TransformData* trans, Texture* tex)
+void Renderer::DrawUI(TransformData* trans, UIElement* element, Texture* tex)
 {
 	ShaderProgram* sp = m_renderer->shaderProgramUI;
 	VertexArrayObject* VAO = m_renderer->vao;
@@ -159,9 +162,11 @@ void Renderer::DrawUI(TransformData* trans, Texture* tex)
 	VAO->BindVertexArray();
 
 	glm::mat4 modelTrans = trans->GetTransformMatrix();
-	tex->BindTexture(GL_TEXTURE0);
 	sp->SetMat4("uModel", modelTrans);
+
+	tex->BindTexture(GL_TEXTURE0);
 	sp->SetSampler2D("image", GL_TEXTURE0);
+	sp->SetVec4("uColor", element->color);
 
 	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Vertices.size(), GL_UNSIGNED_INT, 0);
 

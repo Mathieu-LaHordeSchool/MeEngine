@@ -26,10 +26,10 @@ public:
 	};
 	std::vector<float> Uvs = {
 		// Coordonnées UV (u, v)
-		0.0f, 1.0f,  // Coin supérieur gauche
 		0.0f, 0.0f,  // Coin inférieur gauche
-		1.0f, 0.0f,  // Coin inférieur droit
-		1.0f, 1.0f   // Coin supérieur droit
+		0.0f, 1.0f,  // Coin supérieur gauche
+		1.0f, 1.0f,  // Coin supérieur droit
+		1.0f, 0.0f   // Coin inférieur droit
 	};
 
 	void GetBoundsMesh(glm::vec3& min, glm::vec3& max);

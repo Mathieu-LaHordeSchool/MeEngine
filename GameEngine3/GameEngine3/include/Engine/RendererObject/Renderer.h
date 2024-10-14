@@ -21,7 +21,7 @@ public:
 	void CreateAndBindBuffers(const class Mesh& mesh);
 
 	void DrawUIs();
-	void DrawUI(class TransformData* trans, class Texture* tex);
+	void DrawUI(class TransformData* trans, class UIElement* element, class Texture* tex);
 
 	void DrawGeometry();
 	void Draw(class TransformData* trans, const class Mesh& mesh);

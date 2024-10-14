@@ -7,7 +7,7 @@ class Texture;
 
 class Image
 	: public Component
-	, UIElement
+	, public UIElement
 {
 	struct Internal;
 	Internal* m_image;
