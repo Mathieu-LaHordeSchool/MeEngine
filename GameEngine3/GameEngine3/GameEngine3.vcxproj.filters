@@ -224,9 +224,6 @@
     <ClInclude Include="include\Game\Components\CharacterController.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\RendererObject\Frustum.h">
-      <Filter>Fichiers d%27en-tête\Engine\RendererObject</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Ressources\Shaders\fragmentNoTexture.frag">
@@ -236,6 +233,12 @@
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="Ressources\Shaders\vertex.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="Ressources\Shaders\uiFragment.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="Ressources\Shaders\uiVertex.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
   </ItemGroup>

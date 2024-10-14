@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include <glm/gtx/vector_angle.hpp>
 
 #include <Engine/EntityComponent/Components/Camera.h>
@@ -32,29 +33,34 @@ Component* Camera::Clone()
 	return cln;
 }
 
-bool Camera::InFieldOfView(Mesh mesh, TransformData* trans, const glm::mat4& viewMatrix)
+bool Camera::InFieldOfView(Mesh mesh, TransformData* trans)
 {
 	glm::vec3 min, max;
 	mesh.GetBoundsMesh(min, max);
 
-	min += trans->GetWorldPosition() * (trans->GetWorldScale() / 2.f);
-	max += trans->GetWorldPosition() * (trans->GetWorldScale() / 2.f);
+	min += (trans->GetWorldPosition() - trans->GetWorldScale());
+	max += (trans->GetWorldPosition() + trans->GetWorldScale());
 
-	glm::vec4 point1 = glm::vec4(min, 1.0);
-	glm::vec4 point2 = glm::vec4(max, 1.0);
+	glm::vec3 fwd = GetOwner()->Transform()->GetTransformForward();
+	glm::vec3 pos = GetOwner()->Transform()->GetWorldPosition();
 
-	glm::vec4 transformedPoint1 = viewMatrix * point1;
-	glm::vec4 transformedPoint2 = viewMatrix * point2;
+	glm::vec3 minDir = glm::normalize(min - pos);
+	glm::vec3 maxDir = glm::normalize(max - pos);
 
-	bool isInView1 = transformedPoint1.x >= -1.0f && transformedPoint1.x <= 1.0f &&
-		transformedPoint1.y >= -1.0f && transformedPoint1.y <= 1.0f &&
-		transformedPoint1.z >= -1.0f && transformedPoint1.z <= 1.0f;
+	float angleMin = cos(glm::angle(fwd, minDir));
+	float angleMax = cos(glm::angle(fwd, maxDir));
+	float angleFov = cos(glm::radians(m_camera->fov));
 
-	bool isInView2 = transformedPoint2.x >= -1.0f && transformedPoint2.x <= 1.0f &&
-		transformedPoint2.y >= -1.0f && transformedPoint2.y <= 1.0f &&
-		transformedPoint2.z >= -1.0f && transformedPoint2.z <= 1.0f;
+	if (angleFov < angleMin || angleFov < angleMax)
+		return true;
 
-	return isInView1 || isInView2;
+	if (angleMin < 0.f && angleMax < 0.f)
+		return false;
+
+	if (angleFov > angleMax || angleFov > angleMin)
+		return true;
+
+	return false;
 }
 
 

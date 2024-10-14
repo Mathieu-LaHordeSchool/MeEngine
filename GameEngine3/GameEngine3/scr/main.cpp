@@ -38,6 +38,13 @@ int main(int argc, char** argv)
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
+	poule->Transform()->SetLocalScale(glm::vec3(10.f));
+
+	glm::vec3 min, max;
+	pouleMesh.GetBoundsMesh(min, max);
+	TransformData* trans = poule->Transform();
+	min += (trans->GetWorldPosition() - trans->GetWorldScale());
+	max += (trans->GetWorldPosition() + trans->GetWorldScale());
 
 	Material* mat = poule->AddComponent<Material>();
 	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
@@ -47,7 +54,6 @@ int main(int argc, char** argv)
 
 	CharacterController* controller = character->AddComponent<CharacterController>();
 	controller->camera = cam;
-	character->AddComponent<StaticMesh>()->SetMesh(cubeMesh);
 	controller->window = window;
 
 	mainScene.BindInput(inputs);

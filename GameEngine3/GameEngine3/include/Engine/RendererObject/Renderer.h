@@ -18,6 +18,11 @@ public:
 	void Execute();
 	void CalculViewMatrix(class Camera* cam);
 	void CreateAndBindBuffers(const class Mesh& mesh);
+
+	void DrawUIs();
+	void DrawUI(TransformData* trans, Texture* tex);
+
+	void DrawGeometry();
 	void Draw(class TransformData* trans, const class Mesh& mesh);
 	void Draw(class TransformData* trans, class Material* material, const class Mesh& mesh);
 };

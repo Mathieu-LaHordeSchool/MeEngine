@@ -24,27 +24,32 @@
 struct Renderer::Internal
 {
 	Window* window;
+	Mesh baseMesh;
 
 	std::vector<std::tuple<TransformData*, Material*, Mesh>> geometrys;
+	std::vector<std::tuple<TransformData*, Texture*>> uis;
 	Camera* camera;
 
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 
-	Shader* vsShader = new Shader("Ressources/Shaders/vertex.vert", EShaderType::Vertex);
-	Shader* fsNoTextureShader = new Shader("Ressources/Shaders/fragmentNoTexture.frag", EShaderType::Fragment);
-	Shader* fsTextureShader = new Shader("Ressources/Shaders/fragmentTexture.frag", EShaderType::Fragment);
+	Shader* vsShader						= new Shader("Ressources/Shaders/vertex.vert",				EShaderType::Vertex);
+	Shader* vsUIShader						= new Shader("Ressources/Shaders/uiVertex.vert",			EShaderType::Vertex);
+	Shader* fsNoTextureShader				= new Shader("Ressources/Shaders/fragmentNoTexture.frag",	EShaderType::Fragment);
+	Shader* fsTextureShader					= new Shader("Ressources/Shaders/fragmentTexture.frag",		EShaderType::Fragment);
+	Shader* fsUIShader						= new Shader("Ressources/Shaders/uiFragment.frag",			EShaderType::Fragment);
 
-	ShaderProgram* shaderProgramNoTexture = new ShaderProgram(vsShader, fsNoTextureShader);
-	ShaderProgram* shaderProgramTexture = new ShaderProgram(vsShader, fsTextureShader);
+	ShaderProgram* shaderProgramUI			= new ShaderProgram(vsUIShader, fsUIShader);
+	ShaderProgram* shaderProgramNoTexture	= new ShaderProgram(vsShader, fsNoTextureShader);
+	ShaderProgram* shaderProgramTexture		= new ShaderProgram(vsShader, fsTextureShader);
 
-	Buffer* vertexsBuffer = new Buffer();
-	Buffer* normalsBuffer = new Buffer();
-	Buffer* uvsBuffer = new Buffer();
-	Buffer* elementsBuffer = new Buffer();
+	Buffer* vertexsBuffer					= new Buffer();
+	Buffer* normalsBuffer					= new Buffer();
+	Buffer* uvsBuffer						= new Buffer();
+	Buffer* elementsBuffer					= new Buffer();
 
-	VertexArrayObject* vao = new VertexArrayObject();
-	RenderObjectData* bufferData = new RenderObjectData();
+	VertexArrayObject* vao					= new VertexArrayObject();
+	RenderObjectData* bufferData			= new RenderObjectData();
 };
 
 Renderer::Renderer(Window* window)
@@ -87,21 +92,8 @@ void Renderer::Execute()
 	glClearColor(.1f, .2f, .3f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto& tuple : m_renderer->geometrys)
-	{
-		TransformData*	transform	= std::get<0>(tuple);
-		Material*		material	= std::get<1>(tuple);
-		Mesh			mesh		= std::get<2>(tuple);
-		Camera*			cam			= m_renderer->camera;
-
-		CalculViewMatrix(cam);
-		CreateAndBindBuffers(mesh);
-
-		if (!material)
-			Draw(transform, mesh);
-		else
-			Draw(transform, material, mesh);
-	}
+	DrawGeometry();
+	DrawUIs();
 }
 
 void Renderer::CalculViewMatrix(Camera* cam)
@@ -127,7 +119,6 @@ void Renderer::CalculViewMatrix(Camera* cam)
 		zNear, zFar
 	);
 }
-
 void Renderer::CreateAndBindBuffers(const Mesh& mesh)
 {
 	m_renderer->vertexsBuffer = m_renderer->bufferData->GetOrCreateVertexBuffer(mesh.Vertices);
@@ -141,6 +132,57 @@ void Renderer::CreateAndBindBuffers(const Mesh& mesh)
 	m_renderer->vao->BindingBuffer<float>(2, 0, m_renderer->uvsBuffer, 2);
 }
 
+void Renderer::DrawUIs()
+{
+	for (auto u : m_renderer->uis)
+	{
+		TransformData* transform = std::get<0>(u);
+		Texture* texture = std::get<1>(u);
+
+		CreateAndBindBuffers(m_renderer->baseMesh);
+		DrawUI(transform, texture);
+	}
+}
+void Renderer::DrawUI(TransformData* trans, Texture* tex)
+{
+	ShaderProgram* sp = m_renderer->shaderProgramUI;
+	VertexArrayObject* VAO = m_renderer->vao;
+
+	sp->StartShaderProgram();
+	VAO->BindVertexArray();
+
+	glm::mat4 modelTrans = trans->GetTransformMatrix();
+	tex->BindTexture(GL_TEXTURE0);
+	sp->SetMat4("uModel", modelTrans);
+	sp->SetSampler2D("texture", GL_TEXTURE0);
+
+	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Vertices.size(), GL_UNSIGNED_INT, 0);
+
+	VAO->UnbindVertexArray();
+	sp->StopShaderProgram();
+}
+
+void Renderer::DrawGeometry()
+{
+	for (auto& g : m_renderer->geometrys)
+	{
+		TransformData*	transform	= std::get<0>(g);
+		Material*		material	= std::get<1>(g);
+		Mesh			mesh		= std::get<2>(g);
+		Camera*			cam			= m_renderer->camera;
+
+		if (!cam->InFieldOfView(mesh, transform))
+			continue;
+
+		CalculViewMatrix(cam);
+		CreateAndBindBuffers(mesh);
+
+		if (!material)
+			Draw(transform, mesh);
+		else
+			Draw(transform, material, mesh);
+	}
+}
 void Renderer::Draw(TransformData* trans, const Mesh& mesh)
 {
 	ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
