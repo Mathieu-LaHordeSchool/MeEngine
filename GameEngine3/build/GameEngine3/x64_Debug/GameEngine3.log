@@ -1,5 +1,15 @@
-﻿  Renderer.cpp
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(166,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(206,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(229,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+﻿  main.cpp
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+  (compiler le fichier source 'scr/main.cpp')
+  
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Input\Inputs.h(8,8): warning C4099: 'HandleTimer' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+  (compiler le fichier source 'scr/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Timer\HandleTimer.h(5,7):
+  voir la déclaration de 'HandleTimer'
+  
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Input\Inputs.h(27,33): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+  (compiler le fichier source 'scr/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Window\Window.h(5,8):
+  voir la déclaration de 'GLFWwindow'
+  
   GameEngine3.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\GameEngine3_x64_Debug.exe

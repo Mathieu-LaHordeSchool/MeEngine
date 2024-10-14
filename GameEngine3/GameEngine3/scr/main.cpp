@@ -43,9 +43,9 @@ int main(int argc, char** argv)
 	Entity* cam = mainScene.CreateObject("Camera", character->Transform());
 	Entity* ui = mainScene.CreateObject("ui");
 
-	//ui->AddComponent<Image>()->SetTexture(bg);
-	//ui->Transform()->SetLocalScale(glm::vec3(.5f));
-	//ui->Transform()->SetLocalPosition(glm::vec3(.7f));
+	ui->AddComponent<Image>()->SetTexture(bg);
+	ui->Transform()->SetLocalScale(glm::vec3(.5f));
+	ui->Transform()->SetLocalPosition(glm::vec3(.7f));
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
