@@ -7,12 +7,27 @@
 
 #include <GLFW/glfw3.h>
 
-void Inputs::UpdateInputs(Window* window)
+struct Inputs::Internal
 {
-	GLFWwindow* glWindow = window->GetWindow();
+	Window* window;
+
+	double mouseX, mouseY;
+	std::unordered_map<const char*, InputAction*> inputs;
+	std::vector<std::function<void(float, float)>> MouseDeltaChangedActions;
+};
+
+Inputs::Inputs(Window* window)
+	: m_input(new Internal())
+{
+	m_input->window = window;
+}
+
+void Inputs::UpdateInputs()
+{
+	GLFWwindow* glWindow = m_input->window->GetWindow();
 	updateMousePosition(glWindow);
 
-	for (auto& [key, value] : inputs)
+	for (auto& [key, value] : m_input->inputs)
 	{
 		int state = 0;
 
@@ -60,18 +75,23 @@ InputAction* Inputs::CreateInputAction(const char* name, unsigned int key, EInpu
 	newInputAction->key = key;
 	newInputAction->inputType = inputType;
 
-	inputs[name] = newInputAction;
+	m_input->inputs[name] = newInputAction;
 	return newInputAction;
 }
 
 InputAction* Inputs::GetInputbyName(const char* name)
 {
-	return inputs[name];
+	return m_input->inputs[name];
 }
 
 void Inputs::BindMouseDeltaPosition(std::function<void(float, float)> act)
 {
-	MouseDeltaChangedActions.push_back(act);
+	m_input->MouseDeltaChangedActions.push_back(act);
+}
+
+void Inputs::GetMousePosition(double& mx, double& my)
+{
+	glfwGetCursorPos(m_input->window->GetWindow(), &mx, &my);
 }
 
 void Inputs::updateMousePosition(GLFWwindow* window)
@@ -79,13 +99,13 @@ void Inputs::updateMousePosition(GLFWwindow* window)
 	double mX, mY;
 	glfwGetCursorPos(window, &mX, &mY);
 
-	float deltaMouseX = mX - mouseX;
-	float deltaMouseY = mY - mouseY;
+	float deltaMouseX = mX - m_input->mouseX;
+	float deltaMouseY = mY - m_input->mouseY;
 
 	if (deltaMouseX + deltaMouseY != 0.f)
-		for (auto& act : MouseDeltaChangedActions)
+		for (auto& act : m_input->MouseDeltaChangedActions)
 			act(deltaMouseX, deltaMouseY);
 
-	mouseX = mX;
-	mouseY = mY;
+	m_input->mouseX = mX;
+	m_input->mouseY = mY;
 }

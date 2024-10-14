@@ -180,9 +180,17 @@ void TransformData::SetParent(TransformData* trans)
 {
 	m_transform->parent = trans;
 }
+TransformData* TransformData::GetParent() const
+{
+	return m_transform->parent;
+}
 void TransformData::SetName(const char* name)
 {
 	m_transform->name = name;
+}
+const char* TransformData::GetName() const
+{
+	return m_transform->name;
 }
 
 void TransformData::SetOwner(Entity* owner)

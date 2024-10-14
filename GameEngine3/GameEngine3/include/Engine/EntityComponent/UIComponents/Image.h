@@ -3,6 +3,8 @@
 #include <Engine/EntityComponent/Component.h>
 #include <Engine/EntityComponent/UIComponents/UIElements.h>
 
+#include <glm/glm.hpp>
+
 class Texture;
 
 class Image
@@ -20,5 +22,6 @@ public:
 
 	void Render(Renderer* render) override;
 
+	glm::vec2 GetWindowSize() const;
 	GetSetInternalValueHPP(Texture, Texture*)
 };

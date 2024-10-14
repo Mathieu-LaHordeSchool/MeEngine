@@ -26,4 +26,6 @@ public:
 	void DrawGeometry();
 	void Draw(class TransformData* trans, const class Mesh& mesh);
 	void Draw(class TransformData* trans, class Material* material, const class Mesh& mesh);
+
+	class Window* GetWindow() const;
 };

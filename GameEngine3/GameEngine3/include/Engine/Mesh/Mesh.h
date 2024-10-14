@@ -12,10 +12,10 @@ public:
 	const char* path;
 	std::vector<float> Vertices = {
 		// Position (x, y, z)
-		-0.5f,  0.5f, 0.0f,  // Coin supérieur gauche
-		-0.5f, -0.5f, 0.0f,  // Coin inférieur gauche
-		 0.5f, -0.5f, 0.0f,  // Coin inférieur droit
-		 0.5f,  0.5f, 0.0f   // Coin supérieur droit
+		-1.f,  1.f, 0.0f,  // Coin supérieur gauche
+		-1.f, -1.f, 0.0f,  // Coin inférieur gauche
+		 1.f, -1.f, 0.0f,  // Coin inférieur droit
+		 1.f,  1.f, 0.0f   // Coin supérieur droit
 	};
 	std::vector<uint32_t>  Elements = {
 		0, 1, 2,  // Premier triangle

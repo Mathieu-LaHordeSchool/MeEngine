@@ -236,3 +236,8 @@ void Renderer::Draw(TransformData* trans, Material* material, const Mesh& mesh)
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
+
+Window* Renderer::GetWindow() const
+{
+	return m_renderer->window;
+}

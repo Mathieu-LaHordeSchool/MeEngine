@@ -21,15 +21,16 @@
 
 #include <Engine/EntityComponent/UIComponents/UIElements.h>
 #include <Engine/EntityComponent/UIComponents/Image.h>
+#include <Engine/EntityComponent/UIComponents/Button.h>
 
 #include <Game/Components/CharacterController.h>
 
 int main(int argc, char** argv)
 {
 	Window* window = new Window("Game Engine", 700, 500);
-	Inputs* inputs = new Inputs();
+	Inputs* inputs = new Inputs(window);
 	Renderer* render = new Renderer(window);
-
+	
 	MeshLoader loader = MeshLoader();
 	Mesh pouleMesh = loader.LoadMesh("Ressources/Models/boss.obj");
 	Mesh cubeMesh = loader.LoadMesh("Ressources/Models/default.obj");
@@ -47,9 +48,13 @@ int main(int argc, char** argv)
 	Entity* ui = mainScene.CreateObject("ui");
 
 	ui->AddComponent<Image>()->SetTexture(bg);
-	ui->GetComponent<Image>()->color.a = .5f;
+	Button* btn = ui->AddComponent<Button>();
+	btn->SetOnClick([]() { std::cout << "click" << std::endl; });
+	btn->SetOnEnter([]() { std::cout << "enter" << std::endl; });
+	btn->SetOnExit([]() { std::cout << "exit" << std::endl; });
+
 	ui->Transform()->SetLocalScale(glm::vec3(.5f));
-	ui->Transform()->SetLocalPosition(glm::vec3(-0.75f));
+	ui->Transform()->SetLocalPosition(glm::vec3(-.5f));
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
@@ -72,12 +77,12 @@ int main(int argc, char** argv)
 	do
 	{
 		window->PoolEvent();
-		inputs->UpdateInputs(window);
-		mainScene.Update();
+		inputs->UpdateInputs();
 
 		mainScene.Render(render);
 		render->Execute();
 
+		mainScene.Update();
 		window->SwapBuffer();
 	} while (!window->IsClose());
 

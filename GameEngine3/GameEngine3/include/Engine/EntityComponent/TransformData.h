@@ -41,7 +41,10 @@ public:
 	glm::vec3 GetTransformUp() const;
 
 	void SetParent(TransformData* trans);
+	TransformData* GetParent() const;
+
 	void SetName(const char* name);
+	const char* GetName() const;
 
 	void SetOwner(Entity* owner);
 	Entity* GetOwner() const;

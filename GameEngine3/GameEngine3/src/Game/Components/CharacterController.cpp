@@ -16,7 +16,7 @@ CharacterController::CharacterController(Entity* owner)
 
 void CharacterController::Start()
 {
-	window->SetEnableMouse(false);
+	// window->SetEnableMouse(false);
 }
 
 void CharacterController::BindInputs(Inputs* inputs)

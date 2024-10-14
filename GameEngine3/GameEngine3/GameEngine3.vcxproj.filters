@@ -153,6 +153,9 @@
     <ClCompile Include="scr\Engine\EntityComponent\UIComponents\Image.cpp">
       <Filter>Fichiers sources\Engine\EntityComponent\UIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="scr\Engine\EntityComponent\UIComponents\Button.cpp">
+      <Filter>Fichiers sources\Engine\EntityComponent\UIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Engine\EntityComponent\Components\Camera.h">
@@ -237,6 +240,9 @@
       <Filter>Fichiers d%27en-tête\Engine\EntityComponent\UIComponents</Filter>
     </ClInclude>
     <ClInclude Include="include\Engine\EntityComponent\UIComponents\UIElements.h">
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent\UIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\EntityComponent\UIComponents\Button.h">
       <Filter>Fichiers d%27en-tête\Engine\EntityComponent\UIComponents</Filter>
     </ClInclude>
   </ItemGroup>

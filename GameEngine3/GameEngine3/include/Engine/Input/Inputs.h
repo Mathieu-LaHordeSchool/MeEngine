@@ -11,17 +11,19 @@ class Window;
 
 class Inputs
 {
+	struct Internal;
+	Internal* m_input;
+
 public:
-	void			UpdateInputs(Window* window);
+	explicit Inputs(Window* window);
+	~Inputs() noexcept = default;
+
+	void			UpdateInputs();
 	InputAction*	CreateInputAction(const char* name, unsigned int key, EInputType inputType = Keyboard);
 	InputAction*	GetInputbyName(const char* name);
 
 	void BindMouseDeltaPosition(std::function<void(float, float)> act);
-
-private:
-	double mouseX, mouseY;
-	std::unordered_map<const char*, InputAction*> inputs;
-	std::vector<std::function<void(float, float)>> MouseDeltaChangedActions;
+	void GetMousePosition(double& mx, double& my);
 
 private:
 	void updateMousePosition(class GLFWwindow* window);
