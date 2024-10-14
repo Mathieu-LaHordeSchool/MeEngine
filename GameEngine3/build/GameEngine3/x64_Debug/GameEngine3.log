@@ -1,13 +1,4 @@
-﻿  Camera.cpp
-  StaticMesh.cpp
-  Scene.cpp
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-  (compiler le fichier source 'scr/Engine/EntityComponent/Scene.cpp')
-  
-  Renderer.cpp
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(169,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\RendererObject\Renderer.cpp(192,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-  main.cpp
+﻿  main.cpp
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
   (compiler le fichier source 'scr/main.cpp')
   
@@ -21,5 +12,4 @@ C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Input\Inputs.h(27,3
   C:\LaHorde\GameEngine\GameEngine3\GameEngine3\include\Engine\Window\Window.h(5,8):
   voir la déclaration de 'GLFWwindow'
   
-  Génération de code en cours...
   GameEngine3.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\GameEngine3_x64_Debug.exe

@@ -13,6 +13,7 @@ public:
 
 	void SetCamera(class Entity* cam);
 	void PushGeometry(class Entity* cam);
+	void PushUI(class TransformData* trans, class UIElement* element, class Texture* tex);
 
 	void ClearAllRendererData();
 	void Execute();
@@ -20,7 +21,7 @@ public:
 	void CreateAndBindBuffers(const class Mesh& mesh);
 
 	void DrawUIs();
-	void DrawUI(TransformData* trans, Texture* tex);
+	void DrawUI(class TransformData* trans, class Texture* tex);
 
 	void DrawGeometry();
 	void Draw(class TransformData* trans, const class Mesh& mesh);

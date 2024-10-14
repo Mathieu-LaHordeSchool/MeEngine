@@ -16,6 +16,7 @@
 #include <Engine/EntityComponent/Components/StaticMesh.h>
 #include <Engine/EntityComponent/Components/Camera.h>
 #include <Engine/EntityComponent/Components/Material.h>
+#include <Engine/EntityComponent/UIComponents/UIElements.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -27,7 +28,7 @@ struct Renderer::Internal
 	Mesh baseMesh;
 
 	std::vector<std::tuple<TransformData*, Material*, Mesh>> geometrys;
-	std::vector<std::tuple<TransformData*, Texture*>> uis;
+	std::vector<std::tuple<TransformData*, UIElement*, Texture*>> uis;
 	Camera* camera;
 
 	glm::mat4 viewMatrix;
@@ -81,10 +82,15 @@ void Renderer::PushGeometry(Entity* entity)
 
 	m_renderer->geometrys.push_back(std::make_tuple(entity->Transform(), material, staticMesh->GetMesh()));
 }
+void Renderer::PushUI(TransformData* trans, UIElement* element, Texture* tex)
+{
+	m_renderer->uis.push_back(std::make_tuple(trans, element, tex));
+}
 
 void Renderer::ClearAllRendererData()
 {
 	m_renderer->geometrys.clear();
+	m_renderer->uis.clear();
 }
 
 void Renderer::Execute()
@@ -137,7 +143,8 @@ void Renderer::DrawUIs()
 	for (auto u : m_renderer->uis)
 	{
 		TransformData* transform = std::get<0>(u);
-		Texture* texture = std::get<1>(u);
+		UIElement* element = std::get<1>(u);
+		Texture* texture = std::get<2>(u);
 
 		CreateAndBindBuffers(m_renderer->baseMesh);
 		DrawUI(transform, texture);
@@ -154,7 +161,7 @@ void Renderer::DrawUI(TransformData* trans, Texture* tex)
 	glm::mat4 modelTrans = trans->GetTransformMatrix();
 	tex->BindTexture(GL_TEXTURE0);
 	sp->SetMat4("uModel", modelTrans);
-	sp->SetSampler2D("texture", GL_TEXTURE0);
+	sp->SetSampler2D("image", GL_TEXTURE0);
 
 	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Vertices.size(), GL_UNSIGNED_INT, 0);
 

@@ -44,7 +44,7 @@ public:
 
 	virtual void Update()					{}
 	virtual void BindInputs(Inputs* inputs) {}
-	virtual int GetType() const		{ return 0; }
+	virtual int GetType() const				{ return 0; }
 
 	virtual void Render(Renderer* render)	{}
 	virtual Component* Clone()				{ return nullptr; }

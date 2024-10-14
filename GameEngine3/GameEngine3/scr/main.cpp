@@ -5,6 +5,7 @@
 #include <Engine/Window/Window.h>
 #include <Engine/Mesh/Mesh.h>
 #include <Engine/Mesh/MeshLoader.h>
+#include <Engine/Texture/Texture.h>
 
 #include <Engine/Input/Inputs.h>
 #include <Engine/Input/KeyCode.h>
@@ -18,6 +19,9 @@
 #include <Engine/EntityComponent/Components/StaticMesh.h>
 #include <Engine/EntityComponent/Components/Material.h>
 
+#include <Engine/EntityComponent/UIComponents/UIElements.h>
+#include <Engine/EntityComponent/UIComponents/Image.h>
+
 #include <Game/Components/CharacterController.h>
 
 int main(int argc, char** argv)
@@ -30,24 +34,26 @@ int main(int argc, char** argv)
 	Mesh pouleMesh = loader.LoadMesh("Ressources/Models/boss.obj");
 	Mesh cubeMesh = loader.LoadMesh("Ressources/Models/default.obj");
 
+	Texture* bg = new Texture("Ressources/Textures/Boss.png");
+
 	Scene mainScene;
 
 	Entity* poule = mainScene.CreateObject("poule");
 	Entity* character = mainScene.CreateObject("Character");
 	Entity* cam = mainScene.CreateObject("Camera", character->Transform());
+	Entity* ui = mainScene.CreateObject("ui");
+
+	//ui->AddComponent<Image>()->SetTexture(bg);
+	//ui->Transform()->SetLocalScale(glm::vec3(.5f));
+	//ui->Transform()->SetLocalPosition(glm::vec3(.7f));
 
 	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
 	poule->Transform()->SetLocalScale(glm::vec3(10.f));
 
-	glm::vec3 min, max;
-	pouleMesh.GetBoundsMesh(min, max);
-	TransformData* trans = poule->Transform();
-	min += (trans->GetWorldPosition() - trans->GetWorldScale());
-	max += (trans->GetWorldPosition() + trans->GetWorldScale());
-
 	Material* mat = poule->AddComponent<Material>();
 	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
+	mat->SetAlbedoTexture(bg);
 
 	cam->AddComponent<Camera>();
 	cam->Transform()->SetLocalPosition(glm::vec3(0.f, 2.f, 0.f));

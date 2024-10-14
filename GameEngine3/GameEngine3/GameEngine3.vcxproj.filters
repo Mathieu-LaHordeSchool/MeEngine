@@ -79,6 +79,12 @@
     <Filter Include="Fichiers de ressources\Shaders">
       <UniqueIdentifier>{596063d8-2191-43f8-abd4-3ad584576475}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\EntityComponent\UIComponents">
+      <UniqueIdentifier>{ca9ce90b-14af-4a92-8cfe-6c66bfd2b43b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\EntityComponent\UIComponents">
+      <UniqueIdentifier>{fbd48ca3-1707-4d26-ba28-0bf96827c435}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scr\Engine\EntityComponent\Components\Camera.cpp">
@@ -143,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="src\Game\Components\CharacterController.cpp">
       <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Engine\EntityComponent\UIComponents\Image.cpp">
+      <Filter>Fichiers sources\Engine\EntityComponent\UIComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +232,12 @@
     </ClInclude>
     <ClInclude Include="include\Game\Components\CharacterController.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\EntityComponent\UIComponents\Image.h">
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent\UIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\EntityComponent\UIComponents\UIElements.h">
+      <Filter>Fichiers d%27en-tête\Engine\EntityComponent\UIComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
