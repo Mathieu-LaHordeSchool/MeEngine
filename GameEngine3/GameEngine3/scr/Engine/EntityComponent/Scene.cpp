@@ -11,6 +11,8 @@
 struct Scene::Internal
 {
 	std::map<Entity*, std::vector<Entity*>> entitys;
+	std::map<const char*, Entity*> entitysName;
+
 	HandleTimer handleTimer;
 };
 
@@ -20,7 +22,11 @@ Scene::Scene()
 
 Entity* Scene::CreateObject(const char* name, TransformData* parent /* = nullptr */)
 {
+	if (m_scene->entitysName.count(name))
+		return nullptr;
+
 	Entity* newEntity = new Entity(this);
+	m_scene->entitysName[name] = newEntity;
 	m_scene->entitys[parent ? parent->GetOwner() : nullptr].push_back(newEntity);
 
 	newEntity->Transform()->SetName(name);

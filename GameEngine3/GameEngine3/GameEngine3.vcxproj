@@ -150,6 +150,7 @@
     <ClCompile Include="scr\Engine\EntityComponent\Scene.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\TransformData.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\UIComponents\Button.cpp" />
+    <ClCompile Include="scr\Engine\EntityComponent\UIComponents\Font.cpp" />
     <ClCompile Include="scr\Engine\EntityComponent\UIComponents\Image.cpp" />
     <ClCompile Include="scr\Engine\Input\Inputs.cpp" />
     <ClCompile Include="scr\Engine\Mesh\Mesh.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="include\Engine\EntityComponent\Scene.h" />
     <ClInclude Include="include\Engine\EntityComponent\TransformData.h" />
     <ClInclude Include="include\Engine\EntityComponent\UIComponents\Button.h" />
+    <ClInclude Include="include\Engine\EntityComponent\UIComponents\Font.h" />
     <ClInclude Include="include\Engine\EntityComponent\UIComponents\Image.h" />
     <ClInclude Include="include\Engine\EntityComponent\UIComponents\UIElements.h" />
     <ClInclude Include="include\Engine\Input\InputAction.h" />

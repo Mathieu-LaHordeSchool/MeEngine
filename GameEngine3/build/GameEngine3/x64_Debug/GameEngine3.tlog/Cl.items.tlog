@@ -6,6 +6,7 @@ C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\EntityComponent\Entity.
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\EntityComponent\Scene.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Scene.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\EntityComponent\TransformData.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\TransformData.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\EntityComponent\UIComponents\Button.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Button.obj
+C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\EntityComponent\UIComponents\Font.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Font.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\EntityComponent\UIComponents\Image.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Image.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\Input\Inputs.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Inputs.obj
 C:\LaHorde\GameEngine\GameEngine3\GameEngine3\scr\Engine\Mesh\Mesh.cpp;C:\LaHorde\GameEngine\GameEngine3\build\GameEngine3\x64_Debug\Mesh.obj
