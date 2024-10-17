@@ -4,16 +4,18 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+using namespace me::core::input;
+
 struct Inputs::Internal
 {
-	Window* window;
+	me::render::window::Window* window;
 
 	double mouseX, mouseY;
 	std::unordered_map<const char*, InputAction*> inputs;
 	std::vector<std::function<void(float, float)>> MouseDeltaChangedActions;
 };
 
-Inputs::Inputs(Window* window)
+Inputs::Inputs(me::render::window::Window* window)
 	: m_input(new Internal())
 {
 	m_input->window = window;

@@ -19,36 +19,36 @@
 #include <me/Core/Components/Render/StaticMesh.h>
 #include <me/Core/Components/Render/Material.h>
 
-#include <me/Core/ComponentsUI/UIElements.h>
-#include <me/Core/ComponentsUI/Image.h>
-#include <me/Core/ComponentsUI/Button.h>
+#include <me/Core/UI/UIElements.h>
+#include <me/Core/Components/UI/Image.h>
+#include <me/Core/Components/UI/Button.h>
 
 #include <Components/CharacterController.h>
 
 int main(int argc, char** argv)
 {
-	Window* window = new Window("Game Engine", 700, 500);
-	Inputs* inputs = new Inputs(window);
-	Renderer* render = new Renderer(window);
+	me::render::window::Window*	window = new me::render::window::Window("Game Engine", 700, 500);
+	me::core::input::Inputs*	inputs = new me::core::input::Inputs(window);
+	me::render::Renderer*		render = new me::render::Renderer(window);
 	
-	MeshLoader loader = MeshLoader();
-	Mesh pouleMesh = loader.LoadMesh("../Ressources/Models/boss.obj");
-	Mesh cubeMesh = loader.LoadMesh("../Ressources/Models/default.obj");
+	me::core::render::MeshLoader loader = me::core::render::MeshLoader();
+	me::core::render::Mesh pouleMesh = loader.LoadMesh("../Ressources/Models/boss.obj");
+	me::core::render::Mesh cubeMesh = loader.LoadMesh("../Ressources/Models/default.obj");
 
-	Texture* bg = new Texture("../Ressources/Textures/Test.png");
-	Texture* boss = new Texture("../Ressources/Textures/Boss.png");
+	me::core::render::Texture* bg = new me::core::render::Texture("../Ressources/Textures/Test.png");
+	me::core::render::Texture* boss = new me::core::render::Texture("../Ressources/Textures/Boss.png");
 
-	Scene mainScene;
+	me::core::Scene mainScene;
 
-	Entity* poule = mainScene.CreateObject("poule");
-	Entity* character = mainScene.CreateObject("Character");
+	me::core::Entity* poule = mainScene.CreateObject("poule");
+	me::core::Entity* character = mainScene.CreateObject("Character");
 	character->Transform()->SetLocalPosition(glm::vec3(0.f, -10.f, 5.f));
 
-	Entity* cam = mainScene.CreateObject("Camera", character->Transform());
-	Entity* ui = mainScene.CreateObject("ui");
+	me::core::Entity* cam = mainScene.CreateObject("Camera", character->Transform());
+	me::core::Entity* ui = mainScene.CreateObject("ui");
 
-	ui->AddComponent<Image>()->SetTexture(bg);
-	Button* btn = ui->AddComponent<Button>();
+	ui->AddComponent<me::core::components::ui::Image>()->SetTexture(bg);
+	me::core::components::ui::Button* btn = ui->AddComponent<me::core::components::ui::Button>();
 	btn->SetOnClick([]() { std::cout << "click" << std::endl; });
 	btn->SetOnEnter([]() { std::cout << "enter" << std::endl; });
 	btn->SetOnExit([]() { std::cout << "exit" << std::endl; });
@@ -56,15 +56,15 @@ int main(int argc, char** argv)
 	ui->Transform()->SetLocalScale(glm::vec3(100.f));
 	ui->Transform()->SetLocalPosition(glm::vec3(-.5f));
 
-	poule->AddComponent<StaticMesh>()->SetMesh(pouleMesh);
+	poule->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(pouleMesh);
 	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
 	poule->Transform()->SetLocalScale(glm::vec3(10.f));
 
-	Material* mat = poule->AddComponent<Material>();
+	me::core::components::render::Material* mat = poule->AddComponent<me::core::components::render::Material>();
 	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
 	mat->SetAlbedoTexture(boss);
 
-	cam->AddComponent<Camera>();
+	cam->AddComponent<me::core::components::render::Camera>();
 	cam->Transform()->SetLocalPosition(glm::vec3(0.f, 2.f, 0.f));
 
 	CharacterController* controller = character->AddComponent<CharacterController>();

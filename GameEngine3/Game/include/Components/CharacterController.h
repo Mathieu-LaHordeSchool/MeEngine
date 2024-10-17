@@ -2,20 +2,22 @@
 
 #include <me/Core/Component.h>
 
-class Window;
+namespace me::render::window { class Window; }
+namespace me::core::input { class Inputs; }
+namespace me::core { class Entity; }
 
 class CharacterController
-	: public Component
+	: public me::core::Component
 {
 public:
 	GetComponentType(00001);
 
-	explicit CharacterController(class Entity* owner);
+	explicit CharacterController(me::core::Entity* owner);
 	~CharacterController() noexcept = default;
 
 	void Start() override;
 
-	void BindInputs(Inputs* inputs) override;
+	void BindInputs(me::core::input::Inputs* inputs) override;
 
 	void MoveZ(float scale);
 	void MoveX(float scale);
@@ -24,6 +26,6 @@ public:
 
 	float moveSpeed = 10.f;
 	float rotateSpeed = 1.f;
-	Window* window;
-	Entity* camera;
+	me::render::window::Window* window;
+	me::core::Entity* camera;
 };

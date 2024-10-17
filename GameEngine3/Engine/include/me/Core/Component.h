@@ -22,32 +22,34 @@ static int GetStaticType() { \
 return ComponentID; \
 } \
 
-class Inputs;
-class Entity;
-class Renderer;
+namespace me::core::input { class Inputs; }
+namespace me::core { class Entity; }
+namespace me::render { class Renderer; }
 
-class Component
-	: public EnableObject
-{
-private:
-	Entity* owner;
-
-public:
-	explicit Component(Entity* own)
-		: EnableObject()
+namespace me::core {
+	class Component
+		: public EnableObject
 	{
-		owner = own;
-	}
-	~Component() noexcept = default;
+	private:
+		me::core::Entity* owner;
 
-	Entity* GetOwner() const { return owner; }
+	public:
+		explicit Component(Entity* own)
+			: EnableObject()
+		{
+			owner = own;
+		}
+		~Component() noexcept = default;
 
-	virtual void Start()					{}
+		me::core::Entity* GetOwner() const { return owner; }
 
-	virtual void Update()					{}
-	virtual void BindInputs(Inputs* inputs) {}
-	virtual int GetType() const				{ return 0; }
+		virtual void Start() {}
 
-	virtual void Render(Renderer* render)	{}
-	virtual Component* Clone()				{ return nullptr; }
-};
+		virtual void Update() {}
+		virtual void BindInputs(me::core::input::Inputs* inputs) {}
+		virtual int GetType() const { return 0; }
+
+		virtual void Render(me::render::Renderer* render) {}
+		virtual Component* Clone() { return nullptr; }
+	};
+}

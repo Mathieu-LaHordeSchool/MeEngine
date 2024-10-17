@@ -1,29 +1,48 @@
 #pragma once
 
-class Renderer
-{
-	struct Internal;
-	Internal* m_renderer;
+namespace me::render::window { class Window; }
+namespace me::core {
+	class Entity;
+	class TransformData;
+}
+namespace me::core::ui {
+	class UIElement;
+}
+namespace me::core::render {
+	class Texture;
+	class Mesh;
+}
+namespace me::core::components::render {
+	class Camera;
+	class Material;
+}
 
-public:
-	explicit Renderer(class Window* window);
-	~Renderer() noexcept = default;
+namespace me::render {
+	class Renderer
+	{
+		struct Internal;
+		Internal* m_renderer;
 
-	void SetCamera(class Entity* cam);
-	void PushGeometry(class Entity* cam);
-	void PushImage(class TransformData* trans, class UIElement* element, class Texture* tex);
+	public:
+		explicit Renderer(me::render::window::Window* window);
+		~Renderer() noexcept = default;
 
-	void ClearAllRendererData();
-	void Execute();
-	void CalculViewMatrix(class Camera* cam);
-	void CreateAndBindBuffers(const class Mesh& mesh);
+		void SetCamera(me::core::Entity* cam);
+		void PushGeometry(me::core::Entity* cam);
+		void PushImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex);
 
-	void DrawUIs();
-	void DrawUI(class TransformData* trans, class UIElement* element, class Texture* tex);
+		void ClearAllRendererData();
+		void Execute();
+		void CalculViewMatrix(me::core::components::render::Camera* cam);
+		void CreateAndBindBuffers(const me::core::render::Mesh& mesh);
 
-	void DrawGeometry();
-	void Draw(class TransformData* trans, const class Mesh& mesh);
-	void Draw(class TransformData* trans, class Material* material, const class Mesh& mesh);
+		void DrawUIs();
+		void DrawUI(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex);
 
-	class Window* GetWindow() const;
-};
+		void DrawGeometry();
+		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh);
+		void Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh);
+
+		me::render::window::Window* GetWindow() const;
+	};
+}

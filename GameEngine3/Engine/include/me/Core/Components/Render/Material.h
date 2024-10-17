@@ -3,22 +3,26 @@
 #include <me/Core/Component.h>
 #include <glm/glm.hpp>
 
-class Texture;
+namespace me::core { class Entity; }
+namespace me::core::render { class Texture; }
 
-class Material
-	: public Component
-{
-	struct Internal;
-	Internal* m_material;
+namespace me::core::components::render {
 
-public:
-	GetComponentType(90002)
+	class Material
+		: public Component
+	{
+		struct Internal;
+		Internal* m_material;
 
-	explicit Material(class Entity* owner);
-	~Material() noexcept = default;
+	public:
+		GetComponentType(90002)
 
-	Component* Clone() override;
+		explicit Material(me::core::Entity* owner);
+		~Material() noexcept = default;
 
-	GetSetInternalValueHPP(AlbedoTexture, Texture*)
-	GetSetInternalValueHPP(Color, glm::vec4)
-};
+		GetSetInternalValueHPP(AlbedoTexture, me::core::render::Texture*)
+		GetSetInternalValueHPP(Color, glm::vec4)
+	};
+}
+
+

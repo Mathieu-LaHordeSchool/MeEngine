@@ -8,6 +8,8 @@
 #include <me/Core/Render/Mesh/Mesh.h>
 #include <me/Core/TransformData.h>
 
+using namespace me::core::components::render;
+
 struct Camera::Internal
 {
 	float zNear = .1f;
@@ -21,19 +23,12 @@ Camera::Camera(Entity* owner)
 {
 }
 
-void Camera::Render(Renderer* render)
+void Camera::Render(me::render::Renderer* render)
 {
 	render->SetCamera(GetOwner());
 }
-Component* Camera::Clone()
-{
-	Camera* cln = new Camera(GetOwner());
-	cln->m_camera = m_camera;
 
-	return cln;
-}
-
-bool Camera::InFieldOfView(Mesh mesh, TransformData* trans)
+bool Camera::InFieldOfView(me::core::render::Mesh mesh, me::core::TransformData* trans)
 {
 	glm::vec3 min, max;
 	mesh.GetBoundsMesh(min, max);

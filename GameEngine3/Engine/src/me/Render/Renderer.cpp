@@ -16,45 +16,45 @@
 #include <me/Core/Components/Render/Camera.h>
 #include <me/Core/Components/Render/Material.h>
 #include <me/Core/Components/Render/StaticMesh.h>
-#include <me/Core/ComponentsUI/UIElements.h>
+#include <me/Core/UI/UIElements.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <tuple>
 #include <vector>
 
-struct Renderer::Internal
+struct me::render::Renderer::Internal
 {
-	Window* window;
-	Mesh baseMesh;
+	me::render::window::Window* window;
+	me::core::render::Mesh baseMesh;
 
-	std::vector<std::tuple<TransformData*, Material*, Mesh>> geometrys;
-	std::vector<std::tuple<TransformData*, UIElement*, Texture*>> uis;
-	Camera* camera;
+	std::vector<std::tuple<me::core::TransformData*, me::core::components::render::Material*, me::core::render::Mesh>> geometrys;
+	std::vector<std::tuple<me::core::TransformData*, me::core::ui::UIElement*, me::core::render::Texture*>> uis;
+	me::core::components::render::Camera* camera;
 
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 
-	Shader* vsShader						= new Shader("../Ressources/Shaders/vertex.vert",				EShaderType::Vertex);
-	Shader* vsUIShader						= new Shader("../Ressources/Shaders/uiVertex.vert",			EShaderType::Vertex);
-	Shader* fsNoTextureShader				= new Shader("../Ressources/Shaders/fragmentNoTexture.frag",	EShaderType::Fragment);
-	Shader* fsTextureShader					= new Shader("../Ressources/Shaders/fragmentTexture.frag",		EShaderType::Fragment);
-	Shader* fsUIShader						= new Shader("../Ressources/Shaders/uiFragment.frag",			EShaderType::Fragment);
+	me::render::shader::Shader* vsShader			= new me::render::shader::Shader("../Ressources/Shaders/vertex.vert",				me::render::shader::EShaderType::Vertex);
+	me::render::shader::Shader* vsUIShader			= new me::render::shader::Shader("../Ressources/Shaders/uiVertex.vert",				me::render::shader::EShaderType::Vertex);
+	me::render::shader::Shader* fsNoTextureShader	= new me::render::shader::Shader("../Ressources/Shaders/fragmentNoTexture.frag",	me::render::shader::EShaderType::Fragment);
+	me::render::shader::Shader* fsTextureShader		= new me::render::shader::Shader("../Ressources/Shaders/fragmentTexture.frag",		me::render::shader::EShaderType::Fragment);
+	me::render::shader::Shader* fsUIShader			= new me::render::shader::Shader("../Ressources/Shaders/uiFragment.frag",			me::render::shader::EShaderType::Fragment);
 
-	ShaderProgram* shaderProgramUI			= new ShaderProgram(vsUIShader, fsUIShader);
-	ShaderProgram* shaderProgramNoTexture	= new ShaderProgram(vsShader, fsNoTextureShader);
-	ShaderProgram* shaderProgramTexture		= new ShaderProgram(vsShader, fsTextureShader);
+	me::render::shader::ShaderProgram* shaderProgramUI			= new me::render::shader::ShaderProgram(vsUIShader, fsUIShader);
+	me::render::shader::ShaderProgram* shaderProgramNoTexture	= new me::render::shader::ShaderProgram(vsShader, fsNoTextureShader);
+	me::render::shader::ShaderProgram* shaderProgramTexture		= new me::render::shader::ShaderProgram(vsShader, fsTextureShader);
 
-	Buffer* vertexsBuffer					= new Buffer();
-	Buffer* normalsBuffer					= new Buffer();
-	Buffer* uvsBuffer						= new Buffer();
-	Buffer* elementsBuffer					= new Buffer();
+	me::render::object::Buffer* vertexsBuffer	= new me::render::object::Buffer();
+	me::render::object::Buffer* normalsBuffer	= new me::render::object::Buffer();
+	me::render::object::Buffer* uvsBuffer		= new me::render::object::Buffer();
+	me::render::object::Buffer* elementsBuffer	= new me::render::object::Buffer();
 
-	VertexArrayObject* vao					= new VertexArrayObject();
-	RenderObjectData* bufferData			= new RenderObjectData();
+	me::render::object::VertexArrayObject* vao			= new me::render::object::VertexArrayObject();
+	me::render::object::RenderObjectData* bufferData	= new me::render::object::RenderObjectData();
 };
 
-Renderer::Renderer(Window* window)
+me::render::Renderer::Renderer(me::render::window::Window* window)
 	: m_renderer(new Internal())
 {
 	m_renderer->vao->AttributeBinding(0, 0, 3, GL_FLOAT, GL_FALSE, 0); // for vertices
@@ -69,15 +69,15 @@ Renderer::Renderer(Window* window)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Renderer::SetCamera(Entity* entity)
+void me::render::Renderer::SetCamera(me::core::Entity* entity)
 {
-	if (entity->HasComponent<Camera>())
-		m_renderer->camera = entity->GetComponent<Camera>();
+	if (entity->HasComponent<me::core::components::render::Camera>())
+		m_renderer->camera = entity->GetComponent<me::core::components::render::Camera>();
 }
-void Renderer::PushGeometry(Entity* entity)
+void me::render::Renderer::PushGeometry(me::core::Entity* entity)
 {
-	StaticMesh* staticMesh = entity->GetComponent<StaticMesh>();
-	Material* material = entity->GetComponent<Material>();
+	me::core::components::render::StaticMesh* staticMesh = entity->GetComponent<me::core::components::render::StaticMesh>();
+	me::core::components::render::Material* material = entity->GetComponent<me::core::components::render::Material>();
 
 	if (material) {
 		if (!material->GetActive())
@@ -86,18 +86,18 @@ void Renderer::PushGeometry(Entity* entity)
 
 	m_renderer->geometrys.push_back(std::make_tuple(entity->Transform(), material, staticMesh->GetMesh()));
 }
-void Renderer::PushImage(TransformData* trans, UIElement* element, Texture* tex)
+void me::render::Renderer::PushImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
 	m_renderer->uis.push_back(std::make_tuple(trans, element, tex));
 }
 
-void Renderer::ClearAllRendererData()
+void me::render::Renderer::ClearAllRendererData()
 {
 	m_renderer->geometrys.clear();
 	m_renderer->uis.clear();
 }
 
-void Renderer::Execute()
+void me::render::Renderer::Execute()
 {
 	glClearColor(.1f, .2f, .3f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -106,9 +106,9 @@ void Renderer::Execute()
 	DrawUIs();
 }
 
-void Renderer::CalculViewMatrix(Camera* cam)
+void me::render::Renderer::CalculViewMatrix(me::core::components::render::Camera* cam)
 {
-	TransformData* trans = cam->GetOwner()->Transform();
+	me::core::TransformData* trans = cam->GetOwner()->Transform();
 	glm::vec3 camPos = trans->GetWorldPosition();
 	glm::vec3 fwd = trans->GetTransformForward();
 	glm::vec2 sizeWindow = m_renderer->window->GetSize();
@@ -129,7 +129,7 @@ void Renderer::CalculViewMatrix(Camera* cam)
 		zNear, zFar
 	);
 }
-void Renderer::CreateAndBindBuffers(const Mesh& mesh)
+void me::render::Renderer::CreateAndBindBuffers(const me::core::render::Mesh& mesh)
 {
 	m_renderer->vertexsBuffer = m_renderer->bufferData->GetOrCreateVertexBuffer(mesh.Vertices);
 	m_renderer->normalsBuffer = m_renderer->bufferData->GetOrCreateNormalBuffer(mesh.Normals);
@@ -142,13 +142,13 @@ void Renderer::CreateAndBindBuffers(const Mesh& mesh)
 	m_renderer->vao->BindingBuffer<float>(2, 0, m_renderer->uvsBuffer, 2);
 }
 
-void Renderer::DrawUIs()
+void me::render::Renderer::DrawUIs()
 {
 	for (auto u : m_renderer->uis)
 	{
-		TransformData* transform = std::get<0>(u);
-		UIElement* element = std::get<1>(u);
-		Texture* texture = std::get<2>(u);
+		me::core::TransformData* transform = std::get<0>(u);
+		me::core::ui::UIElement* element = std::get<1>(u);
+		me::core::render::Texture* texture = std::get<2>(u);
 
 		m_renderer->projectionMatrix = glm::ortho(0.f, m_renderer->window->GetSize().x, 0.f, m_renderer->window->GetSize().y);
 
@@ -156,10 +156,10 @@ void Renderer::DrawUIs()
 		DrawUI(transform, element, texture);
 	}
 }
-void Renderer::DrawUI(TransformData* trans, UIElement* element, Texture* tex)
+void me::render::Renderer::DrawUI(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
-	ShaderProgram* sp = m_renderer->shaderProgramUI;
-	VertexArrayObject* VAO = m_renderer->vao;
+	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramUI;
+	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
 
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
@@ -178,14 +178,14 @@ void Renderer::DrawUI(TransformData* trans, UIElement* element, Texture* tex)
 	sp->StopShaderProgram();
 }
 
-void Renderer::DrawGeometry()
+void me::render::Renderer::DrawGeometry()
 {
 	for (auto& g : m_renderer->geometrys)
 	{
-		TransformData*	transform	= std::get<0>(g);
-		Material*		material	= std::get<1>(g);
-		Mesh			mesh		= std::get<2>(g);
-		Camera*			cam			= m_renderer->camera;
+		me::core::TransformData*					transform	= std::get<0>(g);
+		me::core::components::render::Material*		material	= std::get<1>(g);
+		me::core::render::Mesh						mesh		= std::get<2>(g);
+		me::core::components::render::Camera*		cam			= m_renderer->camera;
 
 		if (!cam->InFieldOfView(mesh, transform))
 			continue;
@@ -199,10 +199,10 @@ void Renderer::DrawGeometry()
 			Draw(transform, material, mesh);
 	}
 }
-void Renderer::Draw(TransformData* trans, const Mesh& mesh)
+void me::render::Renderer::Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh)
 {
-	ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
-	VertexArrayObject* VAO = m_renderer->vao;
+	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
+	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
 
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
@@ -217,10 +217,10 @@ void Renderer::Draw(TransformData* trans, const Mesh& mesh)
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
-void Renderer::Draw(TransformData* trans, Material* material, const Mesh& mesh)
+void me::render::Renderer::Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh)
 {
-	ShaderProgram* sp = m_renderer->shaderProgramTexture;
-	VertexArrayObject* VAO = m_renderer->vao;
+	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramTexture;
+	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
 
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
@@ -241,7 +241,7 @@ void Renderer::Draw(TransformData* trans, Material* material, const Mesh& mesh)
 	sp->StopShaderProgram();
 }
 
-Window* Renderer::GetWindow() const
+me::render::window::Window* me::render::Renderer::GetWindow() const
 {
 	return m_renderer->window;
 }

@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <GL/glew.h>
 
+using namespace me::render::object;
+
 Buffer::Buffer()
 {
 	glCreateBuffers(1, &buffer);

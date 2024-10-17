@@ -10,6 +10,8 @@
 
 #include <GL/glew.h>
 
+using namespace me::render::shader;
+
 Shader::Shader(const char* path, EShaderType shaderType)
 {
 	switch (shaderType)

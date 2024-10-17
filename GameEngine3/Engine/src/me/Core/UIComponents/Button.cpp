@@ -2,7 +2,7 @@
 #include <iostream>
 #include <functional>
 
-#include <me/Core/ComponentsUI/Button.h>
+#include <me/Core/Components/UI/Button.h>
 
 #include <me/Core/Entity.h>
 #include <me/Core/Input/Inputs.h>
@@ -10,21 +10,23 @@
 #include <me/Core/Input/InputAction.h>
 #include <me/Core/TransformData.h>
 
-#include <me/Core/ComponentsUI/Image.h>
+#include <me/Core/Components/UI/Image.h>
+
+using namespace me::core::components::ui;
 
 struct Button::Internal
 {
 	bool mousePress;
 	bool mouseInside;
 
-	Inputs* inputs;
+	me::core::input::Inputs* inputs;
 
 	std::function<void()> onClick;
 	std::function<void()> onEnter;
 	std::function<void()> onExit;
 };
 
-Button::Button(Entity* owner)
+Button::Button(me::core::Entity* owner)
 	: Component(owner), m_button(new Internal())
 {}
 
@@ -72,9 +74,9 @@ void Button::Update()
 	}
 }
 
-void Button::BindInputs(Inputs* inputs)
+void Button::BindInputs(me::core::input::Inputs* inputs)
 {
-	InputAction* mouseAct = inputs->CreateInputAction(GetOwner()->Transform()->GetName(), KeyCode::MOUSE_BUTTON_1, EInputType::Mouse);
+	me::core::input::InputAction* mouseAct = inputs->CreateInputAction(GetOwner()->Transform()->GetName(), me::core::input::KeyCode::MOUSE_BUTTON_1, me::core::input::EInputType::Mouse);
 	mouseAct->BindPressDownAction([this]() { m_button->mousePress = true; });
 	mouseAct->BindReleaseUpAction([this]() { m_button->mousePress = false; });
 

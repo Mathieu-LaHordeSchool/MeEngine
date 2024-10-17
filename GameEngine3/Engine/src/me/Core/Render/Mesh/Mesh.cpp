@@ -1,6 +1,8 @@
 
 #include <me/Core/Render/Mesh/Mesh.h>
 
+using namespace me::core::render;
+
 void Mesh::GetBoundsMesh(glm::vec3& min, glm::vec3& max)
 {
     if (Vertices.empty()) return;

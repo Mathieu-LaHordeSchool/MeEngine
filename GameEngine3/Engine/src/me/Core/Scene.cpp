@@ -8,12 +8,14 @@
 #include <map>
 #include <vector>
 
+using namespace me::core;
+
 struct Scene::Internal
 {
 	std::map<Entity*, std::vector<Entity*>> entitys;
 	std::map<const char*, Entity*> entitysName;
 
-	HandleTimer handleTimer;
+	me::core::timer::HandleTimer handleTimer;
 };
 
 Scene::Scene()
@@ -36,7 +38,7 @@ Entity* Scene::CreateObject(const char* name, TransformData* parent /* = nullptr
 	return newEntity;
 }
 
-HandleTimer Scene::GetHandleTimer() const
+me::core::timer::HandleTimer Scene::GetHandleTimer() const
 {
 	return m_scene->handleTimer;
 }
@@ -47,7 +49,7 @@ void Scene::Start()
 		e->Start();
 	});
 }
-void Scene::BindInput(Inputs* inputs)
+void Scene::BindInput(me::core::input::Inputs* inputs)
 {
 	LoopOnEntity([this, &inputs](auto e) {
 		e->BindInputs(inputs);
@@ -61,7 +63,7 @@ void Scene::Update()
 		e->Update();
 	});
 }
-void Scene::Render(Renderer* render)
+void Scene::Render(me::render::Renderer* render)
 {
 	render->ClearAllRendererData();
 

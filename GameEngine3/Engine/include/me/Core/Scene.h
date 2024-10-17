@@ -2,29 +2,34 @@
 
 #include <functional>
 
-class Entity;
-class HandleTimer;
-class TransformData;
+namespace me::core::timer { class HandleTimer; }
+namespace me::core::input { class Inputs; }
+namespace me::render { class Renderer; }
 
-class Scene
-{
-private:
-	struct Internal;
-	Internal* m_scene;
+namespace me::core {
+	class Entity;
+	class TransformData;
 
-	void UpdateTimer();
-	void LoopOnEntity(std::function<void(Entity*)> func);
+	class Scene
+	{
+	private:
+		struct Internal;
+		Internal* m_scene;
 
-public:
-	explicit Scene();
-	~Scene() noexcept = default;
+		void UpdateTimer();
+		void LoopOnEntity(std::function<void(Entity*)> func);
 
-	Entity* CreateObject(const char* name, TransformData* parent = nullptr);
-	HandleTimer GetHandleTimer() const;
+	public:
+		explicit Scene();
+		~Scene() noexcept = default;
 
-	void Start();
-	void BindInput(class Inputs* inputs);
-	void Update();
+		Entity* CreateObject(const char* name, TransformData* parent = nullptr);
+		me::core::timer::HandleTimer GetHandleTimer() const;
 
-	void Render(class Renderer* render);
-};
+		void Start();
+		void BindInput(me::core::input::Inputs* inputs);
+		void Update();
+
+		void Render(me::render::Renderer* render);
+	};
+}

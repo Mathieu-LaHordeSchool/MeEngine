@@ -6,48 +6,50 @@
 #include <me/Core/Scene.h>
 #include <me/Core/TransformData.h>
 
-struct Entity::Internal
+using namespace me::core;
+
+struct me::core::Entity::Internal
 {
 	Scene* ownScene;
 	std::unordered_map<int, Component*> components;
 	TransformData* transform = new TransformData();
 };
 
-Entity::Entity(Scene* scn)
+me::core::Entity::Entity(Scene* scn)
 	: m_entity(new Internal())
 {
 	m_entity->ownScene = scn;
 }
 
-TransformData* Entity::Transform()
+TransformData* me::core::Entity::Transform()
 {
 	return m_entity->transform;
 }
 
-Component* Entity::AddComponent(Component* comp)
+Component* me::core::Entity::AddComponent(Component* comp)
 {
 	int type = comp->GetType();
 	m_entity->components[type] = comp;
 	return m_entity->components[type];
 }
-Component* Entity::GetComponent(int comp)
+Component* me::core::Entity::GetComponent(int comp)
 {
 	if (m_entity->components.count(comp) == 0)
 		return nullptr;
 
 	return m_entity->components[comp];
 }
-bool Entity::HasComponent(int comp)
+bool me::core::Entity::HasComponent(int comp)
 {
 	return m_entity->components.count(comp);
 }
 
-Scene* Entity::GetScene() const
+Scene* me::core::Entity::GetScene() const
 {
 	return m_entity->ownScene;
 }
 
-void Entity::Start()
+void me::core::Entity::Start()
 {
 	for (auto& [key, comp] : m_entity->components) {
 		if (!comp->GetActive())
@@ -56,7 +58,7 @@ void Entity::Start()
 		comp->Start();
 	}
 }
-void Entity::Render(Renderer* render)
+void me::core::Entity::Render(me::render::Renderer* render)
 {
 	for (auto& [key, comp] : m_entity->components) {
 		if (!comp->GetActive())
@@ -65,7 +67,7 @@ void Entity::Render(Renderer* render)
 		comp->Render(render);
 	}
 }
-void Entity::BindInputs(Inputs* inputs)
+void me::core::Entity::BindInputs(me::core::input::Inputs* inputs)
 {
 	for (auto& [key, comp] : m_entity->components) {
 		if (!comp->GetActive())
@@ -74,7 +76,7 @@ void Entity::BindInputs(Inputs* inputs)
 		comp->BindInputs(inputs);
 	}
 }
-void Entity::Update()
+void me::core::Entity::Update()
 {
 	for (auto& [key, comp] : m_entity->components) {
 		if (!comp->GetActive())

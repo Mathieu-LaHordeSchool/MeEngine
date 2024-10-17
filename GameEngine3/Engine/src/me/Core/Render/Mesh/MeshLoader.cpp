@@ -6,7 +6,9 @@
 #include <iostream>
 
 #define TINYOBJLOADER_IMPLEMENTATION
-#include <me/Core/Render/Mesh/tiny_obj_loader.h>
+#include <tiny_obj_loader.h>
+
+using namespace me::core::render;
 
 // Update the VertexData structure to include color.
 struct VertexData {

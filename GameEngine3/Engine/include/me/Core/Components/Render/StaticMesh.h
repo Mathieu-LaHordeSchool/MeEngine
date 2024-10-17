@@ -2,21 +2,25 @@
 
 #include <me/Core/Component.h>
 
-class StaticMesh
-	: public Component
-{
-	struct Internal;
-	Internal* m_staticMesh;
+namespace me::core { class Entity; }
+namespace me::core::render { class Mesh; }
+namespace me::render { class Renderer; }
 
-public:
-	GetComponentType(90003)
+namespace me::core::components::render {
+	class StaticMesh
+		: public Component
+	{
+		struct Internal;
+		Internal* m_staticMesh;
 
-	explicit StaticMesh(class Entity* owner);
-	~StaticMesh() noexcept = default;
+	public:
+		GetComponentType(90003)
 
-	void Render(class Renderer* render) override;
-	Component* Clone() override;
+			explicit StaticMesh(me::core::Entity* owner);
+		~StaticMesh() noexcept = default;
 
-	void SetMesh(const class Mesh& mesh);
-	class Mesh GetMesh() const;
-};
+		void Render(me::render::Renderer* render) override;
+		void SetMesh(const me::core::render::Mesh& mesh);
+		me::core::render::Mesh GetMesh() const;
+	};
+}

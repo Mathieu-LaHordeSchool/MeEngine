@@ -6,36 +6,30 @@
 #include <me/Core/Entity.h>
 #include <me/Render/Renderer.h>
 
+using namespace me::core::components::render;
+
 struct StaticMesh::Internal
 {
-	Mesh mesh;
+	me::core::render::Mesh mesh;
 };
 
-StaticMesh::StaticMesh(Entity* owner)
+StaticMesh::StaticMesh(me::core::Entity* owner)
 	: Component(owner),
 	m_staticMesh(new Internal())
 {
 }
 
-void StaticMesh::Render(Renderer* render)
+void StaticMesh::Render(me::render::Renderer* render)
 {
 	render->PushGeometry(GetOwner());
 }
 
-Component* StaticMesh::Clone()
-{
-	StaticMesh* cln = new StaticMesh(GetOwner());
-	cln->m_staticMesh = m_staticMesh;
-
-	return cln;
-}
-
-void StaticMesh::SetMesh(const Mesh& mesh)
+void StaticMesh::SetMesh(const me::core::render::Mesh& mesh)
 {
 	m_staticMesh->mesh = mesh;
 }
 
-Mesh StaticMesh::GetMesh() const
+me::core::render::Mesh StaticMesh::GetMesh() const
 {
 	return m_staticMesh->mesh;
 }

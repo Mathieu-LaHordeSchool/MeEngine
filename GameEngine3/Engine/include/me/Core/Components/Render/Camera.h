@@ -2,24 +2,29 @@
 
 #include <me/Core/Component.h>
 
-class Camera
-	: public Component
-{
-	struct Internal;
-	Internal* m_camera;
+namespace me::core { class TransformData; }
+namespace me::core::render { class Mesh; }
 
-public:
-	GetComponentType(90001)
+namespace me::core::components::render {
+	class Camera
+		: public Component
+	{
+		struct Internal;
+		Internal* m_camera;
 
-	explicit Camera(class Entity* owner);
-	~Camera() noexcept = default;
+	public:
+		GetComponentType(90001)
 
-	void Render(Renderer* render) override;
-	Component* Clone() override;
+			explicit Camera(class Entity* owner);
+		~Camera() noexcept = default;
 
-	bool InFieldOfView(class Mesh mesh, class TransformData* trans);
+		void Render(me::render::Renderer* render) override;
+		bool InFieldOfView(me::core::render::Mesh mesh, me::core::TransformData* trans);
 
-	GetSetInternalValueHPP(Fov, float)
-	GetSetInternalValueHPP(NearRender, float)
-	GetSetInternalValueHPP(FarRender, float)
-};
+		GetSetInternalValueHPP(Fov, float)
+		GetSetInternalValueHPP(NearRender, float)
+		GetSetInternalValueHPP(FarRender, float)
+	};
+}
+
+

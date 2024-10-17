@@ -12,7 +12,7 @@
 #include <me/Core/Timer/HandleTimer.h>
 #include <me/Render/Window/Window.h>
 
-CharacterController::CharacterController(Entity* owner)
+CharacterController::CharacterController(me::core::Entity* owner)
 	: Component(owner), camera(nullptr), window(nullptr)
 {}
 
@@ -21,15 +21,15 @@ void CharacterController::Start()
 	// window->SetEnableMouse(false);
 }
 
-void CharacterController::BindInputs(Inputs* inputs)
+void CharacterController::BindInputs(me::core::input::Inputs* inputs)
 {
-	inputs->CreateInputAction("z", KeyCode::W)->BindPressAction([this]() { MoveZ(1.f);  });
-	inputs->CreateInputAction("s", KeyCode::S)->BindPressAction([this]() { MoveZ(-1.f); });
-	inputs->CreateInputAction("q", KeyCode::A)->BindPressAction([this]() { MoveX(1.f);  });
-	inputs->CreateInputAction("d", KeyCode::D)->BindPressAction([this]() { MoveX(-1.f); });
+	inputs->CreateInputAction("z", me::core::input::KeyCode::W)->BindPressAction([this]() { MoveZ(1.f);  });
+	inputs->CreateInputAction("s", me::core::input::KeyCode::S)->BindPressAction([this]() { MoveZ(-1.f); });
+	inputs->CreateInputAction("q", me::core::input::KeyCode::A)->BindPressAction([this]() { MoveX(1.f);  });
+	inputs->CreateInputAction("d", me::core::input::KeyCode::D)->BindPressAction([this]() { MoveX(-1.f); });
 
-	inputs->CreateInputAction("up", KeyCode::SPACE)->BindPressAction([this]() { MoveY(1.f); });
-	inputs->CreateInputAction("down", KeyCode::LEFT_SHIFT)->BindPressAction([this]() { MoveY(-1.f); });
+	inputs->CreateInputAction("up",   me::core::input::KeyCode::SPACE)->BindPressAction([this]() { MoveY(1.f); });
+	inputs->CreateInputAction("down", me::core::input::KeyCode::LEFT_SHIFT)->BindPressAction([this]() { MoveY(-1.f); });
 	inputs->BindMouseDeltaPosition([this](float x, float y) { Rotate(x, y); });
 }
 
@@ -55,7 +55,7 @@ void CharacterController::MoveY(float scale)
 void CharacterController::Rotate(float x, float y)
 {
 	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
-	TransformData* trans = camera->Transform();
+	me::core::TransformData* trans = camera->Transform();
 
 	float rotXmovement = y * rotateSpeed * dt * -1.f;
 	if (abs(trans->GetLocalRotation().x + rotXmovement) < glm::radians(80.f))

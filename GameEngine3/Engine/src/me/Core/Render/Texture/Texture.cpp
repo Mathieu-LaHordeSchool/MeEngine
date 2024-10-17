@@ -2,10 +2,12 @@
 #include <me/Core/Render/Texture/Texture.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <me/Core/Render/Texture/stb_image.h>
+#include <stb_image.h>
 
 #include <GL/glew.h>
 #include <iostream>
+
+using namespace me::core::render;
 
 Texture::Texture(const char* path)
 {

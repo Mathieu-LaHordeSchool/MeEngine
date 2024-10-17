@@ -5,6 +5,8 @@
 #include <GL/glew.h>
 #include <iostream>
 
+using namespace me::render::shader;
+
 struct ShaderProgram::Internal
 {
 	uint32_t shaderProgram;

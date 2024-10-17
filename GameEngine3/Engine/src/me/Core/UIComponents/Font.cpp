@@ -10,7 +10,9 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include <me/Core/ComponentsUI/Font.h>
+#include <me/Core/UI/Font.h>
+
+using namespace me::core::ui;
 
 struct Character {
     unsigned int TextureID;  // ID handle of the glyph texture

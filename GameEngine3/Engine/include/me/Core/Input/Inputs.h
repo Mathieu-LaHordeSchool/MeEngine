@@ -4,26 +4,28 @@
 #include <me/Core/Input/InputAction.h>
 #include <me/Render/Window/Window.h>
 
-struct HandleTimer;
-class InputAction;
-class Window;
+namespace me::render::window { class Window; }
 
-class Inputs
-{
-	struct Internal;
-	Internal* m_input;
+namespace me::core::input {
+	class InputAction;
 
-public:
-	explicit Inputs(Window* window);
-	~Inputs() noexcept = default;
+	class Inputs
+	{
+		struct Internal;
+		Internal* m_input;
 
-	void			UpdateInputs();
-	InputAction*	CreateInputAction(const char* name, unsigned int key, EInputType inputType = Keyboard);
-	InputAction*	GetInputbyName(const char* name);
+	public:
+		explicit Inputs(me::render::window::Window* window);
+		~Inputs() noexcept = default;
 
-	void BindMouseDeltaPosition(std::function<void(float, float)> act);
-	void GetMousePosition(double& mx, double& my);
+		void			UpdateInputs();
+		InputAction* CreateInputAction(const char* name, unsigned int key, EInputType inputType = Keyboard);
+		InputAction* GetInputbyName(const char* name);
 
-private:
-	void updateMousePosition(class GLFWwindow* window);
-};
+		void BindMouseDeltaPosition(std::function<void(float, float)> act);
+		void GetMousePosition(double& mx, double& my);
+
+	private:
+		void updateMousePosition(class GLFWwindow* window);
+	};
+}

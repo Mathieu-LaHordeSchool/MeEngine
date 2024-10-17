@@ -25,9 +25,6 @@
     <Filter Include="Fichiers d%27en-tête\me\Core\Components">
       <UniqueIdentifier>{77d686b7-b05d-49db-8bbe-0a4b95530bab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\me\Core\ComponentsUI">
-      <UniqueIdentifier>{68ae7ce3-9feb-4c95-87c2-590e35beb47f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\me\Core\Input">
       <UniqueIdentifier>{9e095ff3-7921-4204-b6f0-8ac2674fb125}</UniqueIdentifier>
     </Filter>
@@ -94,6 +91,12 @@
     <Filter Include="Fichiers sources\me\Render\RenderObjects\Shader">
       <UniqueIdentifier>{91b052ba-efba-4b11-b73f-7ddcc2370ecc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\me\Core\Components\UI">
+      <UniqueIdentifier>{4601ed32-81da-4a50-ba74-3d0ea06252aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\me\Core\UI">
+      <UniqueIdentifier>{7dd96e05-8991-47cc-b008-c8383802ae69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\me\Core\Component.h">
@@ -120,18 +123,6 @@
     <ClInclude Include="include\me\Core\Components\Render\StaticMesh.h">
       <Filter>Fichiers d%27en-tête\me\Core\Components\Render</Filter>
     </ClInclude>
-    <ClInclude Include="include\me\Core\ComponentsUI\Button.h">
-      <Filter>Fichiers d%27en-tête\me\Core\ComponentsUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\me\Core\ComponentsUI\Font.h">
-      <Filter>Fichiers d%27en-tête\me\Core\ComponentsUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\me\Core\ComponentsUI\Image.h">
-      <Filter>Fichiers d%27en-tête\me\Core\ComponentsUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\me\Core\ComponentsUI\UIElements.h">
-      <Filter>Fichiers d%27en-tête\me\Core\ComponentsUI</Filter>
-    </ClInclude>
     <ClInclude Include="include\me\Core\Input\InputAction.h">
       <Filter>Fichiers d%27en-tête\me\Core\Input</Filter>
     </ClInclude>
@@ -149,12 +140,6 @@
     </ClInclude>
     <ClInclude Include="include\me\Core\Render\Mesh\MeshLoader.h">
       <Filter>Fichiers d%27en-tête\me\Core\Render\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\me\Core\Render\Mesh\tiny_obj_loader.h">
-      <Filter>Fichiers d%27en-tête\me\Core\Render\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\me\Core\Render\Texture\stb_image.h">
-      <Filter>Fichiers d%27en-tête\me\Core\Render\Texture</Filter>
     </ClInclude>
     <ClInclude Include="include\me\Core\Render\Texture\Texture.h">
       <Filter>Fichiers d%27en-tête\me\Core\Render\Texture</Filter>
@@ -182,6 +167,18 @@
     </ClInclude>
     <ClInclude Include="include\me\Render\Renderer.h">
       <Filter>Fichiers d%27en-tête\me\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\me\Core\Components\UI\Button.h">
+      <Filter>Fichiers d%27en-tête\me\Core\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\me\Core\Components\UI\Image.h">
+      <Filter>Fichiers d%27en-tête\me\Core\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\me\Core\UI\Font.h">
+      <Filter>Fichiers d%27en-tête\me\Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\me\Core\UI\UIElements.h">
+      <Filter>Fichiers d%27en-tête\me\Core\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

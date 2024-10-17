@@ -20,13 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\me\Core\Component.h" />
-    <ClInclude Include="include\me\Core\ComponentsUI\Button.h" />
-    <ClInclude Include="include\me\Core\ComponentsUI\Font.h" />
-    <ClInclude Include="include\me\Core\ComponentsUI\Image.h" />
-    <ClInclude Include="include\me\Core\ComponentsUI\UIElements.h" />
     <ClInclude Include="include\me\Core\Components\Render\Camera.h" />
     <ClInclude Include="include\me\Core\Components\Render\Material.h" />
     <ClInclude Include="include\me\Core\Components\Render\StaticMesh.h" />
+    <ClInclude Include="include\me\Core\Components\UI\Button.h" />
+    <ClInclude Include="include\me\Core\Components\UI\Image.h" />
     <ClInclude Include="include\me\Core\EnableObject.h" />
     <ClInclude Include="include\me\Core\Entity.h" />
     <ClInclude Include="include\me\Core\Input\InputAction.h" />
@@ -34,12 +32,12 @@
     <ClInclude Include="include\me\Core\Input\KeyCode.h" />
     <ClInclude Include="include\me\Core\Render\Mesh\Mesh.h" />
     <ClInclude Include="include\me\Core\Render\Mesh\MeshLoader.h" />
-    <ClInclude Include="include\me\Core\Render\Mesh\tiny_obj_loader.h" />
-    <ClInclude Include="include\me\Core\Render\Texture\stb_image.h" />
     <ClInclude Include="include\me\Core\Render\Texture\Texture.h" />
     <ClInclude Include="include\me\Core\Scene.h" />
     <ClInclude Include="include\me\Core\Timer\HandleTimer.h" />
     <ClInclude Include="include\me\Core\TransformData.h" />
+    <ClInclude Include="include\me\Core\UI\Font.h" />
+    <ClInclude Include="include\me\Core\UI\UIElements.h" />
     <ClInclude Include="include\me\Render\Renderer.h" />
     <ClInclude Include="include\me\Render\RendererObjects\Buffer.h" />
     <ClInclude Include="include\me\Render\RendererObjects\InstancedMap.h" />

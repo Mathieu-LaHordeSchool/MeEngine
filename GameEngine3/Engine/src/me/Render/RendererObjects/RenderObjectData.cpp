@@ -4,6 +4,8 @@
 #include <me/Render/RendererObjects/RenderObjectData.h>
 #include <me/Render/RendererObjects/Buffer.h>
 
+using namespace me::render::object;
+
 Buffer* RenderObjectData::GetOrCreateVertexBuffer(std::vector<float> data)
 {
 	if (vertexBuffers.count(data) == 0) {

@@ -4,6 +4,8 @@
 
 #include <GL/glew.h>
 
+using namespace me::render::object;
+
 VertexArrayObject::VertexArrayObject()
 {
 	glCreateVertexArrays(1, &vaoId);
@@ -14,7 +16,7 @@ VertexArrayObject::~VertexArrayObject() noexcept
 	glDeleteVertexArrays(1, &vaoId);
 }
 
-void VertexArrayObject::BindingBuffer(int bindingIndex, int offset, Buffer* buffer, int stripe)
+void VertexArrayObject::BindingBuffer(int bindingIndex, int offset, me::render::object::Buffer* buffer, int stripe)
 {
 	glVertexArrayVertexBuffer(vaoId, bindingIndex, buffer->GetBuffer(), offset, stripe);
 }
@@ -46,7 +48,7 @@ void VertexArrayObject::BindAttribDivisor(int attribIndex, int div)
 	glVertexAttribDivisor(attribIndex, div);
 }
 
-void VertexArrayObject::BindElementBuffer(Buffer* elementBuffer)
+void VertexArrayObject::BindElementBuffer(me::render::object::Buffer* elementBuffer)
 {
 	glVertexArrayElementBuffer(vaoId, elementBuffer->GetBuffer());
 }

@@ -11,6 +11,8 @@
 
 #include <stdexcept>
 
+using namespace me::render::window;
+
 struct Window::Internal
 {
 	int width, height;

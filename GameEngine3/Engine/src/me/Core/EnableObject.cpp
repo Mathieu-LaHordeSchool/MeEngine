@@ -1,6 +1,8 @@
 
 #include <me/Core/EnableObject.h>
 
+using namespace me::core;
+
 struct EnableObject::Internal
 {
 	bool enable = true;

@@ -1,13 +1,5 @@
-﻿  Camera.cpp
-  StaticMesh.cpp
-  Scene.cpp
-C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Timer\HandleTimer.h(12,25): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-  (compiler le fichier source 'src/me/Core/Scene.cpp')
-  
-  Image.cpp
-  Renderer.cpp
+﻿  Renderer.cpp
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(175,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(215,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(238,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-  Génération de code en cours...
   Engine.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\Engine.lib

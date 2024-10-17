@@ -1,7 +1,9 @@
 #pragma once
 
-class MeshLoader
-{
-public:
-	class Mesh LoadMesh(const char* modelPath);
-};
+namespace me::core::render {
+	class MeshLoader
+	{
+	public:
+		class Mesh LoadMesh(const char* modelPath);
+	};
+}
