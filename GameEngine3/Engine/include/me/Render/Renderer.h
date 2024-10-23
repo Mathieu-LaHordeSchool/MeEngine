@@ -37,7 +37,7 @@ namespace me::render {
 		void CreateAndBindBuffers(const me::core::render::Mesh& mesh);
 
 		void DrawUIs();
-		void DrawUI(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex);
+		void DrawImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex);
 
 		void DrawGeometry();
 		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh);

@@ -25,15 +25,16 @@
 
 struct me::render::Renderer::Internal
 {
-	me::render::window::Window* window;
-	me::core::render::Mesh baseMesh;
+	me::render::window::Window* window = nullptr;
+	me::core::render::Mesh baseMesh = me::core::render::Mesh();
+	me::core::TransformData* uiTransform = new me::core::TransformData();
 
 	std::vector<std::tuple<me::core::TransformData*, me::core::components::render::Material*, me::core::render::Mesh>> geometrys;
-	std::vector<std::tuple<me::core::TransformData*, me::core::ui::UIElement*, me::core::render::Texture*>> uis;
-	me::core::components::render::Camera* camera;
+	std::map<int, std::vector<std::tuple<me::core::TransformData*, me::core::ui::UIElement*, me::core::render::Texture*>>> images;
+	me::core::components::render::Camera* camera = nullptr;
 
-	glm::mat4 viewMatrix;
-	glm::mat4 projectionMatrix;
+	glm::mat4 viewMatrix = glm::mat4(1.f);
+	glm::mat4 projectionMatrix = glm::mat4(1.f);
 
 	me::render::shader::Shader* vsShader			= new me::render::shader::Shader("../Ressources/Shaders/vertex.vert",				me::render::shader::EShaderType::Vertex);
 	me::render::shader::Shader* vsUIShader			= new me::render::shader::Shader("../Ressources/Shaders/uiVertex.vert",				me::render::shader::EShaderType::Vertex);
@@ -88,13 +89,13 @@ void me::render::Renderer::PushGeometry(me::core::Entity* entity)
 }
 void me::render::Renderer::PushImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
-	m_renderer->uis.push_back(std::make_tuple(trans, element, tex));
+	m_renderer->images[element->order].push_back(std::make_tuple(trans, element, tex));
 }
 
 void me::render::Renderer::ClearAllRendererData()
 {
 	m_renderer->geometrys.clear();
-	m_renderer->uis.clear();
+	m_renderer->images.clear();
 }
 
 void me::render::Renderer::Execute()
@@ -103,6 +104,8 @@ void me::render::Renderer::Execute()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	DrawGeometry();
+
+	glClear(GL_DEPTH_BUFFER_BIT);
 	DrawUIs();
 }
 
@@ -144,19 +147,22 @@ void me::render::Renderer::CreateAndBindBuffers(const me::core::render::Mesh& me
 
 void me::render::Renderer::DrawUIs()
 {
-	for (auto u : m_renderer->uis)
+	for (auto [key, value] : m_renderer->images)
 	{
-		me::core::TransformData* transform = std::get<0>(u);
-		me::core::ui::UIElement* element = std::get<1>(u);
-		me::core::render::Texture* texture = std::get<2>(u);
+		for (auto& u : value)
+		{
+			me::core::TransformData* transform = std::get<0>(u);
+			me::core::ui::UIElement* element = std::get<1>(u);
+			me::core::render::Texture* texture = std::get<2>(u);
 
-		m_renderer->projectionMatrix = glm::ortho(0.f, m_renderer->window->GetSize().x, 0.f, m_renderer->window->GetSize().y);
+			m_renderer->projectionMatrix = glm::ortho(0.f, m_renderer->window->GetSize().x, 0.f, m_renderer->window->GetSize().y);
 
-		CreateAndBindBuffers(m_renderer->baseMesh);
-		DrawUI(transform, element, texture);
+			CreateAndBindBuffers(m_renderer->baseMesh);
+			DrawImage(transform, element, texture);
+		}
 	}
 }
-void me::render::Renderer::DrawUI(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
+void me::render::Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramUI;
 	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
@@ -164,13 +170,22 @@ void me::render::Renderer::DrawUI(me::core::TransformData* trans, me::core::ui::
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
 
-	glm::mat4 modelTrans = trans->GetTransformMatrix();
+	glm::vec3 windowSize = glm::vec3(m_renderer->window->GetSize().x, m_renderer->window->GetSize().y, 0.f);
+	glm::vec3 positionOffset = glm::vec3(element->positionOffset.x, element->positionOffset.y, 0.f);
+	glm::vec3 scaleOffset = glm::vec3(element->scaleOffset.x, element->scaleOffset.y, 0.f);
+
+	m_renderer->uiTransform->SetLocalPosition((trans->GetWorldPosition() * windowSize) + positionOffset);
+	m_renderer->uiTransform->SetLocalScale((trans->GetWorldScale() * (windowSize / 2.f)) + scaleOffset);
+	m_renderer->uiTransform->SetLocalRotation(trans->GetWorldRotation());
+
+	glm::mat4 modelTrans = m_renderer->uiTransform->GetTransformMatrix();
 	sp->SetMat4("uModel", modelTrans);
 
 	tex->BindTexture(GL_TEXTURE0);
 	sp->SetSampler2D("image", GL_TEXTURE0);
 	sp->SetVec4("uColor", element->color);
 	sp->SetMat4("uProjection", m_renderer->projectionMatrix);
+	sp->SetVec2("uOffset", element->anchors);
 
 	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Vertices.size(), GL_UNSIGNED_INT, 0);
 

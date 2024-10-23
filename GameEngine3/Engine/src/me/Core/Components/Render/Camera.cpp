@@ -42,6 +42,10 @@ bool Camera::InFieldOfView(me::core::render::Mesh mesh, me::core::TransformData*
 	glm::vec3 minDir = glm::normalize(min - pos);
 	glm::vec3 maxDir = glm::normalize(max - pos);
 
+	minDir.y = 0.f;
+	maxDir.y = 0.f;
+	fwd.y = 0.f;
+
 	float angleMin = cos(glm::angle(fwd, minDir));
 	float angleMax = cos(glm::angle(fwd, maxDir));
 	float angleFov = cos(glm::radians(m_camera->fov));

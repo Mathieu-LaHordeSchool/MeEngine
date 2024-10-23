@@ -7,11 +7,10 @@ struct GLFWwindow;
 namespace me::render::window {
 	class Window
 	{
-	private:
+	public:
 		struct Internal;
 		Internal* m_window;
 
-	public:
 		explicit Window(const char* title, int w, int h);
 		~Window() noexcept;
 

@@ -1,5 +1,2 @@
-﻿  Renderer.cpp
-C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(175,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(215,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(238,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+﻿  Camera.cpp
   Engine.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\Engine.lib

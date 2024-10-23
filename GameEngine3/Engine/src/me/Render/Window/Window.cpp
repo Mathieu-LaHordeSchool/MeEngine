@@ -19,6 +19,8 @@ struct Window::Internal
 	const char* title;
 };
 
+void WindowResize(GLFWwindow* window, int width, int height);
+
 Window::Window(const char* title, int w, int h)
 	: m_window(new Internal())
 {
@@ -41,13 +43,15 @@ Window::Window(const char* title, int w, int h)
 #endif /* !NDEBUG */
 	glfwWindowHint(GLFW_SRGB_CAPABLE,			GL_TRUE);
 	glfwWindowHint(GLFW_DOUBLEBUFFER,			GL_TRUE);
-	glfwWindowHint(GLFW_RESIZABLE,				GL_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE,				GL_TRUE);
 
 	window = glfwCreateWindow(w, h, title, nullptr, nullptr);
 	if (!window)
 		throw std::runtime_error("Unable to initialize GLFW");
 
 	glfwMakeContextCurrent(window);
+
+	glfwSetFramebufferSizeCallback(window, WindowResize);
 
 	glewExperimental = true;
 	auto glewResult = glewInit();
@@ -88,10 +92,15 @@ void Window::SetEnableMouse(bool enable)
 
 glm::vec2 Window::GetSize() const
 {
+	glfwGetFramebufferSize(window, &m_window->width, &m_window->height);
 	return glm::vec2(m_window->width, m_window->height);
 }
 
 GLFWwindow* Window::GetWindow() const 
 {
 	return window;
+}
+
+void WindowResize(GLFWwindow* window, int width, int height) {
+	glViewport(0, 0, width, height);
 }

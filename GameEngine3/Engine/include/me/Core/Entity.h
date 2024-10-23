@@ -5,6 +5,7 @@
 
 namespace me::core::input { class Inputs; }
 namespace me::render { class Renderer; }
+
 namespace me::core {
 	class Component;
 	class TransformData;
