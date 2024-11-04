@@ -38,6 +38,7 @@ namespace me::render {
 
 		void DrawUIs();
 		void DrawImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex);
+		void CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element);
 
 		void DrawGeometry();
 		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh);

@@ -18,12 +18,15 @@ namespace me::core {
 
 		void UpdateTimer();
 		void LoopOnEntity(std::function<void(Entity*)> func);
+		void DestroyVectorObject();
 
 	public:
 		explicit Scene();
 		~Scene() noexcept = default;
 
 		Entity* CreateObject(const char* name, TransformData* parent = nullptr);
+		void Destroy(Entity* e);
+
 		me::core::timer::HandleTimer GetHandleTimer() const;
 
 		void Start();

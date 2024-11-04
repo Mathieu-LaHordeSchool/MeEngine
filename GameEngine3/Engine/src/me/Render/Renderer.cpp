@@ -16,6 +16,7 @@
 #include <me/Core/Components/Render/Camera.h>
 #include <me/Core/Components/Render/Material.h>
 #include <me/Core/Components/Render/StaticMesh.h>
+#include <me/Core/Components/UI/Image.h>
 #include <me/Core/UI/UIElements.h>
 
 #include <glm/glm.hpp>
@@ -67,6 +68,7 @@ me::render::Renderer::Renderer(me::render::window::Window* window)
 	glEnable(GL_DEPTH_TEST);
 
 	glEnable(GL_BLEND);
+	glDepthMask(GL_TRUE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
@@ -101,12 +103,13 @@ void me::render::Renderer::ClearAllRendererData()
 void me::render::Renderer::Execute()
 {
 	glClearColor(.1f, .2f, .3f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	DrawGeometry();
 
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glDisable(GL_DEPTH_TEST);
 	DrawUIs();
+	glEnable(GL_DEPTH_TEST);
 }
 
 void me::render::Renderer::CalculViewMatrix(me::core::components::render::Camera* cam)
@@ -151,14 +154,19 @@ void me::render::Renderer::DrawUIs()
 	{
 		for (auto& u : value)
 		{
-			me::core::TransformData* transform = std::get<0>(u);
-			me::core::ui::UIElement* element = std::get<1>(u);
-			me::core::render::Texture* texture = std::get<2>(u);
+			me::core::TransformData*	trans	= std::get<0>(u);
+			me::core::ui::UIElement*	element	= std::get<1>(u);
+			me::core::render::Texture*	texture	= std::get<2>(u);
 
-			m_renderer->projectionMatrix = glm::ortho(0.f, m_renderer->window->GetSize().x, 0.f, m_renderer->window->GetSize().y);
+			m_renderer->projectionMatrix = glm::ortho(
+				0.f,
+				m_renderer->window->GetSize().x,
+				0.f,
+				m_renderer->window->GetSize().y
+			);
 
 			CreateAndBindBuffers(m_renderer->baseMesh);
-			DrawImage(transform, element, texture);
+			DrawImage(trans, element, texture);
 		}
 	}
 }
@@ -170,13 +178,7 @@ void me::render::Renderer::DrawImage(me::core::TransformData* trans, me::core::u
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
 
-	glm::vec3 windowSize = glm::vec3(m_renderer->window->GetSize().x, m_renderer->window->GetSize().y, 0.f);
-	glm::vec3 positionOffset = glm::vec3(element->positionOffset.x, element->positionOffset.y, 0.f);
-	glm::vec3 scaleOffset = glm::vec3(element->scaleOffset.x, element->scaleOffset.y, 0.f);
-
-	m_renderer->uiTransform->SetLocalPosition((trans->GetWorldPosition() * windowSize) + positionOffset);
-	m_renderer->uiTransform->SetLocalScale((trans->GetWorldScale() * (windowSize / 2.f)) + scaleOffset);
-	m_renderer->uiTransform->SetLocalRotation(trans->GetWorldRotation());
+	CalculTransformUI(trans, element);
 
 	glm::mat4 modelTrans = m_renderer->uiTransform->GetTransformMatrix();
 	sp->SetMat4("uModel", modelTrans);
@@ -185,12 +187,19 @@ void me::render::Renderer::DrawImage(me::core::TransformData* trans, me::core::u
 	sp->SetSampler2D("image", GL_TEXTURE0);
 	sp->SetVec4("uColor", element->color);
 	sp->SetMat4("uProjection", m_renderer->projectionMatrix);
-	sp->SetVec2("uOffset", element->anchors);
 
 	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Vertices.size(), GL_UNSIGNED_INT, 0);
 
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
+}
+void me::render::Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
+{
+	glm::vec3 anchors = glm::vec3(element->anchors.x, element->anchors.y, 0.f);
+
+	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition() + ((anchors * -1.f) * trans->GetWorldScale()));
+	m_renderer->uiTransform->SetLocalScale(trans->GetWorldScale());
+	m_renderer->uiTransform->SetLocalRotation(trans->GetWorldRotation());
 }
 
 void me::render::Renderer::DrawGeometry()

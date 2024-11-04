@@ -1,1 +1,7 @@
-﻿  Game.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\Game.exe
+﻿  main.cpp
+C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Input\Inputs.h(29,34): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+  (compiler le fichier source 'src/main.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Render\Window\Window.h(5,8):
+  voir la déclaration de 'GLFWwindow'
+  
+  Game.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\Game.exe

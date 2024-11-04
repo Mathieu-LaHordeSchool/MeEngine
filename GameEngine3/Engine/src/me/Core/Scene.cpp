@@ -7,6 +7,7 @@
 
 #include <map>
 #include <vector>
+#include <algorithm>
 
 using namespace me::core;
 
@@ -16,6 +17,7 @@ struct Scene::Internal
 	std::map<const char*, Entity*> entitysName;
 
 	me::core::timer::HandleTimer handleTimer;
+	std::vector<Entity*> objectToDestroy;
 };
 
 Scene::Scene()
@@ -35,7 +37,14 @@ Entity* Scene::CreateObject(const char* name, TransformData* parent /* = nullptr
 	newEntity->Transform()->SetParent(parent);
 	newEntity->Transform()->SetOwner(newEntity);
 
+	if (parent)
+		parent->AddChildren(newEntity->Transform());
+
 	return newEntity;
+}
+void Scene::Destroy(Entity* e)
+{
+	m_scene->objectToDestroy.push_back(e);
 }
 
 me::core::timer::HandleTimer Scene::GetHandleTimer() const
@@ -92,4 +101,21 @@ void Scene::LoopOnEntity(std::function<void(Entity*)> func)
 	};
 
 	recursive(nullptr);
+}
+void Scene::DestroyVectorObject()
+{
+	for (auto& destroy : m_scene->objectToDestroy)
+	{
+		if (m_scene->entitys.count(destroy)) {
+			m_scene->entitys.erase(destroy);
+		}
+
+		auto vec = m_scene->entitys[nullptr];
+		auto it = std::find(vec.begin(), vec.end(), destroy);
+
+		if (it != vec.end()) {
+			int index = std::distance(vec.end(), it);
+			m_scene->entitys[nullptr].erase(vec.end() + index);
+		}
+	}
 }

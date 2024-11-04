@@ -22,7 +22,7 @@ namespace me::core {
 		explicit Entity(Scene* scn);
 		~Entity() noexcept = default;
 
-		TransformData* Transform();
+		TransformData* Transform() const;
 
 		Component* AddComponent(Component* comp);
 		Component* GetComponent(int comp);

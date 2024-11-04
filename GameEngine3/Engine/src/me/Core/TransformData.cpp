@@ -1,8 +1,10 @@
 
 #include <me/Core/TransformData.h>
 #include <me/Core/Entity.h>
+#include <me/Core/UI/UIElements.h>
 
 #include <glm/glm.hpp>
+#include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace me::core;
@@ -16,6 +18,8 @@ struct TransformData::Internal
 	const char* name;
 	TransformData* parent;
 	Entity* owner;
+
+	std::vector<TransformData*> children;
 
 	glm::mat4 model;
 	bool needModelUpdate = true;
@@ -203,10 +207,24 @@ Entity* TransformData::GetOwner() const
 	return m_transform->owner;
 }
 
-TransformData* TransformData::Clone() const
+TransformData** me::core::TransformData::GetChildren() const
 {
-	TransformData* cln = new TransformData();
-	cln->m_transform = m_transform;
+	return m_transform->children.data();
+}
+int me::core::TransformData::GetChildCount() const
+{
+	return m_transform->children.size();
+}
+void me::core::TransformData::AddChildren(TransformData* child)
+{
+	m_transform->children.push_back(child);
+}
+void me::core::TransformData::RemoveChildren(TransformData* child)
+{
+	auto it = std::find(m_transform->children.begin(), m_transform->children.end(), child);
 
-	return cln;
+	if (it != m_transform->children.end()) {
+		int index = std::distance(m_transform->children.begin(), it);
+		m_transform->children.erase(m_transform->children.begin() + index);
+	}
 }

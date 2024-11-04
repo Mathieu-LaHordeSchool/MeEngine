@@ -2,6 +2,11 @@
 
 #include <glm/glm.hpp>
 
+namespace me::core::ui
+{
+	class UIElement;
+}
+
 namespace me::core {
 	class Entity;
 
@@ -50,7 +55,10 @@ namespace me::core {
 		void SetOwner(Entity* owner);
 		Entity* GetOwner() const;
 
-		TransformData* Clone() const;
+		TransformData** GetChildren() const;
+		int GetChildCount() const;
+		void AddChildren(TransformData* child);
+		void RemoveChildren(TransformData* child);
 	};
 }
 
