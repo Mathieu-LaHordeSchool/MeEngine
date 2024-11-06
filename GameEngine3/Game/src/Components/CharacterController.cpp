@@ -3,6 +3,7 @@
 
 #include <Components/CharacterController.h>
 
+#include <me/Core/Core.h>
 #include <me/Core/Scene.h>
 #include <me/Core/Entity.h>
 #include <me/Core/Input/Inputs.h>
@@ -13,12 +14,12 @@
 #include <me/Render/Window/Window.h>
 
 CharacterController::CharacterController(me::core::Entity* owner)
-	: Component(owner), camera(nullptr), window(nullptr)
+	: Component(owner), camera(nullptr)
 {}
 
 void CharacterController::Start()
 {
-	// window->SetEnableMouse(false);
+	me::core::Core::Global()->Window()->SetEnableMouse(false);
 }
 
 void CharacterController::BindInputs(me::core::input::Inputs* inputs)

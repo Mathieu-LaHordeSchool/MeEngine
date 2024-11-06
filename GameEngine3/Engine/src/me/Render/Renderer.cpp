@@ -1,6 +1,4 @@
 
-#include <iostream>
-
 #include <me/Render/Renderer.h>
 #include <me/Render/RendererObjects/Shader/Shader.h>
 #include <me/Render/RendererObjects/Shader/ShaderProgram.h>
@@ -24,7 +22,9 @@
 #include <tuple>
 #include <vector>
 
-struct me::render::Renderer::Internal
+using namespace me::render;
+
+struct Renderer::Internal
 {
 	me::render::window::Window* window = nullptr;
 	me::core::render::Mesh baseMesh = me::core::render::Mesh();
@@ -56,7 +56,7 @@ struct me::render::Renderer::Internal
 	me::render::object::RenderObjectData* bufferData	= new me::render::object::RenderObjectData();
 };
 
-me::render::Renderer::Renderer(me::render::window::Window* window)
+Renderer::Renderer(me::render::window::Window* window)
 	: m_renderer(new Internal())
 {
 	m_renderer->vao->AttributeBinding(0, 0, 3, GL_FLOAT, GL_FALSE, 0); // for vertices
@@ -72,12 +72,12 @@ me::render::Renderer::Renderer(me::render::window::Window* window)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void me::render::Renderer::SetCamera(me::core::Entity* entity)
+void Renderer::SetCamera(me::core::Entity* entity)
 {
 	if (entity->HasComponent<me::core::components::render::Camera>())
 		m_renderer->camera = entity->GetComponent<me::core::components::render::Camera>();
 }
-void me::render::Renderer::PushGeometry(me::core::Entity* entity)
+void Renderer::PushGeometry(me::core::Entity* entity)
 {
 	me::core::components::render::StaticMesh* staticMesh = entity->GetComponent<me::core::components::render::StaticMesh>();
 	me::core::components::render::Material* material = entity->GetComponent<me::core::components::render::Material>();
@@ -89,18 +89,18 @@ void me::render::Renderer::PushGeometry(me::core::Entity* entity)
 
 	m_renderer->geometrys.push_back(std::make_tuple(entity->Transform(), material, staticMesh->GetMesh()));
 }
-void me::render::Renderer::PushImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
+void Renderer::PushImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
 	m_renderer->images[element->order].push_back(std::make_tuple(trans, element, tex));
 }
 
-void me::render::Renderer::ClearAllRendererData()
+void Renderer::ClearAllRendererData()
 {
 	m_renderer->geometrys.clear();
 	m_renderer->images.clear();
 }
 
-void me::render::Renderer::Execute()
+void Renderer::Execute()
 {
 	glClearColor(.1f, .2f, .3f, 1.f);
 
@@ -112,7 +112,7 @@ void me::render::Renderer::Execute()
 	glEnable(GL_DEPTH_TEST);
 }
 
-void me::render::Renderer::CalculViewMatrix(me::core::components::render::Camera* cam)
+void Renderer::CalculViewMatrix(me::core::components::render::Camera* cam)
 {
 	me::core::TransformData* trans = cam->GetOwner()->Transform();
 	glm::vec3 camPos = trans->GetWorldPosition();
@@ -135,7 +135,7 @@ void me::render::Renderer::CalculViewMatrix(me::core::components::render::Camera
 		zNear, zFar
 	);
 }
-void me::render::Renderer::CreateAndBindBuffers(const me::core::render::Mesh& mesh)
+void Renderer::CreateAndBindBuffers(const me::core::render::Mesh& mesh)
 {
 	m_renderer->vertexsBuffer = m_renderer->bufferData->GetOrCreateVertexBuffer(mesh.Vertices);
 	m_renderer->normalsBuffer = m_renderer->bufferData->GetOrCreateNormalBuffer(mesh.Normals);
@@ -148,7 +148,7 @@ void me::render::Renderer::CreateAndBindBuffers(const me::core::render::Mesh& me
 	m_renderer->vao->BindingBuffer<float>(2, 0, m_renderer->uvsBuffer, 2);
 }
 
-void me::render::Renderer::DrawUIs()
+void Renderer::DrawUIs()
 {
 	for (auto [key, value] : m_renderer->images)
 	{
@@ -170,7 +170,7 @@ void me::render::Renderer::DrawUIs()
 		}
 	}
 }
-void me::render::Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
+void Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramUI;
 	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
@@ -193,14 +193,14 @@ void me::render::Renderer::DrawImage(me::core::TransformData* trans, me::core::u
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
-void me::render::Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
+void Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
 {
 	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition());
 	m_renderer->uiTransform->SetLocalScale(trans->GetWorldScale() * trans->GetLocalSize());
 	m_renderer->uiTransform->SetLocalRotation(trans->GetWorldRotation());
 }
 
-void me::render::Renderer::DrawGeometry()
+void Renderer::DrawGeometry()
 {
 	for (auto& g : m_renderer->geometrys)
 	{
@@ -221,7 +221,7 @@ void me::render::Renderer::DrawGeometry()
 			Draw(transform, material, mesh);
 	}
 }
-void me::render::Renderer::Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh)
+void Renderer::Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
 	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
@@ -239,7 +239,7 @@ void me::render::Renderer::Draw(me::core::TransformData* trans, const me::core::
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
-void me::render::Renderer::Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh)
+void Renderer::Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramTexture;
 	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
@@ -263,7 +263,7 @@ void me::render::Renderer::Draw(me::core::TransformData* trans, me::core::compon
 	sp->StopShaderProgram();
 }
 
-me::render::window::Window* me::render::Renderer::GetWindow() const
+me::render::window::Window* Renderer::GetWindow() const
 {
 	return m_renderer->window;
 }

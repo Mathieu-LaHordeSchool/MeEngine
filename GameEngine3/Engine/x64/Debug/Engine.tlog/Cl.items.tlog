@@ -2,6 +2,7 @@ C:\LaHorde\GameEngine\GameEngine3\Engine\src\main.cpp;C:\LaHorde\GameEngine\Game
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Components\Render\Camera.cpp;C:\LaHorde\GameEngine\GameEngine3\Engine\x64\Debug\Camera.obj
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Components\Render\Material.cpp;C:\LaHorde\GameEngine\GameEngine3\Engine\x64\Debug\Material.obj
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Components\Render\StaticMesh.cpp;C:\LaHorde\GameEngine\GameEngine3\Engine\x64\Debug\StaticMesh.obj
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp;C:\LaHorde\GameEngine\GameEngine3\Engine\x64\Debug\Core.obj
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\EnableObject.cpp;C:\LaHorde\GameEngine\GameEngine3\Engine\x64\Debug\EnableObject.obj
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Entity.cpp;C:\LaHorde\GameEngine\GameEngine3\Engine\x64\Debug\Entity.obj
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Input\Inputs.cpp;C:\LaHorde\GameEngine\GameEngine3\Engine\x64\Debug\Inputs.obj

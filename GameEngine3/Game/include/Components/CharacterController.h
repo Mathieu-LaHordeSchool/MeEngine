@@ -29,6 +29,5 @@ public:
 
 	float moveSpeed = 10.f;
 	float rotateSpeed = 1.f;
-	me::render::window::Window* window;
 	me::core::Entity* camera;
 };

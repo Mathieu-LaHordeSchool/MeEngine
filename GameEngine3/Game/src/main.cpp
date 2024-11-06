@@ -2,18 +2,15 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-#include <me/Render/Window/Window.h>
+#include <me/Core/Core.h>
+
 #include <me/Core/Render/Mesh/Mesh.h>
 #include <me/Core/Render/Mesh/MeshLoader.h>
 #include <me/Core/Render/Texture/Texture.h>
 
-#include <me/Core/Input/Inputs.h>
-#include <me/Core/Input/KeyCode.h>
-
 #include <me/Core/Scene.h>
 #include <me/Core/Entity.h>
 #include <me/Core/TransformData.h>
-#include <me/Render/Renderer.h>
 
 #include <me/Core/Components/Render/Camera.h>
 #include <me/Core/Components/Render/StaticMesh.h>
@@ -27,9 +24,10 @@
 
 int main(int argc, char** argv)
 {
-	me::render::window::Window*	window = new me::render::window::Window("Game Engine", 700, 500);
-	me::core::input::Inputs*	inputs = new me::core::input::Inputs(window);
-	me::render::Renderer*		render = new me::render::Renderer(window);
+	me::core::CoreConfigs configs;
+	configs.title = "A";
+	configs.windowSize = glm::vec2(700.f, 500.f);
+	me::core::Core::Global()->Initialize(configs);
 	
 	me::core::render::MeshLoader loader = me::core::render::MeshLoader();
 	me::core::render::Mesh pouleMesh = loader.LoadMesh("../Ressources/Models/boss.obj");
@@ -38,14 +36,14 @@ int main(int argc, char** argv)
 	me::core::render::Texture* bg = new me::core::render::Texture("../Ressources/Textures/Test.png");
 	me::core::render::Texture* boss = new me::core::render::Texture("../Ressources/Textures/Boss.png");
 
-	me::core::Scene mainScene;
+	me::core::Scene* mainScene = new me::core::Scene;
 
-	me::core::Entity* poule = mainScene.CreateObject("poule");
-	me::core::Entity* character = mainScene.CreateObject("Character");
-	me::core::Entity* cam = mainScene.CreateObject("Camera", character->Transform());
+	me::core::Entity* poule = mainScene->CreateObject("poule");
+	me::core::Entity* character = mainScene->CreateObject("Character");
+	me::core::Entity* cam = mainScene->CreateObject("Camera", character->Transform());
 
-	me::core::Entity* ui = mainScene.CreateObject("button");
-	me::core::Entity* uiC = mainScene.CreateObject("image", ui->Transform());
+	me::core::Entity* ui = mainScene->CreateObject("button");
+	me::core::Entity* uiC = mainScene->CreateObject("image", ui->Transform());
 
 	ui->Transform()->SetLocalPosition(glm::vec3(50.f, 50.f, 0.f));
 	ui->Transform()->SetLocalSize(glm::vec3(50.f));
@@ -72,24 +70,9 @@ int main(int argc, char** argv)
 
 	CharacterController* controller = character->AddComponent<CharacterController>();
 	controller->camera = cam;
-	controller->window = window;
 
-	mainScene.BindInput(inputs);
-	mainScene.Start();
-
-	do
-	{
-		window->PoolEvent();
-		inputs->UpdateInputs();
-
-		 mainScene.Render(render);
-		 render->Execute();
-
-		mainScene.Update();
-		window->SwapBuffer();
-	} while (!window->IsClose());
-
-	window->Terminate();
+	me::core::Core::Global()->LoadScene(mainScene);
+	me::core::Core::Global()->Execute();
 
 	return 0;
 }
