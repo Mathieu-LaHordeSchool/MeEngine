@@ -9,6 +9,9 @@ namespace me::core { class Entity; }
 class CharacterController
 	: public me::core::Component
 {
+private:
+	float moX, moY;
+
 public:
 	GetComponentType(00001);
 

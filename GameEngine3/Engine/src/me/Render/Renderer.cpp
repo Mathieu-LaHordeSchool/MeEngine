@@ -195,10 +195,8 @@ void me::render::Renderer::DrawImage(me::core::TransformData* trans, me::core::u
 }
 void me::render::Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
 {
-	glm::vec3 anchors = glm::vec3(element->anchors.x, element->anchors.y, 0.f);
-
-	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition() + ((anchors * -1.f) * trans->GetWorldScale()));
-	m_renderer->uiTransform->SetLocalScale(trans->GetWorldScale());
+	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition());
+	m_renderer->uiTransform->SetLocalScale(trans->GetWorldScale() * trans->GetLocalSize());
 	m_renderer->uiTransform->SetLocalRotation(trans->GetWorldRotation());
 }
 

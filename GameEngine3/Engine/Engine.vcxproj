@@ -25,6 +25,7 @@
     <ClInclude Include="include\me\Core\Components\Render\StaticMesh.h" />
     <ClInclude Include="include\me\Core\Components\UI\Button.h" />
     <ClInclude Include="include\me\Core\Components\UI\Image.h" />
+    <ClInclude Include="include\me\Core\Core.h" />
     <ClInclude Include="include\me\Core\EnableObject.h" />
     <ClInclude Include="include\me\Core\Entity.h" />
     <ClInclude Include="include\me\Core\Input\InputAction.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="src\me\Core\Components\Render\Camera.cpp" />
     <ClCompile Include="src\me\Core\Components\Render\Material.cpp" />
     <ClCompile Include="src\me\Core\Components\Render\StaticMesh.cpp" />
+    <ClCompile Include="src\me\Core\Core.cpp" />
     <ClCompile Include="src\me\Core\EnableObject.cpp" />
     <ClCompile Include="src\me\Core\Entity.cpp" />
     <ClCompile Include="src\me\Core\Input\Inputs.cpp" />

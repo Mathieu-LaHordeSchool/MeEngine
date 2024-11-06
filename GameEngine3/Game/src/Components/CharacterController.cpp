@@ -30,7 +30,7 @@ void CharacterController::BindInputs(me::core::input::Inputs* inputs)
 
 	inputs->CreateInputAction("up",   me::core::input::KeyCode::SPACE)->BindPressAction([this]() { MoveY(1.f); });
 	inputs->CreateInputAction("down", me::core::input::KeyCode::LEFT_SHIFT)->BindPressAction([this]() { MoveY(-1.f); });
-	inputs->BindMouseDeltaPosition([this](float x, float y) { Rotate(x, y); });
+	inputs->BindMousePosition([this](float x, float y) { Rotate(x, y); });
 }
 
 void CharacterController::MoveZ(float scale)
@@ -54,12 +54,18 @@ void CharacterController::MoveY(float scale)
 
 void CharacterController::Rotate(float x, float y)
 {
+	float dx = x - moX;
+	float dy = y - moY;
+
 	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
 	me::core::TransformData* trans = camera->Transform();
 
-	float rotXmovement = y * rotateSpeed * dt * -1.f;
+	float rotXmovement = dy * rotateSpeed * dt * -1.f;
 	if (abs(trans->GetLocalRotation().x + rotXmovement) < glm::radians(80.f))
 		trans->Rotate(glm::vec3(1.f, 0.f, 0.f), rotXmovement);
 
-	trans->Rotate(glm::vec3(0.f, 1.f, 0.f), x * rotateSpeed * dt * -1.f);
+	trans->Rotate(glm::vec3(0.f, 1.f, 0.f), dx * rotateSpeed * dt * -1.f);
+
+	moY = y;
+	moX = x;
 }

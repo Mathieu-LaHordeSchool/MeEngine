@@ -44,20 +44,20 @@ int main(int argc, char** argv)
 	me::core::Entity* character = mainScene.CreateObject("Character");
 	me::core::Entity* cam = mainScene.CreateObject("Camera", character->Transform());
 
-	me::core::Entity* ui = mainScene.CreateObject("Canvas");
+	me::core::Entity* ui = mainScene.CreateObject("button");
 	me::core::Entity* uiC = mainScene.CreateObject("image", ui->Transform());
 
-	ui->Transform()->SetLocalScale(glm::vec3(100.f));
-	ui->Transform()->SetLocalPosition(glm::vec3(10.f, 10.f, 0.f));
-	me::core::components::ui::Image* img = ui->AddComponent<me::core::components::ui::Image>();
-	img->SetTexture(boss);
-	img->anchors = glm::vec2(-1.f);
+	ui->Transform()->SetLocalPosition(glm::vec3(50.f, 50.f, 0.f));
+	ui->Transform()->SetLocalSize(glm::vec3(50.f));
+	me::core::components::ui::Button* btn = ui->AddComponent<me::core::components::ui::Button>();
+	btn->SetOnEnter([]() {std::cout << "Enter" << std::endl; });
+	btn->SetOnExit([]() {std::cout << "Exit" << std::endl; });
 
-	uiC->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
-	uiC->Transform()->SetLocalScale(glm::vec3(.4f));
-	auto* imgC = uiC->AddComponent<me::core::components::ui::Image>();
-	imgC->order = 10;
-	imgC->anchors = glm::vec2(1.f);
+	uiC->Transform()->SetLocalPosition(glm::vec3(30.f, 30.f, 0.f));
+	uiC->Transform()->SetLocalSize(glm::vec3(15.f));
+	auto* img = uiC->AddComponent<me::core::components::ui::Image>();
+	img->color = glm::vec4(1.f, 0.f, 0.f, 1.f);
+	img->order = 10;
 
 	character->Transform()->SetLocalPosition(glm::vec3(0.f, -10.f, 5.f));
 	poule->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(pouleMesh);

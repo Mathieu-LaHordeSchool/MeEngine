@@ -22,6 +22,7 @@ namespace me::core::components::ui {
 
 		void Update() override;
 		void BindInputs(me::core::input::Inputs* inputs) override;
+		void Render(me::render::Renderer* render) override;
 
 		GetSetInternalValueHPP(OnClick, std::function<void()>)
 		GetSetInternalValueHPP(OnEnter, std::function<void()>)

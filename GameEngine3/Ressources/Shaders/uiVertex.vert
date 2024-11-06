@@ -6,6 +6,7 @@ layout(location = 2) in vec2 aUvs;
 uniform mat4 uModel;
 uniform mat4 uProjection;
 
+
 out vec2 uvs;
 
 void main()

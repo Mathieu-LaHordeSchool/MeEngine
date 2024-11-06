@@ -13,6 +13,5 @@ namespace me::core::ui {
 	public:
 		int order = 0;
 		glm::vec4 color = glm::vec4(1.f);
-		glm::vec2 anchors;
 	};
 }

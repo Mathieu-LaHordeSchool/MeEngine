@@ -11,6 +11,8 @@
 #include <me/Core/TransformData.h>
 
 #include <me/Core/Components/UI/Image.h>
+#include <me/Render/Renderer.h>
+#include <me/Core/Render/Texture/Texture.h>
 
 using namespace me::core::components::ui;
 
@@ -18,8 +20,10 @@ struct Button::Internal
 {
 	bool mousePress;
 	bool mouseInside;
+	float mx, my;
 
-	me::core::input::Inputs* inputs;
+	me::core::render::Texture* texture = new me::core::render::Texture("../Ressources/Textures/ao_default.png");
+	glm::vec2 size;
 
 	std::function<void()> onClick;
 	std::function<void()> onEnter;
@@ -32,21 +36,19 @@ Button::Button(me::core::Entity* owner)
 
 void Button::Update()
 {
-	Image* img = GetOwner()->GetComponent<Image>();
-	glm::vec2 size = img->GetWindowSize();
-
 	glm::vec3 pos = GetOwner()->Transform()->GetWorldPosition();
 	glm::vec3 scl = GetOwner()->Transform()->GetWorldScale();
+	glm::vec3 siz = GetOwner()->Transform()->GetLocalSize();
+
+	siz *= glm::vec3(2.f, 2.f, 0.f);
+	pos -= (siz / 2.f) * scl;
 
 	glm::vec2 min, max;
-	min = (glm::vec2(pos.x - scl.x, pos.y - scl.y) * size) * glm::vec2(scl.x, scl.y);
-	max = (glm::vec2(pos.x + scl.x, pos.y + scl.y) * size) * glm::vec2(scl.x, scl.y);
-
-	double mx, my;
-	m_button->inputs->GetMousePosition(mx, my);
+	min = glm::vec2(pos.x, pos.y);
+	max = glm::vec2(pos.x, pos.y) + (glm::vec2(siz.x, siz.y) * glm::vec2(scl.x, scl.y));
 	
-	mx = mx - size.x / 2.0;
-	my = (size.y / 2.0) - my;
+	float mx = m_button->mx;
+	float my = (m_button->my - m_button->size.y) * -1.f;
 
 	bool isMouseInside = (mx >= min.x && mx <= max.x && my >= min.y && my <= max.y);
 
@@ -80,7 +82,15 @@ void Button::BindInputs(me::core::input::Inputs* inputs)
 	mouseAct->BindPressDownAction([this]() { m_button->mousePress = true; });
 	mouseAct->BindReleaseUpAction([this]() { m_button->mousePress = false; });
 
-	m_button->inputs = inputs;
+	inputs->BindMousePosition([this](float mx, float my) {
+		m_button->mx = mx;
+		m_button->my = my;
+	});
+}
+void Button::Render(me::render::Renderer* render)
+{
+	m_button->size = render->GetWindow()->GetSize();
+	render->PushImage(GetOwner()->Transform(), this, m_button->texture);
 }
 
 GetSetInternalValueCPP(OnClick, onClick, std::function<void()>, Button, m_button)

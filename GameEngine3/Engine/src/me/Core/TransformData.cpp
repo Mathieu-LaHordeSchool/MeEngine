@@ -14,6 +14,7 @@ struct TransformData::Internal
 	glm::vec3 position;
 	glm::vec3 rotation;
 	glm::vec3 scale = glm::vec3(1.f);
+	glm::vec3 size;
 
 	const char* name;
 	TransformData* parent;
@@ -62,6 +63,16 @@ glm::vec3 TransformData::GetWorldScale() const
 
 	return scale;
 }
+glm::vec3 TransformData::GetWorldSize() const
+{
+	glm::vec3 size = m_transform->size;
+	size = glm::vec3(size.x, size.y, 0.f);
+
+	if (m_transform->parent)
+		return size + m_transform->parent->GetLocalSize();
+
+	return size;
+}
 
 glm::vec3 TransformData::GetLocalPosition() const
 {
@@ -74,6 +85,11 @@ glm::vec3 TransformData::GetLocalRotation() const
 glm::vec3 TransformData::GetLocalScale() const
 {
 	return m_transform->scale;
+}
+glm::vec3 TransformData::GetLocalSize() const
+{
+	glm::vec3 size = m_transform->size;
+	return glm::vec3(size.x, size.y, 0.f);
 }
 
 void TransformData::Translate(const glm::vec3& axis, float value)
@@ -100,6 +116,10 @@ void TransformData::SetLocalRotation(const glm::vec3& rot)
 void TransformData::SetLocalScale(const glm::vec3& scale)
 {
 	m_transform->scale = scale;
+}
+void TransformData::SetLocalSize(const glm::vec3& size)
+{
+	m_transform->size = size;
 }
 
 void TransformData::SetWorldPosition(const glm::vec3& pos)
@@ -137,6 +157,18 @@ void TransformData::SetWorldScale(const glm::vec3& scale)
 	else
 	{
 		SetLocalScale(scale);
+	}
+}
+void TransformData::SetWorldSize(const glm::vec3& size)
+{
+	if (m_transform->parent)
+	{
+		glm::vec3 parentScale = m_transform->parent->GetWorldSize();
+		SetLocalSize(size / parentScale);
+	}
+	else
+	{
+		SetLocalSize(size);
 	}
 }
 

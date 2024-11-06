@@ -1,7 +1,17 @@
-﻿  main.cpp
+﻿  CharacterController.cpp
+C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Input\Inputs.h(29,34): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+  (compiler le fichier source 'src/Components/CharacterController.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Render\Window\Window.h(5,8):
+  voir la déclaration de 'GLFWwindow'
+  
+C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Timer\HandleTimer.h(13,26): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+  (compiler le fichier source 'src/Components/CharacterController.cpp')
+  
+  main.cpp
 C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Input\Inputs.h(29,34): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
   (compiler le fichier source 'src/main.cpp')
   C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Render\Window\Window.h(5,8):
   voir la déclaration de 'GLFWwindow'
   
+  Génération de code en cours...
   Game.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\Game.exe

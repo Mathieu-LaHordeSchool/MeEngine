@@ -180,6 +180,9 @@
     <ClInclude Include="include\me\Core\UI\UIElements.h">
       <Filter>Fichiers d%27en-tête\me\Core\UI</Filter>
     </ClInclude>
+    <ClInclude Include="include\me\Core\Core.h">
+      <Filter>Fichiers d%27en-tête\me\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\me\Core\Components\Render\Camera.cpp">
@@ -250,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\me\Core\Core.cpp">
+      <Filter>Fichiers sources\me\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

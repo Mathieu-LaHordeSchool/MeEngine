@@ -22,7 +22,7 @@ namespace me::core::input {
 		InputAction* CreateInputAction(const char* name, unsigned int key, EInputType inputType = Keyboard);
 		InputAction* GetInputbyName(const char* name);
 
-		void BindMouseDeltaPosition(std::function<void(float, float)> act);
+		void BindMousePosition(std::function<void(float, float)> act);
 		void GetMousePosition(double& mx, double& my);
 
 	private:

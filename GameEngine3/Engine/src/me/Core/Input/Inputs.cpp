@@ -82,7 +82,7 @@ InputAction* Inputs::GetInputbyName(const char* name)
 	return m_input->inputs[name];
 }
 
-void Inputs::BindMouseDeltaPosition(std::function<void(float, float)> act)
+void Inputs::BindMousePosition(std::function<void(float, float)> act)
 {
 	m_input->MouseDeltaChangedActions.push_back(act);
 }
@@ -102,7 +102,7 @@ void Inputs::updateMousePosition(GLFWwindow* window)
 
 	if (deltaMouseX + deltaMouseY != 0.f)
 		for (auto& act : m_input->MouseDeltaChangedActions)
-			act(deltaMouseX, deltaMouseY);
+			act(mX, mY);
 
 	m_input->mouseX = mX;
 	m_input->mouseY = mY;
