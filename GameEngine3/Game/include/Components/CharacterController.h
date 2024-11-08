@@ -13,7 +13,7 @@ private:
 	float moX, moY;
 
 public:
-	GetComponentType(00001);
+	GetComponentType("CharacterController")
 
 	explicit CharacterController(me::core::Entity* owner);
 	~CharacterController() noexcept = default;

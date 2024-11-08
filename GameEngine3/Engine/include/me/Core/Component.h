@@ -1,5 +1,6 @@
 #pragma once
 
+#include <typeinfo>
 #include <me/Core/EnableObject.h>
 
 #define GetSetInternalValueHPP(Name, Class) \
@@ -15,10 +16,10 @@ ClassVar Class::Get##NameMeth() const { \
 }
 
 #define GetComponentType(ComponentID) \
-int GetType() const override { \
+const char* GetType() const override { \
 return ComponentID; \
 } \
-static int GetStaticType() { \
+static const char* GetStaticType() { \
 return ComponentID; \
 } \
 
@@ -47,7 +48,7 @@ namespace me::core {
 
 		virtual void Update() {}
 		virtual void BindInputs(me::core::input::Inputs* inputs) {}
-		virtual int GetType() const { return 0; }
+		virtual const char* GetType() const { return "Component"; }
 
 		virtual void Render(me::render::Renderer* render) {}
 		virtual Component* Clone() { return nullptr; }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <unordered_map>
+#include <typeinfo>
+
 #include <me/Core/EnableObject.h>
 
 namespace me::core::input { class Inputs; }
@@ -25,8 +27,8 @@ namespace me::core {
 		TransformData* Transform() const;
 
 		Component* AddComponent(Component* comp);
-		Component* GetComponent(int comp);
-		bool	   HasComponent(int comp);
+		Component* GetComponent(const char* comp);
+		bool	   HasComponent(const char* comp);
 
 		Scene* GetScene() const;
 		void Render(me::render::Renderer* render);

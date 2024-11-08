@@ -13,7 +13,7 @@ namespace me::core::components::render {
 		Internal* m_camera;
 
 	public:
-		GetComponentType(90001)
+		GetComponentType("Camera")
 
 			explicit Camera(class Entity* owner);
 		~Camera() noexcept = default;

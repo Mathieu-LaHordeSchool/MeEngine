@@ -11,7 +11,7 @@ using namespace me::core;
 struct me::core::Entity::Internal
 {
 	Scene* ownScene;
-	std::unordered_map<int, Component*> components;
+	std::unordered_map<const char*, Component*> components;
 
 	TransformData* uiTransform = new TransformData();
 	TransformData* transform = new TransformData();
@@ -30,19 +30,19 @@ TransformData* me::core::Entity::Transform() const
 
 Component* me::core::Entity::AddComponent(Component* comp)
 {
-	int type = comp->GetType();
+	const char* type = comp->GetType();
 	m_entity->components[type] = comp;
 	return m_entity->components[type];
 }
 
-Component* me::core::Entity::GetComponent(int comp)
+Component* me::core::Entity::GetComponent(const char* comp)
 {
 	if (m_entity->components.count(comp) == 0)
 		return nullptr;
 
 	return m_entity->components[comp];
 }
-bool me::core::Entity::HasComponent(int comp)
+bool me::core::Entity::HasComponent(const char* comp)
 {
 	return m_entity->components.count(comp);
 }

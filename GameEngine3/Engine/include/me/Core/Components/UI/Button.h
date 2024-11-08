@@ -15,7 +15,7 @@ namespace me::core::components::ui {
 		Internal* m_button;
 
 	public:
-		GetComponentType(80002)
+		GetComponentType("Button")
 
 			explicit Button(me::core::Entity* owner);
 		~Button() noexcept = default;

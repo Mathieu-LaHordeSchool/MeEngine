@@ -18,7 +18,7 @@ namespace me::core::components::ui {
 		Internal* m_image;
 
 	public:
-		GetComponentType(80001)
+		GetComponentType("Image")
 
 		explicit Image(me::core::Entity* owner);
 		~Image() noexcept = default;

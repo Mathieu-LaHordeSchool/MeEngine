@@ -1,5 +1,24 @@
-﻿  Scene.cpp
+﻿  Camera.cpp
+  Material.cpp
+  StaticMesh.cpp
+  Entity.cpp
+  Scene.cpp
 C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Timer\HandleTimer.h(13,26): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
   (compiler le fichier source 'src/me/Core/Scene.cpp')
   
+  TransformData.cpp
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\TransformData.cpp(253,35): warning C4267: 'return' : conversion de 'size_t' en 'int', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\TransformData.cpp(264,13): warning C4244: 'initialisation' : conversion de '__int64' en 'int', perte possible de données
+  Button.cpp
+C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Input\Inputs.h(29,34): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+  (compiler le fichier source 'src/me/Core/UIComponents/Button.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Render\Window\Window.h(5,8):
+  voir la déclaration de 'GLFWwindow'
+  
+  Image.cpp
+  Renderer.cpp
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(193,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(246,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(269,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+  Génération de code en cours...
   Engine.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\Engine.lib

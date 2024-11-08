@@ -14,7 +14,7 @@ namespace me::core::components::render {
 		Internal* m_staticMesh;
 
 	public:
-		GetComponentType(90003)
+		GetComponentType("StaticMesh")
 
 			explicit StaticMesh(me::core::Entity* owner);
 		~StaticMesh() noexcept = default;

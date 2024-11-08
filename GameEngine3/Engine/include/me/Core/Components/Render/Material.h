@@ -15,7 +15,7 @@ namespace me::core::components::render {
 		Internal* m_material;
 
 	public:
-		GetComponentType(90002)
+		GetComponentType("Material")
 
 		explicit Material(me::core::Entity* owner);
 		~Material() noexcept = default;
