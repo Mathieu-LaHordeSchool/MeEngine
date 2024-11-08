@@ -2,6 +2,7 @@
 #include <iostream>
 #include <functional>
 
+#include <me/Core/Core.h>
 #include <me/Core/Components/UI/Button.h>
 
 #include <me/Core/Entity.h>
@@ -36,6 +37,7 @@ Button::Button(me::core::Entity* owner)
 
 void Button::Update()
 {
+	float scale = me::core::Core::Global()->AspectRatioScale();
 	glm::vec3 pos = GetOwner()->Transform()->GetWorldPosition();
 	glm::vec3 scl = GetOwner()->Transform()->GetWorldScale();
 	glm::vec3 siz = GetOwner()->Transform()->GetLocalSize();
@@ -44,8 +46,8 @@ void Button::Update()
 	pos -= (siz / 2.f) * scl;
 
 	glm::vec2 min, max;
-	min = glm::vec2(pos.x, pos.y);
-	max = glm::vec2(pos.x, pos.y) + (glm::vec2(siz.x, siz.y) * glm::vec2(scl.x, scl.y));
+	min = (glm::vec2(pos.x, pos.y) * scale);
+	max = (glm::vec2(pos.x, pos.y) * scale) + ((glm::vec2(siz.x, siz.y) * glm::vec2(scl.x, scl.y)) * scale);
 	
 	float mx = m_button->mx;
 	float my = (m_button->my - m_button->size.y) * -1.f;

@@ -39,7 +39,7 @@ Core* Core::Global()
 void Core::Initialize(CoreConfigs configs)
 {
 	m_core = new Internal();
-	m_core->defaultWindowSize = configs.defaultWinowSize;
+	m_core->defaultWindowSize = configs.canvasSize;
 
 	Core::Internal::window = new me::render::window::Window(
 		configs.title,
@@ -91,7 +91,17 @@ void me::core::Core::Stop()
 	m_core->shouldStop = true;
 }
 
-glm::vec2 me::core::Core::DefaultWindowSize() const
+float me::core::Core::AspectRatioScale() const
+{
+	glm::vec2 dSize = CanvasSize();
+	float defaultAspectRatio = dSize.x / dSize.y;
+	glm::vec2 wSize = Window()->GetSize();
+	float currentAspectRatio = wSize.x / wSize.y;
+
+	return currentAspectRatio / defaultAspectRatio;
+}
+
+glm::vec2 me::core::Core::CanvasSize() const
 {
 	return m_core->defaultWindowSize;
 }

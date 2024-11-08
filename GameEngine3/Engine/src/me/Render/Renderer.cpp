@@ -197,12 +197,7 @@ void Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement
 }
 void Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
 {
-	glm::vec2 dSize = me::core::Core::Global()->DefaultWindowSize();
-	float defaultAspectRatio = dSize.x / dSize.y;
-	glm::vec2 wSize = me::core::Core::Global()->Window()->GetSize();
-	float currentAspectRatio = wSize.x / wSize.y;
-
-	float scale = currentAspectRatio / defaultAspectRatio;
+	float scale = me::core::Core::Global()->AspectRatioScale();
 
 	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition() * scale);
 	m_renderer->uiTransform->SetLocalScale((trans->GetWorldScale() * trans->GetLocalSize()) * scale);

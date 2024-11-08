@@ -16,7 +16,7 @@ namespace me::core
 		bool fullScreen = false;
 		bool resezable = false;
 
-		glm::vec2 defaultWinowSize;
+		glm::vec2 canvasSize;
 	};
 
 	class Core
@@ -37,7 +37,8 @@ namespace me::core
 		me::render::Renderer*		Renderer()	const;
 		me::render::window::Window* Window()	const;
 
-		glm::vec2 DefaultWindowSize() const;
+		glm::vec2 CanvasSize() const;
+		float AspectRatioScale() const;
 
 		void LoadScene(me::core::Scene* scn);
 		void Execute();

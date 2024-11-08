@@ -12,8 +12,6 @@ struct me::core::Entity::Internal
 {
 	Scene* ownScene;
 	std::unordered_map<const char*, Component*> components;
-
-	TransformData* uiTransform = new TransformData();
 	TransformData* transform = new TransformData();
 };
 
