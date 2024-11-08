@@ -15,6 +15,8 @@ namespace me::core
 		glm::vec2 windowSize;
 		bool fullScreen = false;
 		bool resezable = false;
+
+		glm::vec2 defaultWinowSize;
 	};
 
 	class Core

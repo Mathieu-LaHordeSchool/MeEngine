@@ -31,7 +31,6 @@ struct Renderer::Internal
 	me::render::window::Window* window = nullptr;
 	me::core::render::Mesh baseMesh = me::core::render::Mesh();
 	me::core::TransformData* uiTransform = new me::core::TransformData();
-	glm::vec2 defaultWindowSize = glm::vec2(1920.f, 1080.f);
 
 	std::vector<std::tuple<me::core::TransformData*, me::core::components::render::Material*, me::core::render::Mesh>> geometrys;
 	std::map<int, std::vector<std::tuple<me::core::TransformData*, me::core::ui::UIElement*, me::core::render::Texture*>>> images;
@@ -198,7 +197,8 @@ void Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement
 }
 void Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
 {
-	float defaultAspectRatio = m_renderer->defaultWindowSize.x / m_renderer->defaultWindowSize.y;
+	glm::vec2 dSize = me::core::Core::Global()->DefaultWindowSize();
+	float defaultAspectRatio = dSize.x / dSize.y;
 	glm::vec2 wSize = me::core::Core::Global()->Window()->GetSize();
 	float currentAspectRatio = wSize.x / wSize.y;
 

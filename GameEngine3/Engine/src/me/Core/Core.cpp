@@ -16,6 +16,7 @@ struct Core::Internal
 	static me::render::Renderer*		renderer;
 	static me::render::window::Window*	window;
 
+	glm::vec2 defaultWindowSize = glm::vec2(1920.f, 1080.f);
 	me::core::Scene* currentScene;
 	bool shouldStop = false;
 };
@@ -38,6 +39,7 @@ Core* Core::Global()
 void Core::Initialize(CoreConfigs configs)
 {
 	m_core = new Internal();
+	m_core->defaultWindowSize = configs.defaultWinowSize;
 
 	Core::Internal::window = new me::render::window::Window(
 		configs.title,
@@ -87,4 +89,9 @@ void Core::Execute()
 void me::core::Core::Stop()
 {
 	m_core->shouldStop = true;
+}
+
+glm::vec2 me::core::Core::DefaultWindowSize() const
+{
+	return m_core->defaultWindowSize;
 }
