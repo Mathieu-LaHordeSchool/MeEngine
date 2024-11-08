@@ -19,6 +19,8 @@ namespace me::core {
 		void UpdateTimer();
 		void LoopOnEntity(std::function<void(Entity*)> func);
 		void DestroyVectorObject();
+		void DestroyUniqueObject(Entity* obj);
+		bool ContainsEntityWithName(Entity* parent, const char* name);
 
 	public:
 		explicit Scene();

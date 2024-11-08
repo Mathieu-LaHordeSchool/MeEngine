@@ -14,7 +14,6 @@ using namespace me::core;
 struct Scene::Internal
 {
 	std::map<Entity*, std::vector<Entity*>> entitys;
-	std::map<const char*, Entity*> entitysName;
 
 	me::core::timer::HandleTimer handleTimer;
 	std::vector<Entity*> objectToDestroy;
@@ -24,14 +23,26 @@ Scene::Scene()
 	: m_scene(new Internal())
 {}
 
+bool Scene::ContainsEntityWithName(Entity * parent, const char* name)
+{
+	auto vec = m_scene->entitys[parent];
+	for (auto entity : vec)
+	{
+		if (entity->Transform()->GetName() == name)
+			return true;
+	}
+
+	return false;
+}
+
 Entity* Scene::CreateObject(const char* name, TransformData* parent /* = nullptr */)
 {
-	if (m_scene->entitysName.count(name))
+	Entity* parentOwner = parent ? parent->GetOwner() : nullptr;
+	if (ContainsEntityWithName(parentOwner, name))
 		return nullptr;
 
 	Entity* newEntity = new Entity(this);
-	m_scene->entitysName[name] = newEntity;
-	m_scene->entitys[parent ? parent->GetOwner() : nullptr].push_back(newEntity);
+	m_scene->entitys[parentOwner].push_back(newEntity);
 
 	newEntity->Transform()->SetName(name);
 	newEntity->Transform()->SetParent(parent);
@@ -71,6 +82,8 @@ void Scene::Update()
 	LoopOnEntity([this](auto e) {
 		e->Update();
 	});
+
+	DestroyVectorObject();
 }
 void Scene::Render(me::render::Renderer* render)
 {
@@ -106,20 +119,24 @@ void Scene::DestroyVectorObject()
 {
 	for (auto& destroy : m_scene->objectToDestroy)
 	{
-		if (m_scene->entitys.count(destroy)) {
-			m_scene->entitys.erase(destroy);
-		}
+		DestroyUniqueObject(destroy);
+	}
+}
 
-		Entity* parent = nullptr;
-		if (auto p = destroy->Transform()->GetParent())
-			parent = p->GetOwner();
+void Scene::DestroyUniqueObject(Entity* obj)
+{
+	if (m_scene->entitys.count(obj)) {
+		m_scene->entitys.erase(obj);
+	}
 
-		auto vec = m_scene->entitys[parent];
-		auto it = std::find(vec.begin(), vec.end(), destroy);
+	Entity* parent = nullptr;
+	if (auto p = obj->Transform()->GetParent())
+		parent = p->GetOwner();
 
-		if (it != vec.end()) {
-			int index = std::distance(vec.end(), it);
-			m_scene->entitys[parent].erase(vec.end() + index);
-		}
+	auto vec = m_scene->entitys[parent];
+	auto it = std::find(vec.begin(), vec.end(), obj);
+
+	if (it != vec.end()) {
+		vec.erase(it);
 	}
 }

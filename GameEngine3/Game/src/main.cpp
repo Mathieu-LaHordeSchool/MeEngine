@@ -39,9 +39,6 @@ int main(int argc, char** argv)
 
 	me::core::Scene* mainScene = new me::core::Scene;
 
-	me::core::Entity* poule = mainScene->CreateObject("poule");
-	me::core::Entity* cube2 = mainScene->CreateObject("Cube", poule->Transform());
-
 	me::core::Entity* character = mainScene->CreateObject("Character");
 	me::core::Entity* cam = mainScene->CreateObject("Camera", character->Transform());
 
@@ -64,20 +61,21 @@ int main(int argc, char** argv)
 	CharacterController* controller = character->AddComponent<CharacterController>();
 	controller->camera = cam;
 
-	poule->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(cubeMesh);
-	// poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
-	poule->Transform()->Scale(glm::vec3(1.f), 1.f);
-
-	cube2->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(cubeMesh);
-	cube2->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
-
-	me::core::components::render::Material* mat = poule->AddComponent<me::core::components::render::Material>();
-	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
-	mat->SetAlbedoTexture(boss);
-
 	cam->AddComponent<me::core::components::render::Camera>();
 	cam->Transform()->SetLocalPosition(glm::vec3(0.f, 2.f, 0.f));
 
+	me::core::Entity* parent = mainScene->CreateObject("Parent");
+
+	me::core::TransformData* oldEntity = parent->Transform();
+	for (size_t i = 0; i < 10; i++)
+	{
+		me::core::Entity* e = mainScene->CreateObject("Cube", oldEntity);
+		e->Transform()->SetLocalPosition(glm::vec3(2.f));
+		e->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(cubeMesh);
+		oldEntity = e->Transform();
+	}
+
+	mainScene->Destroy(parent->Transform()->GetChildren()[0]->GetChildren()[0]->GetChildren()[0]->GetOwner());
 
 	me::core::Core::Global()->LoadScene(mainScene);
 	me::core::Core::Global()->Execute();
