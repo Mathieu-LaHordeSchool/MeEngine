@@ -110,12 +110,16 @@ void Scene::DestroyVectorObject()
 			m_scene->entitys.erase(destroy);
 		}
 
-		auto vec = m_scene->entitys[nullptr];
+		Entity* parent = nullptr;
+		if (auto p = destroy->Transform()->GetParent())
+			parent = p->GetOwner();
+
+		auto vec = m_scene->entitys[parent];
 		auto it = std::find(vec.begin(), vec.end(), destroy);
 
 		if (it != vec.end()) {
 			int index = std::distance(vec.end(), it);
-			m_scene->entitys[nullptr].erase(vec.end() + index);
+			m_scene->entitys[parent].erase(vec.end() + index);
 		}
 	}
 }
