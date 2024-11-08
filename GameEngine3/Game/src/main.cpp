@@ -27,6 +27,7 @@ int main(int argc, char** argv)
 	me::core::CoreConfigs configs;
 	configs.title = "A";
 	configs.windowSize = glm::vec2(700.f, 500.f);
+	configs.resezable = true;
 	me::core::Core::Global()->Initialize(configs);
 	
 	me::core::render::MeshLoader loader = me::core::render::MeshLoader();

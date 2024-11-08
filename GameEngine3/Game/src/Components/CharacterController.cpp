@@ -19,7 +19,7 @@ CharacterController::CharacterController(me::core::Entity* owner)
 
 void CharacterController::Start()
 {
-	me::core::Core::Global()->Window()->SetEnableMouse(false);
+	// me::core::Core::Global()->Window()->SetEnableMouse(false);
 }
 
 void CharacterController::BindInputs(me::core::input::Inputs* inputs)

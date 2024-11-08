@@ -1,6 +1,4 @@
 
-#include <iostream>
-
 #include <me/Render/RendererObjects/RenderObjectData.h>
 #include <me/Render/RendererObjects/Buffer.h>
 

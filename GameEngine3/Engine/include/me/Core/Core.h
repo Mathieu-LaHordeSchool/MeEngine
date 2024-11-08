@@ -13,8 +13,8 @@ namespace me::core
 	{
 		const char* title;
 		glm::vec2 windowSize;
-		bool fullScreen;
-		bool fixSize;
+		bool fullScreen = false;
+		bool resezable = false;
 	};
 
 	class Core

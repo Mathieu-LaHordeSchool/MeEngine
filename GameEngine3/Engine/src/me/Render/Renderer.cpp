@@ -1,4 +1,6 @@
 
+#include <me/Core/Core.h>
+
 #include <me/Render/Renderer.h>
 #include <me/Render/RendererObjects/Shader/Shader.h>
 #include <me/Render/RendererObjects/Shader/ShaderProgram.h>
@@ -29,6 +31,7 @@ struct Renderer::Internal
 	me::render::window::Window* window = nullptr;
 	me::core::render::Mesh baseMesh = me::core::render::Mesh();
 	me::core::TransformData* uiTransform = new me::core::TransformData();
+	glm::vec2 defaultWindowSize = glm::vec2(1920.f, 1080.f);
 
 	std::vector<std::tuple<me::core::TransformData*, me::core::components::render::Material*, me::core::render::Mesh>> geometrys;
 	std::map<int, std::vector<std::tuple<me::core::TransformData*, me::core::ui::UIElement*, me::core::render::Texture*>>> images;
@@ -195,8 +198,14 @@ void Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement
 }
 void Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
 {
-	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition());
-	m_renderer->uiTransform->SetLocalScale(trans->GetWorldScale() * trans->GetLocalSize());
+	float defaultAspectRatio = m_renderer->defaultWindowSize.x / m_renderer->defaultWindowSize.y;
+	glm::vec2 wSize = me::core::Core::Global()->Window()->GetSize();
+	float currentAspectRatio = wSize.x / wSize.y;
+
+	float scale = currentAspectRatio / defaultAspectRatio;
+
+	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition() * scale);
+	m_renderer->uiTransform->SetLocalScale((trans->GetWorldScale() * trans->GetLocalSize()) * scale);
 	m_renderer->uiTransform->SetLocalRotation(trans->GetWorldRotation());
 }
 

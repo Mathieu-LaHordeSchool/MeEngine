@@ -21,7 +21,7 @@ struct Window::Internal
 
 void WindowResize(GLFWwindow* window, int width, int height);
 
-Window::Window(const char* title, int w, int h)
+Window::Window(const char* title, int w, int h, bool fullScreen, bool resizable)
 	: m_window(new Internal())
 {
 	m_window->width = w;
@@ -43,9 +43,13 @@ Window::Window(const char* title, int w, int h)
 #endif /* !NDEBUG */
 	glfwWindowHint(GLFW_SRGB_CAPABLE,			GL_TRUE);
 	glfwWindowHint(GLFW_DOUBLEBUFFER,			GL_TRUE);
-	glfwWindowHint(GLFW_RESIZABLE,				GL_TRUE);
+	glfwWindowHint(GLFW_RESIZABLE,				resizable);
 
-	window = glfwCreateWindow(w, h, title, nullptr, nullptr);
+	GLFWmonitor* monitor = nullptr;
+	if (fullScreen)
+		monitor = glfwGetPrimaryMonitor();
+
+	window = glfwCreateWindow(w, h, title, monitor, nullptr);
 	if (!window)
 		throw std::runtime_error("Unable to initialize GLFW");
 

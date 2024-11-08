@@ -11,7 +11,7 @@ namespace me::render::window {
 		struct Internal;
 		Internal* m_window;
 
-		explicit Window(const char* title, int w, int h);
+		explicit Window(const char* title, int w, int h, bool fullScreen, bool resizable);
 		~Window() noexcept;
 
 		bool IsClose();

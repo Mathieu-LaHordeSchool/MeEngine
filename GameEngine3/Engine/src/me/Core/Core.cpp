@@ -39,7 +39,11 @@ void Core::Initialize(CoreConfigs configs)
 {
 	m_core = new Internal();
 
-	Core::Internal::window = new me::render::window::Window(configs.title, configs.windowSize.x, configs.windowSize.y);
+	Core::Internal::window = new me::render::window::Window(
+		configs.title,
+		configs.windowSize.x, configs.windowSize.y,
+		configs.fullScreen, configs.resezable
+	);
 	Core::Internal::inputs = new me::core::input::Inputs(Core::Internal::window);
 	Core::Internal::renderer = new me::render::Renderer(Core::Internal::window);
 }
