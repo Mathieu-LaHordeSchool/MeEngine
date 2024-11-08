@@ -37,6 +37,8 @@ namespace me::core
 		me::render::Renderer*		Renderer()	const;
 		me::render::window::Window* Window()	const;
 
+		glm::vec2 DefaultWindowSize() const;
+
 		void LoadScene(me::core::Scene* scn);
 		void Execute();
 		void Stop();

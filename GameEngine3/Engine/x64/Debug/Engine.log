@@ -1,10 +1,29 @@
-﻿  Scene.cpp
+﻿  Core.cpp
+C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Input\Inputs.h(29,34): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+  (compiler le fichier source 'src/me/Core/Core.cpp')
+  C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Render\Window\Window.h(5,8):
+  voir la déclaration de 'GLFWwindow'
+  
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244: 'argument' : conversion de 'T' en 'int', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:         with
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:         [
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:             T=float
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:         ]
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244: 'argument' : conversion de 'T' en 'int', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:         with
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:         [
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:             T=float
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:         ]
+  Scene.cpp
 C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Timer\HandleTimer.h(13,26): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
   (compiler le fichier source 'src/me/Core/Scene.cpp')
   
-C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Scene.cpp(117,14): warning C4244: 'initialisation' : conversion de '__int64' en 'int', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\Scene.cpp(121,14): warning C4244: 'initialisation' : conversion de '__int64' en 'int', perte possible de données
+  TransformData.cpp
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\TransformData.cpp(253,35): warning C4267: 'return' : conversion de 'size_t' en 'int', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Core\TransformData.cpp(264,13): warning C4244: 'initialisation' : conversion de '__int64' en 'int', perte possible de données
   Renderer.cpp
-C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(194,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(193,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(246,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
 C:\LaHorde\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(269,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
   Génération de code en cours...

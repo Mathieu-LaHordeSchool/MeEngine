@@ -37,7 +37,12 @@ glm::vec3 TransformData::GetWorldPosition() const
 	glm::vec3 localPosition = GetLocalPosition();
 
 	if (m_transform->parent) {
-		glm::mat4 parentTransformMatrix = m_transform->parent->GetTransformMatrix();
+		glm::mat4 parentTransformMatrix = glm::mat4(1.f);
+		parentTransformMatrix = glm::translate(parentTransformMatrix, m_transform->parent->GetWorldPosition());
+		parentTransformMatrix = glm::rotate(parentTransformMatrix, glm::radians(m_transform->parent->GetWorldRotation().x), glm::vec3(1.f, 0.f, 0.f));
+		parentTransformMatrix = glm::rotate(parentTransformMatrix, glm::radians(m_transform->parent->GetWorldRotation().y), glm::vec3(0.f, 1.f, 0.f));
+		parentTransformMatrix = glm::rotate(parentTransformMatrix, glm::radians(m_transform->parent->GetWorldRotation().z), glm::vec3(0.f, 0.f, 1.f));
+
 		glm::vec4 transformedPosition = parentTransformMatrix * glm::vec4(localPosition, 1.0f);
 		return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
 	}

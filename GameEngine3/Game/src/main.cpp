@@ -40,6 +40,8 @@ int main(int argc, char** argv)
 	me::core::Scene* mainScene = new me::core::Scene;
 
 	me::core::Entity* poule = mainScene->CreateObject("poule");
+	me::core::Entity* cube2 = mainScene->CreateObject("Cube", poule->Transform());
+
 	me::core::Entity* character = mainScene->CreateObject("Character");
 	me::core::Entity* cam = mainScene->CreateObject("Camera", character->Transform());
 
@@ -59,8 +61,15 @@ int main(int argc, char** argv)
 	img->order = 10;
 
 	character->Transform()->SetLocalPosition(glm::vec3(0.f, -10.f, 5.f));
-	poule->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(pouleMesh);
-	poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
+	CharacterController* controller = character->AddComponent<CharacterController>();
+	controller->camera = cam;
+
+	poule->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(cubeMesh);
+	// poule->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
+	poule->Transform()->Scale(glm::vec3(1.f), 1.f);
+
+	cube2->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(cubeMesh);
+	cube2->Transform()->SetLocalPosition(glm::vec3(2.f, 2.f, 0.f));
 
 	me::core::components::render::Material* mat = poule->AddComponent<me::core::components::render::Material>();
 	mat->SetColor(glm::vec4(.3, .4, .5, 1.f));
@@ -69,8 +78,6 @@ int main(int argc, char** argv)
 	cam->AddComponent<me::core::components::render::Camera>();
 	cam->Transform()->SetLocalPosition(glm::vec3(0.f, 2.f, 0.f));
 
-	CharacterController* controller = character->AddComponent<CharacterController>();
-	controller->camera = cam;
 
 	me::core::Core::Global()->LoadScene(mainScene);
 	me::core::Core::Global()->Execute();
