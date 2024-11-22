@@ -47,6 +47,14 @@ int main(int argc, char** argv)
 	me::core::Entity* uiC = mainScene->CreateObject("image", ui->Transform());
 
 	me::core::Entity* poule = mainScene->CreateObject("poule");
+
+	me::core::components::ui::Button* btn = ui->AddComponent<me::core::components::ui::Button>();
+	btn->SetOnClick([&]() {std::cout << "Click" << std::endl; });
+	btn->SetOnEnter([&]() {std::cout << "Enter" << std::endl; });
+	btn->SetOnExit([&]() {std::cout << "exit" << std::endl; });
+	
+	ui->Transform()->SetLocalSize(glm::vec3(50.f));
+	ui->Transform()->SetLocalPosition(glm::vec3(25.f, 25.f, 0.f));
 	
 	character->Transform()->SetLocalPosition(glm::vec3(0.f, 0.f, 5.f));
 	CharacterController* controller = character->AddComponent<CharacterController>();

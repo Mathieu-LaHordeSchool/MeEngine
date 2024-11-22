@@ -12,7 +12,6 @@ using namespace me::core::components::ui;
 struct Image::Internal
 {
 	me::core::render::Texture* texture = new me::core::render::Texture("../Ressources/Textures/ao_default.png");
-	glm::vec2 windowSize;
 };
 
 Image::Image(Entity* owner)
@@ -21,12 +20,7 @@ Image::Image(Entity* owner)
 
 void Image::Render(me::render::Renderer* render)
 {
-	m_image->windowSize = render->GetWindow()->GetSize();
-	render->PushImage(GetOwner()->Transform(), this, m_image->texture);
+	render->PushImage(GetOwner(), this, m_image->texture);
 }
 
-glm::vec2 Image::GetWindowSize() const
-{
-	return m_image->windowSize;
-}
 GetSetInternalValueCPP(Texture, texture, me::core::render::Texture*, Image, m_image)

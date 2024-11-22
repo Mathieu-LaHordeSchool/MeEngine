@@ -25,7 +25,6 @@ namespace me::core::components::ui {
 
 		void Render(me::render::Renderer* render) override;
 
-		glm::vec2 GetWindowSize() const;
 		GetSetInternalValueHPP(Texture, me::core::render::Texture*)
 	};
 }

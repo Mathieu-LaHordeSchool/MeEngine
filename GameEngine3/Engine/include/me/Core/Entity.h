@@ -25,7 +25,8 @@ namespace me::core {
 		~Entity() noexcept = default;
 
 		TransformData* Transform() const;
-
+		TransformData* TransformUi() const;
+		
 		Component* AddComponent(Component* comp);
 		Component* GetComponent(const char* comp);
 		bool	   HasComponent(const char* comp);

@@ -13,6 +13,7 @@ struct me::core::Entity::Internal
 	Scene* ownScene;
 	std::unordered_map<const char*, Component*> components;
 	TransformData* transform = new TransformData();
+	TransformData* transformUi = new TransformData();
 };
 
 me::core::Entity::Entity(Scene* scn)
@@ -24,6 +25,11 @@ me::core::Entity::Entity(Scene* scn)
 TransformData* me::core::Entity::Transform() const
 {
 	return m_entity->transform;
+}
+
+TransformData* Entity::TransformUi() const
+{
+	return m_entity->transformUi;
 }
 
 Component* me::core::Entity::AddComponent(Component* comp)

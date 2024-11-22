@@ -29,7 +29,7 @@ namespace me::render {
 
 		void SetCamera(me::core::Entity* cam);
 		void PushGeometry(me::core::Entity* cam);
-		void PushImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex);
+		void PushImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex);
 
 		void ClearAllRendererData();
 		void Execute();
@@ -37,13 +37,11 @@ namespace me::render {
 		void CreateAndBindBuffers(const me::core::render::Mesh& mesh);
 
 		void DrawUIs();
-		void DrawImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex);
-		void CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element);
+		void DrawImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex);
+		void CalculTransformUI(me::core::Entity* trans, me::core::ui::UIElement* element);
 
 		void DrawGeometry();
 		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh);
 		void Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh);
-
-		me::render::window::Window* GetWindow() const;
 	};
 }

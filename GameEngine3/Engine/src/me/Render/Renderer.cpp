@@ -33,7 +33,7 @@ struct Renderer::Internal
 	me::core::TransformData* uiTransform = new me::core::TransformData();
 
 	std::vector<std::tuple<me::core::TransformData*, me::core::components::render::Material*, me::core::render::Mesh>> geometrys;
-	std::map<int, std::vector<std::tuple<me::core::TransformData*, me::core::ui::UIElement*, me::core::render::Texture*>>> images;
+	std::map<int, std::vector<std::tuple<me::core::Entity*, me::core::ui::UIElement*, me::core::render::Texture*>>> images;
 	me::core::components::render::Camera* camera = nullptr;
 
 	glm::mat4 viewMatrix = glm::mat4(1.f);
@@ -91,9 +91,9 @@ void Renderer::PushGeometry(me::core::Entity* entity)
 
 	m_renderer->geometrys.push_back(std::make_tuple(entity->Transform(), material, staticMesh->GetMesh()));
 }
-void Renderer::PushImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
+void Renderer::PushImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
-	m_renderer->images[element->order].push_back(std::make_tuple(trans, element, tex));
+	m_renderer->images[element->order].push_back(std::make_tuple(entity, element, tex));
 }
 
 void Renderer::ClearAllRendererData()
@@ -156,7 +156,7 @@ void Renderer::DrawUIs()
 	{
 		for (auto& u : value)
 		{
-			me::core::TransformData*	trans	= std::get<0>(u);
+			me::core::Entity*			entity	= std::get<0>(u);
 			me::core::ui::UIElement*	element	= std::get<1>(u);
 			me::core::render::Texture*	texture	= std::get<2>(u);
 
@@ -168,11 +168,11 @@ void Renderer::DrawUIs()
 			);
 
 			CreateAndBindBuffers(m_renderer->baseMesh);
-			DrawImage(trans, element, texture);
+			DrawImage(entity, element, texture);
 		}
 	}
 }
-void Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement* element, me::core::render::Texture* tex)
+void Renderer::DrawImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramUI;
 	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
@@ -180,9 +180,9 @@ void Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement
 	sp->StartShaderProgram();
 	VAO->BindVertexArray();
 
-	CalculTransformUI(trans, element);
+	CalculTransformUI(entity, element);
 
-	glm::mat4 modelTrans = m_renderer->uiTransform->GetTransformMatrix();
+	glm::mat4 modelTrans = entity->TransformUi()->GetTransformMatrix();
 	sp->SetMat4("uModel", modelTrans);
 
 	tex->BindTexture(GL_TEXTURE0);
@@ -195,13 +195,16 @@ void Renderer::DrawImage(me::core::TransformData* trans, me::core::ui::UIElement
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
-void Renderer::CalculTransformUI(me::core::TransformData* trans, me::core::ui::UIElement* element)
+void Renderer::CalculTransformUI(me::core::Entity* entity, me::core::ui::UIElement* element)
 {
 	float scale = me::core::Core::Global()->AspectRatioScale();
 
-	m_renderer->uiTransform->SetLocalPosition(trans->GetWorldPosition() * scale);
-	m_renderer->uiTransform->SetLocalScale((trans->GetWorldScale() * trans->GetLocalSize()) * scale);
-	m_renderer->uiTransform->SetLocalRotation(trans->GetWorldRotation());
+	me::core::TransformData* trans = entity->Transform();
+	me::core::TransformData* transUi = entity->TransformUi();
+	
+	transUi->SetLocalPosition(trans->GetWorldPosition() * scale);
+	transUi->SetLocalScale((trans->GetWorldScale() * trans->GetLocalSize()) * scale);
+	transUi->SetLocalRotation(trans->GetWorldRotation());
 }
 
 void Renderer::DrawGeometry()
@@ -265,9 +268,4 @@ void Renderer::Draw(me::core::TransformData* trans, me::core::components::render
 
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
-}
-
-me::render::window::Window* Renderer::GetWindow() const
-{
-	return m_renderer->window;
 }

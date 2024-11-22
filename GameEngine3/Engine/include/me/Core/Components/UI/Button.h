@@ -20,6 +20,7 @@ namespace me::core::components::ui {
 			explicit Button(me::core::Entity* owner);
 		~Button() noexcept = default;
 
+		void Start() override;
 		void Update() override;
 		void BindInputs(me::core::input::Inputs* inputs) override;
 		void Render(me::render::Renderer* render) override;

@@ -24,7 +24,7 @@ struct Button::Internal
 	float mx, my;
 
 	me::core::render::Texture* texture = new me::core::render::Texture("../Ressources/Textures/ao_default.png");
-	glm::vec2 size;
+	me::render::window::Window* window;
 
 	std::function<void()> onClick;
 	std::function<void()> onEnter;
@@ -34,6 +34,13 @@ struct Button::Internal
 Button::Button(me::core::Entity* owner)
 	: Component(owner), m_button(new Internal())
 {}
+
+void Button::Start()
+{
+	Component::Start();
+
+	m_button->window = me::core::Core::Global()->Window();
+}
 
 void Button::Update()
 {
@@ -48,9 +55,11 @@ void Button::Update()
 	glm::vec2 min, max;
 	min = (glm::vec2(pos.x, pos.y) * scale);
 	max = (glm::vec2(pos.x, pos.y) * scale) + ((glm::vec2(siz.x, siz.y) * glm::vec2(scl.x, scl.y)) * scale);
+
+	glm::vec2 size = m_button->window->GetSize();
 	
 	float mx = m_button->mx;
-	float my = (m_button->my - m_button->size.y) * -1.f;
+	float my = (m_button->my - size.y) * -1.f;
 
 	bool isMouseInside = (mx >= min.x && mx <= max.x && my >= min.y && my <= max.y);
 
@@ -91,8 +100,7 @@ void Button::BindInputs(me::core::input::Inputs* inputs)
 }
 void Button::Render(me::render::Renderer* render)
 {
-	m_button->size = render->GetWindow()->GetSize();
-	render->PushImage(GetOwner()->Transform(), this, m_button->texture);
+	render->PushImage(GetOwner(), this, m_button->texture);
 }
 
 GetSetInternalValueCPP(OnClick, onClick, std::function<void()>, Button, m_button)
