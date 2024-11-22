@@ -26,6 +26,6 @@ namespace me::core::input {
 		void GetMousePosition(double& mx, double& my);
 
 	private:
-		void updateMousePosition(class GLFWwindow* window);
+		void updateMousePosition(struct GLFWwindow* window);
 	};
 }

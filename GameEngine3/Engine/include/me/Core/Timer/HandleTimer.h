@@ -10,7 +10,7 @@ namespace me::core::timer {
 		float dt, time;
 
 		void Update() {
-			lastTime = glfwGetTime();
+			lastTime = static_cast<float>(glfwGetTime());
 			dt = lastTime - time;
 			time = lastTime;
 		}

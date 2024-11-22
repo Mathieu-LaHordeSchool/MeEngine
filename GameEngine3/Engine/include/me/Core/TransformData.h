@@ -61,8 +61,8 @@ namespace me::core {
 
 		TransformData** GetChildren() const;
 		int GetChildCount() const;
-		void AddChildren(TransformData* child);
-		void RemoveChildren(TransformData* child);
+		void AddChildren(TransformData* child) const;
+		void RemoveChildren(const TransformData* child) const;
 	};
 }
 

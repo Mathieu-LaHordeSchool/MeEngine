@@ -46,8 +46,7 @@ glm::vec3 TransformData::GetWorldPosition() const
 		glm::vec4 transformedPosition = parentTransformMatrix * glm::vec4(localPosition, 1.0f);
 		return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
 	}
-
-	// Si pas de parent, retourner simplement la position locale
+	
 	return localPosition;
 }
 glm::vec3 TransformData::GetWorldRotation() const
@@ -184,10 +183,10 @@ glm::mat4 TransformData::GetTransformMatrix() const
 	glm::vec3 rotation = GetWorldRotation();
 	glm::vec3 scale = GetWorldScale();
 
-	matrix = glm::translate(matrix, position);
 	matrix = glm::rotate(matrix, glm::radians(rotation.x), glm::vec3(1.f, 0.f, 0.f));
 	matrix = glm::rotate(matrix, glm::radians(rotation.y), glm::vec3(0.f, 1.f, 0.f));
 	matrix = glm::rotate(matrix, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
+	matrix = glm::translate(matrix, position);
 	matrix = glm::scale(matrix, scale);
 
 	return matrix;
@@ -244,24 +243,23 @@ Entity* TransformData::GetOwner() const
 	return m_transform->owner;
 }
 
-TransformData** me::core::TransformData::GetChildren() const
+TransformData** TransformData::GetChildren() const
 {
 	return m_transform->children.data();
 }
-int me::core::TransformData::GetChildCount() const
+int TransformData::GetChildCount() const
 {
 	return m_transform->children.size();
 }
-void me::core::TransformData::AddChildren(TransformData* child)
+void TransformData::AddChildren(TransformData* child) const
 {
 	m_transform->children.push_back(child);
 }
-void me::core::TransformData::RemoveChildren(TransformData* child)
+void TransformData::RemoveChildren(const TransformData* child) const
 {
-	auto it = std::find(m_transform->children.begin(), m_transform->children.end(), child);
+	const auto& it = std::ranges::find(m_transform->children, child);
 
 	if (it != m_transform->children.end()) {
-		int index = std::distance(m_transform->children.begin(), it);
-		m_transform->children.erase(m_transform->children.begin() + index);
+		m_transform->children.erase(it);
 	}
 }
