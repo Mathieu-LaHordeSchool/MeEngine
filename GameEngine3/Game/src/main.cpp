@@ -21,7 +21,9 @@
 #include <me/Core/Components/UI/Button.h>
 
 #include <Components/CharacterController.h>
+#include <glm/detail/type_quat.hpp>
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/quaternion_trigonometric.hpp>
 
 int main(int argc, char** argv)
 {
@@ -67,6 +69,7 @@ int main(int argc, char** argv)
 	mesh->SetMesh(pouleMesh);
 
 	poule->Transform()->SetLocalPosition(glm::vec3(0.f, 0.f, 0.f));
+	poule->Transform()->SetLocalRotation(glm::angleAxis(glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f)));
 	
 	me::core::Core::Global()->LoadScene(mainScene);
 	me::core::Core::Global()->Execute();

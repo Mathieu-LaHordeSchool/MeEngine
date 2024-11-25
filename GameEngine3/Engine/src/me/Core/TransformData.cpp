@@ -5,6 +5,8 @@
 
 #include <glm/glm.hpp>
 #include <vector>
+#include <glm/detail/type_quat.hpp>
+#include <glm/ext/quaternion_trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace me::core;
@@ -12,7 +14,7 @@ using namespace me::core;
 struct TransformData::Internal
 {
 	glm::vec3 position;
-	glm::vec3 rotation;
+	glm::quat rotation;
 	glm::vec3 scale = glm::vec3(1.f);
 	glm::vec3 size;
 
@@ -39,9 +41,9 @@ glm::vec3 TransformData::GetWorldPosition() const
 	if (m_transform->parent) {
 		glm::mat4 parentTransformMatrix = glm::mat4(1.f);
 		parentTransformMatrix = glm::translate(parentTransformMatrix, m_transform->parent->GetWorldPosition());
-		parentTransformMatrix = glm::rotate(parentTransformMatrix, glm::radians(m_transform->parent->GetWorldRotation().x), glm::vec3(1.f, 0.f, 0.f));
-		parentTransformMatrix = glm::rotate(parentTransformMatrix, glm::radians(m_transform->parent->GetWorldRotation().y), glm::vec3(0.f, 1.f, 0.f));
-		parentTransformMatrix = glm::rotate(parentTransformMatrix, glm::radians(m_transform->parent->GetWorldRotation().z), glm::vec3(0.f, 0.f, 1.f));
+		parentTransformMatrix = glm::rotate(parentTransformMatrix, m_transform->parent->GetWorldRotation().x, glm::vec3(1.f, 0.f, 0.f));
+		parentTransformMatrix = glm::rotate(parentTransformMatrix, m_transform->parent->GetWorldRotation().y, glm::vec3(0.f, 1.f, 0.f));
+		parentTransformMatrix = glm::rotate(parentTransformMatrix, m_transform->parent->GetWorldRotation().z, glm::vec3(0.f, 0.f, 1.f));
 
 		glm::vec4 transformedPosition = parentTransformMatrix * glm::vec4(localPosition, 1.0f);
 		return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
@@ -49,9 +51,9 @@ glm::vec3 TransformData::GetWorldPosition() const
 	
 	return localPosition;
 }
-glm::vec3 TransformData::GetWorldRotation() const
+glm::quat TransformData::GetWorldRotation() const
 {
-	glm::vec3 rotation = m_transform->rotation;
+	glm::quat rotation = m_transform->rotation;
 
 	if (m_transform->parent)
 		return rotation + m_transform->parent->GetLocalRotation();
@@ -82,7 +84,7 @@ glm::vec3 TransformData::GetLocalPosition() const
 {
 	return m_transform->position;
 }
-glm::vec3 TransformData::GetLocalRotation() const
+glm::quat TransformData::GetLocalRotation() const
 {
 	return m_transform->rotation;
 }
@@ -99,31 +101,38 @@ glm::vec3 TransformData::GetLocalSize() const
 void TransformData::Translate(const glm::vec3& axis, float value)
 {
 	m_transform->position += axis * value;
+	DirtyMatrix();
 }
 void TransformData::Rotate(const glm::vec3& axis, float value)
 {
-	m_transform->rotation += axis * value;
+	m_transform->rotation += glm::angleAxis(glm::radians(value), axis);
+	DirtyMatrix();
 }
 void TransformData::Scale(const glm::vec3& axis, float value)
 {
 	m_transform->scale += axis * value;
+	DirtyMatrix();
 }
 
 void TransformData::SetLocalPosition(const glm::vec3& pos)
 {
 	m_transform->position = pos;
+	DirtyMatrix();
 }
-void TransformData::SetLocalRotation(const glm::vec3& rot)
+void TransformData::SetLocalRotation(glm::quat rot)
 {
 	m_transform->rotation = rot;
+	DirtyMatrix();
 }
 void TransformData::SetLocalScale(const glm::vec3& scale)
 {
 	m_transform->scale = scale;
+	DirtyMatrix();
 }
 void TransformData::SetLocalSize(const glm::vec3& size)
 {
 	m_transform->size = size;
+	DirtyMatrix();
 }
 
 void TransformData::SetWorldPosition(const glm::vec3& pos)
@@ -138,18 +147,22 @@ void TransformData::SetWorldPosition(const glm::vec3& pos)
 	{
 		SetLocalPosition(pos);
 	}
+
+	DirtyMatrix();
 }
-void TransformData::SetWorldRotation(const glm::vec3& rot)
+void TransformData::SetWorldRotation(glm::quat rot)
 {
 	if (m_transform->parent)
 	{
-		glm::vec3 parentRot = m_transform->parent->GetWorldRotation();
+		glm::quat parentRot = m_transform->parent->GetWorldRotation();
 		SetLocalRotation(rot - parentRot);
 	}
 	else
 	{
 		SetLocalRotation(rot);
 	}
+
+	DirtyMatrix();
 }
 void TransformData::SetWorldScale(const glm::vec3& scale)
 {
@@ -178,17 +191,23 @@ void TransformData::SetWorldSize(const glm::vec3& size)
 
 glm::mat4 TransformData::GetTransformMatrix() const
 {
+	if (!m_transform->needModelUpdate)
+		return m_transform->model;
+	
 	glm::mat4 matrix(1.f);
 	glm::vec3 position = GetWorldPosition();
-	glm::vec3 rotation = GetWorldRotation();
+	glm::quat rotation = GetWorldRotation();
 	glm::vec3 scale = GetWorldScale();
 
-	matrix = glm::rotate(matrix, glm::radians(rotation.x), glm::vec3(1.f, 0.f, 0.f));
-	matrix = glm::rotate(matrix, glm::radians(rotation.y), glm::vec3(0.f, 1.f, 0.f));
-	matrix = glm::rotate(matrix, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
+	matrix = glm::rotate(matrix, rotation.x, glm::vec3(1.f, 0.f, 0.f));
+	matrix = glm::rotate(matrix, rotation.y, glm::vec3(0.f, 1.f, 0.f));
+	matrix = glm::rotate(matrix, rotation.z, glm::vec3(0.f, 0.f, 1.f));
 	matrix = glm::translate(matrix, position);
 	matrix = glm::scale(matrix, scale);
 
+	m_transform->model = matrix;
+	m_transform->needModelUpdate = false;
+	
 	return matrix;
 }
 
@@ -261,5 +280,14 @@ void TransformData::RemoveChildren(const TransformData* child) const
 
 	if (it != m_transform->children.end()) {
 		m_transform->children.erase(it);
+	}
+}
+
+void TransformData::DirtyMatrix()
+{
+	m_transform->needModelUpdate = true;
+
+	for (size_t i = 0; i < GetChildCount(); ++i) {
+		GetChildren()[i]->DirtyMatrix();
 	}
 }

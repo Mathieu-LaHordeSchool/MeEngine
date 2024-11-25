@@ -23,6 +23,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <tuple>
 #include <vector>
+#include <glm/detail/type_quat.hpp>
 
 using namespace me::render;
 

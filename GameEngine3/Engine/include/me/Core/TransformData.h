@@ -21,12 +21,12 @@ namespace me::core {
 		~TransformData() noexcept;
 
 		glm::vec3 GetWorldPosition() const;
-		glm::vec3 GetWorldRotation() const;
+		glm::quat GetWorldRotation() const;
 		glm::vec3 GetWorldScale() const;
 		glm::vec3 GetWorldSize() const;
 
 		glm::vec3 GetLocalPosition() const;
-		glm::vec3 GetLocalRotation() const;
+		glm::quat GetLocalRotation() const;
 		glm::vec3 GetLocalScale() const;
 		glm::vec3 GetLocalSize() const;
 
@@ -35,12 +35,12 @@ namespace me::core {
 		void Scale(const glm::vec3&, float value);
 
 		void SetLocalPosition(const glm::vec3& pos);
-		void SetLocalRotation(const glm::vec3& rot);
+		void SetLocalRotation(glm::quat rot);
 		void SetLocalScale(const glm::vec3& scale);
 		void SetLocalSize(const glm::vec3& size);
 
 		void SetWorldPosition(const glm::vec3& pos);
-		void SetWorldRotation(const glm::vec3& rot);
+		void SetWorldRotation(glm::quat rot);
 		void SetWorldScale(const glm::vec3& scale);
 		void SetWorldSize(const glm::vec3& size);
 
@@ -63,6 +63,8 @@ namespace me::core {
 		int GetChildCount() const;
 		void AddChildren(TransformData* child) const;
 		void RemoveChildren(const TransformData* child) const;
+
+		void DirtyMatrix();
 	};
 }
 

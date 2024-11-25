@@ -28,6 +28,6 @@ public:
 	void Rotate(float x, float y);
 
 	float moveSpeed = 10.f;
-	float rotateSpeed = 1.f;
+	float rotateSpeed = 100.f;
 	me::core::Entity* camera;
 };

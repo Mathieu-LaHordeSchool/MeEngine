@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include <Components/CharacterController.h>
+#include <glm/detail/type_quat.hpp>
 
 #include <me/Core/Core.h>
 #include <me/Core/Scene.h>
@@ -62,7 +63,7 @@ void CharacterController::Rotate(float x, float y)
 	me::core::TransformData* trans = camera->Transform();
 
 	float rotXmovement = dy * rotateSpeed * dt * -1.f;
-	if (abs(trans->GetLocalRotation().x + rotXmovement) < glm::radians(80.f))
+	if (abs(trans->GetLocalRotation().x + rotXmovement) < 80.f)
 		trans->Rotate(glm::vec3(1.f, 0.f, 0.f), rotXmovement);
 
 	trans->Rotate(glm::vec3(0.f, 1.f, 0.f), dx * rotateSpeed * dt * -1.f);
