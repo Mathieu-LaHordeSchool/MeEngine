@@ -217,8 +217,8 @@ void Renderer::DrawGeometry()
 		me::core::render::Mesh						mesh		= std::get<2>(g);
 		me::core::components::render::Camera*		cam			= m_renderer->camera;
 
-		if (!cam->InFieldOfView(mesh, transform))
-			continue;
+		// if (!cam->InFieldOfView(mesh, transform))
+		// 	continue;
 
 		CalculViewMatrix(cam);
 		CreateAndBindBuffers(mesh);
@@ -242,7 +242,7 @@ void Renderer::Draw(me::core::TransformData* trans, const me::core::render::Mesh
 	sp->SetMat4("uProjectionMatrix", m_renderer->projectionMatrix);
 	sp->SetMat4("uModel", modelTrans);
 
-	glDrawElements(GL_TRIANGLES, mesh.Vertices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh.Elements.size(), GL_UNSIGNED_INT, 0);
 
 	VAO->UnbindVertexArray();
 	sp->StopShaderProgram();
@@ -256,9 +256,7 @@ void Renderer::Draw(me::core::TransformData* trans, me::core::components::render
 	VAO->BindVertexArray();
 
 	glm::mat4 modelTrans = trans->GetTransformMatrix();
-	sp->SetMat4("uViewMatrix", m_renderer->viewMatrix);
-	sp->SetMat4("uProjectionMatrix", m_renderer->projectionMatrix);
-	sp->SetMat4("uModel", modelTrans);
+	sp->SetMat4("MVP", m_renderer->projectionMatrix * m_renderer->viewMatrix * modelTrans);
 
 	material->GetAlbedoTexture()->BindTexture(GL_TEXTURE0);
 	glm::vec4 color = material->GetColor();

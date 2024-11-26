@@ -11,6 +11,6 @@ namespace me::core {
 		~EnableObject() noexcept = default;
 
 		bool GetActive() const;
-		void SetActive(bool active);
+		virtual void SetActive(bool active);
 	};
 }

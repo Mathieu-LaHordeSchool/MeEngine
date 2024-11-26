@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "EnableObject.h"
+
 namespace me::core::ui
 {
 	class UIElement;
@@ -11,6 +13,7 @@ namespace me::core {
 	class Entity;
 
 	class TransformData
+		: public EnableObject
 	{
 	private:
 		struct Internal;

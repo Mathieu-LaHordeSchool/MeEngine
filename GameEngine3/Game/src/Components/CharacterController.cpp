@@ -20,7 +20,7 @@ CharacterController::CharacterController(me::core::Entity* owner)
 
 void CharacterController::Start()
 {
-	// me::core::Core::Global()->Window()->SetEnableMouse(false);
+	me::core::Core::Global()->Window()->SetEnableMouse(false);
 }
 
 void CharacterController::BindInputs(me::core::input::Inputs* inputs)
@@ -63,7 +63,9 @@ void CharacterController::Rotate(float x, float y)
 	me::core::TransformData* trans = camera->Transform();
 
 	float rotXmovement = dy * rotateSpeed * dt * -1.f;
-	if (abs(trans->GetLocalRotation().x + rotXmovement) < 80.f)
+	std::cout << abs(trans->GetLocalRotation().x + rotXmovement) << std::endl;
+	
+	if (abs(trans->GetLocalRotation().x + glm::radians(rotXmovement)) < glm::radians(89.9f))
 		trans->Rotate(glm::vec3(1.f, 0.f, 0.f), rotXmovement);
 
 	trans->Rotate(glm::vec3(0.f, 1.f, 0.f), dx * rotateSpeed * dt * -1.f);

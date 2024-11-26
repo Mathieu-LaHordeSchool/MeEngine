@@ -38,8 +38,8 @@ bool Scene::ContainsEntityWithName(Entity * parent, const char* name)
 Entity* Scene::CreateObject(const char* name, TransformData* parent /* = nullptr */)
 {
 	Entity* parentOwner = parent ? parent->GetOwner() : nullptr;
-	if (ContainsEntityWithName(parentOwner, name))
-		return nullptr;
+	// if (ContainsEntityWithName(parentOwner, name))
+	// 	return nullptr;
 
 	Entity* newEntity = new Entity(this);
 	m_scene->entitys[parentOwner].push_back(newEntity);
@@ -104,7 +104,7 @@ void Scene::LoopOnEntity(std::function<void(Entity*)> func)
 	recursive = [this, &recursive, &func](auto e) {
 		if (m_scene->entitys.count(e)) {
 			for (Entity* entity : m_scene->entitys[e]) {
-				if (!entity->GetActive())
+				if (!entity->Transform()->GetActive())
 					continue;
 
 				func(entity);

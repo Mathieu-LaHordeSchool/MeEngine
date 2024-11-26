@@ -1,4 +1,6 @@
 
+#include <iostream>
+#include <ostream>
 #include <me/Core/TransformData.h>
 #include <me/Core/Entity.h>
 #include <me/Core/UI/UIElements.h>
@@ -110,33 +112,48 @@ void TransformData::Rotate(const glm::vec3& axis, float value)
 }
 void TransformData::Scale(const glm::vec3& axis, float value)
 {
-	m_transform->scale += axis * value;
+	m_transform->scale += axis * value;	
 	DirtyMatrix();
 }
 
 void TransformData::SetLocalPosition(const glm::vec3& pos)
 {
+	if (pos == m_transform->position)
+		return;
+	
 	m_transform->position = pos;
 	DirtyMatrix();
 }
 void TransformData::SetLocalRotation(glm::quat rot)
 {
+	if (m_transform->rotation == rot)
+		return;
+	
 	m_transform->rotation = rot;
 	DirtyMatrix();
 }
 void TransformData::SetLocalScale(const glm::vec3& scale)
 {
+	if (scale == m_transform->scale)
+		return;
+	
 	m_transform->scale = scale;
 	DirtyMatrix();
 }
 void TransformData::SetLocalSize(const glm::vec3& size)
 {
+	if (size == m_transform->size)
+		return;
+	
 	m_transform->size = size;
 	DirtyMatrix();
 }
 
 void TransformData::SetWorldPosition(const glm::vec3& pos)
 {
+	if (pos == m_transform->position)
+		return;
+	
 	if (m_transform->parent)
 	{
 		glm::mat4 parentMatrix = glm::inverse(m_transform->parent->GetTransformMatrix());
@@ -152,6 +169,9 @@ void TransformData::SetWorldPosition(const glm::vec3& pos)
 }
 void TransformData::SetWorldRotation(glm::quat rot)
 {
+	if (rot == m_transform->rotation)
+		return;
+	
 	if (m_transform->parent)
 	{
 		glm::quat parentRot = m_transform->parent->GetWorldRotation();
@@ -166,6 +186,9 @@ void TransformData::SetWorldRotation(glm::quat rot)
 }
 void TransformData::SetWorldScale(const glm::vec3& scale)
 {
+	if (scale == m_transform->scale)
+		return;
+	
 	if (m_transform->parent)
 	{
 		glm::vec3 parentScale = m_transform->parent->GetWorldScale();
@@ -178,6 +201,9 @@ void TransformData::SetWorldScale(const glm::vec3& scale)
 }
 void TransformData::SetWorldSize(const glm::vec3& size)
 {
+	if (size == m_transform->size)
+		return;
+	
 	if (m_transform->parent)
 	{
 		glm::vec3 parentScale = m_transform->parent->GetWorldSize();
@@ -193,7 +219,7 @@ glm::mat4 TransformData::GetTransformMatrix() const
 {
 	if (!m_transform->needModelUpdate)
 		return m_transform->model;
-	
+
 	glm::mat4 matrix(1.f);
 	glm::vec3 position = GetWorldPosition();
 	glm::quat rotation = GetWorldRotation();
@@ -239,6 +265,9 @@ glm::vec3 TransformData::GetTransformUp() const
 void TransformData::SetParent(TransformData* trans)
 {
 	m_transform->parent = trans;
+
+	if (trans)
+		SetActive(trans->GetActive());
 }
 TransformData* TransformData::GetParent() const
 {

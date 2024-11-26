@@ -14,7 +14,6 @@ namespace me::core {
 	class Scene;
 
 	class Entity
-		: public EnableObject
 	{
 	private:
 		struct Internal;

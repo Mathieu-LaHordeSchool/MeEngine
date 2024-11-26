@@ -1,6 +1,7 @@
 
 #include <glm/glm.hpp>
 #include <iostream>
+#include <string>
 
 #include <me/Core/Core.h>
 
@@ -36,24 +37,30 @@ int main(int argc, char** argv)
 	me::core::render::MeshLoader loader = me::core::render::MeshLoader();
 	me::core::render::Mesh pouleMesh = loader.LoadMesh("../Ressources/Models/boss.obj");
 	me::core::render::Mesh cubeMesh = loader.LoadMesh("../Ressources/Models/default.obj");
-
+	me::core::render::Mesh mapMesh = loader.LoadMesh("../Ressources/Models/Map.obj");
+	
 	me::core::render::Texture* bg = new me::core::render::Texture("../Ressources/Textures/Test.png");
 	me::core::render::Texture* boss = new me::core::render::Texture("../Ressources/Textures/Boss.png");
-
+	me::core::render::Texture* mapTexture = new me::core::render::Texture("../Ressources/Textures/Map.png");
+	
 	me::core::Scene* mainScene = new me::core::Scene;
 
 	me::core::Entity* character = mainScene->CreateObject("Character");
+	me::core::Entity* parent = mainScene->CreateObject("pp");
 	me::core::Entity* cam = mainScene->CreateObject("Camera", character->Transform());
 
 	me::core::Entity* ui = mainScene->CreateObject("button");
 	me::core::Entity* uiC = mainScene->CreateObject("image", ui->Transform());
 
-	me::core::Entity* poule = mainScene->CreateObject("poule");
+	me::core::Entity* map = mainScene->CreateObject("map");
 
-	me::core::components::ui::Button* btn = ui->AddComponent<me::core::components::ui::Button>();
-	btn->SetOnClick([&]() {std::cout << "Click" << std::endl; });
-	btn->SetOnEnter([&]() {std::cout << "Enter" << std::endl; });
-	btn->SetOnExit([&]() {std::cout << "exit" << std::endl; });
+	// me::core::components::ui::Button* btn = ui->AddComponent<me::core::components::ui::Button>();
+	// btn->SetOnClick([&]() {std::cout << "Click" << std::endl; });
+	// btn->SetOnEnter([&]() {std::cout << "Enter" << std::endl; });
+	// btn->SetOnExit([&]() {std::cout << "exit" << std::endl; });
+
+	map->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(cubeMesh);
+	map->AddComponent<me::core::components::render::Material>()->SetAlbedoTexture(mapTexture);
 	
 	ui->Transform()->SetLocalSize(glm::vec3(50.f));
 	ui->Transform()->SetLocalPosition(glm::vec3(25.f, 25.f, 0.f));
@@ -64,12 +71,6 @@ int main(int argc, char** argv)
 
 	cam->AddComponent<me::core::components::render::Camera>();
 	cam->Transform()->SetLocalPosition(glm::vec3(0.f, 2.f, 0.f));
-	
-	me::core::components::render::StaticMesh* mesh = poule->AddComponent<me::core::components::render::StaticMesh>();
-	mesh->SetMesh(pouleMesh);
-
-	poule->Transform()->SetLocalPosition(glm::vec3(0.f, 0.f, 0.f));
-	poule->Transform()->SetLocalRotation(glm::angleAxis(glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f)));
 	
 	me::core::Core::Global()->LoadScene(mainScene);
 	me::core::Core::Global()->Execute();
