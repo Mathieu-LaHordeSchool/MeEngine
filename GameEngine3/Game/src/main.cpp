@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 	// btn->SetOnEnter([&]() {std::cout << "Enter" << std::endl; });
 	// btn->SetOnExit([&]() {std::cout << "exit" << std::endl; });
 
-	map->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(cubeMesh);
+	map->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(mapMesh);
 	map->AddComponent<me::core::components::render::Material>()->SetAlbedoTexture(mapTexture);
 	
 	ui->Transform()->SetLocalSize(glm::vec3(50.f));

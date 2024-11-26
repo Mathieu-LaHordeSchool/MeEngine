@@ -1,6 +1,7 @@
 #pragma once
 
 namespace me::render::window { class Window; }
+namespace me::render::object { class VertexArrayObject; }
 namespace me::core {
 	class Entity;
 	class TransformData;
@@ -37,11 +38,11 @@ namespace me::render {
 		void CreateAndBindBuffers(const me::core::render::Mesh& mesh);
 
 		void DrawUIs();
-		void DrawImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex);
+		void DrawImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex, me::render::object::VertexArrayObject* vao);
 		void CalculTransformUI(me::core::Entity* trans, me::core::ui::UIElement* element);
 
 		void DrawGeometry();
-		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh);
-		void Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh);
+		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh, me::render::object::VertexArrayObject* vao);
+		void Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh, me::render::object::VertexArrayObject* vao);
 	};
 }

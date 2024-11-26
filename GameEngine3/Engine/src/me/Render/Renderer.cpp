@@ -29,7 +29,6 @@ using namespace me::render;
 
 struct Renderer::Internal
 {
-	me::render::window::Window* window = nullptr;
 	me::core::render::Mesh baseMesh = me::core::render::Mesh();
 	me::core::TransformData* uiTransform = new me::core::TransformData();
 
@@ -55,18 +54,14 @@ struct Renderer::Internal
 	me::render::object::Buffer* uvsBuffer		= new me::render::object::Buffer();
 	me::render::object::Buffer* elementsBuffer	= new me::render::object::Buffer();
 
-	me::render::object::VertexArrayObject* vao			= new me::render::object::VertexArrayObject();
-	me::render::object::RenderObjectData* bufferData	= new me::render::object::RenderObjectData();
+	std::unordered_map<const char*, me::render::object::VertexArrayObject*> vertexArrays;
+	me::render::object::RenderObjectData* bufferData		= new me::render::object::RenderObjectData();
 };
 
 Renderer::Renderer(me::render::window::Window* window)
 	: m_renderer(new Internal())
 {
-	m_renderer->vao->AttributeBinding(0, 0, 3, GL_FLOAT, GL_FALSE, 0); // for vertices
-	m_renderer->vao->AttributeBinding(1, 1, 3, GL_FLOAT, GL_FALSE, 0); // for normals
-	m_renderer->vao->AttributeBinding(2, 2, 2, GL_FLOAT, GL_FALSE, 0); // for uvs
-
-	m_renderer->window = window;
+	m_renderer->baseMesh.path = "Engine_BaseUiMesh";
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -120,7 +115,7 @@ void Renderer::CalculViewMatrix(me::core::components::render::Camera* cam)
 	me::core::TransformData* trans = cam->GetOwner()->Transform();
 	glm::vec3 camPos = trans->GetWorldPosition();
 	glm::vec3 fwd = trans->GetTransformForward();
-	glm::vec2 sizeWindow = m_renderer->window->GetSize();
+	glm::vec2 sizeWindow = me::core::Core::Global()->Window()->GetSize();
 
 	m_renderer->viewMatrix = glm::lookAt(
 		camPos,
@@ -140,15 +135,24 @@ void Renderer::CalculViewMatrix(me::core::components::render::Camera* cam)
 }
 void Renderer::CreateAndBindBuffers(const me::core::render::Mesh& mesh)
 {
+	const char* idMesh = mesh.path;
+	if (m_renderer->vertexArrays.count(idMesh))
+		return;
+
+	m_renderer->vertexArrays[idMesh] = new me::render::object::VertexArrayObject();
+	m_renderer->vertexArrays[idMesh]->AttributeBinding(0, 0, 3, GL_FLOAT, GL_FALSE, 0); // for vertices
+	m_renderer->vertexArrays[idMesh]->AttributeBinding(1, 1, 3, GL_FLOAT, GL_FALSE, 0); // for normals
+	m_renderer->vertexArrays[idMesh]->AttributeBinding(2, 2, 2, GL_FLOAT, GL_FALSE, 0); // for uvs
+	
 	m_renderer->vertexsBuffer = m_renderer->bufferData->GetOrCreateVertexBuffer(mesh.Vertices);
 	m_renderer->normalsBuffer = m_renderer->bufferData->GetOrCreateNormalBuffer(mesh.Normals);
 	m_renderer->uvsBuffer = m_renderer->bufferData->GetOrCreateUvsBuffer(mesh.Uvs);
 	m_renderer->elementsBuffer = m_renderer->bufferData->GetOrCreateElementBuffer(mesh.Elements);
 
-	m_renderer->vao->BindElementBuffer(m_renderer->elementsBuffer);
-	m_renderer->vao->BindingBuffer<float>(0, 0, m_renderer->vertexsBuffer, 3);
-	m_renderer->vao->BindingBuffer<float>(1, 0, m_renderer->normalsBuffer, 3);
-	m_renderer->vao->BindingBuffer<float>(2, 0, m_renderer->uvsBuffer, 2);
+	m_renderer->vertexArrays[idMesh]->BindElementBuffer(m_renderer->elementsBuffer);
+	m_renderer->vertexArrays[idMesh]->BindingBuffer<float>(0, 0, m_renderer->vertexsBuffer, 3);
+	m_renderer->vertexArrays[idMesh]->BindingBuffer<float>(1, 0, m_renderer->normalsBuffer, 3);
+	m_renderer->vertexArrays[idMesh]->BindingBuffer<float>(2, 0, m_renderer->uvsBuffer, 2);
 }
 
 void Renderer::DrawUIs()
@@ -161,25 +165,27 @@ void Renderer::DrawUIs()
 			me::core::ui::UIElement*	element	= std::get<1>(u);
 			me::core::render::Texture*	texture	= std::get<2>(u);
 
+			glm::vec2 size = me::core::Core::Global()->Window()->GetSize();
 			m_renderer->projectionMatrix = glm::ortho(
 				0.f,
-				m_renderer->window->GetSize().x,
+				size.x,
 				0.f,
-				m_renderer->window->GetSize().y
+				size.y
 			);
-
+			
 			CreateAndBindBuffers(m_renderer->baseMesh);
-			DrawImage(entity, element, texture);
+			me::render::object::VertexArrayObject* vao = m_renderer->vertexArrays[m_renderer->baseMesh.path];
+			
+			DrawImage(entity, element, texture, vao);
 		}
 	}
 }
-void Renderer::DrawImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex)
+void Renderer::DrawImage(me::core::Entity* entity, me::core::ui::UIElement* element, me::core::render::Texture* tex, me::render::object::VertexArrayObject* vao)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramUI;
-	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
 
 	sp->StartShaderProgram();
-	VAO->BindVertexArray();
+	vao->BindVertexArray();
 
 	CalculTransformUI(entity, element);
 
@@ -193,7 +199,7 @@ void Renderer::DrawImage(me::core::Entity* entity, me::core::ui::UIElement* elem
 
 	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Vertices.size(), GL_UNSIGNED_INT, 0);
 
-	VAO->UnbindVertexArray();
+	vao->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
 void Renderer::CalculTransformUI(me::core::Entity* entity, me::core::ui::UIElement* element)
@@ -222,20 +228,20 @@ void Renderer::DrawGeometry()
 
 		CalculViewMatrix(cam);
 		CreateAndBindBuffers(mesh);
-
+		me::render::object::VertexArrayObject* vao = m_renderer->vertexArrays[mesh.path];
+		
 		if (!material)
-			Draw(transform, mesh);
+			Draw(transform, mesh, vao);
 		else
-			Draw(transform, material, mesh);
+			Draw(transform, material, mesh, vao);
 	}
 }
-void Renderer::Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh)
+void Renderer::Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh, me::render::object::VertexArrayObject* vao)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramNoTexture;
-	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
 
 	sp->StartShaderProgram();
-	VAO->BindVertexArray();
+	vao->BindVertexArray();
 
 	glm::mat4 modelTrans = trans->GetTransformMatrix();
 	sp->SetMat4("uViewMatrix", m_renderer->viewMatrix);
@@ -244,16 +250,15 @@ void Renderer::Draw(me::core::TransformData* trans, const me::core::render::Mesh
 
 	glDrawElements(GL_TRIANGLES, mesh.Elements.size(), GL_UNSIGNED_INT, 0);
 
-	VAO->UnbindVertexArray();
+	vao->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
-void Renderer::Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh)
+void Renderer::Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh, me::render::object::VertexArrayObject* vao)
 {
 	me::render::shader::ShaderProgram* sp = m_renderer->shaderProgramTexture;
-	me::render::object::VertexArrayObject* VAO = m_renderer->vao;
 
 	sp->StartShaderProgram();
-	VAO->BindVertexArray();
+	vao->BindVertexArray();
 
 	glm::mat4 modelTrans = trans->GetTransformMatrix();
 	sp->SetMat4("MVP", m_renderer->projectionMatrix * m_renderer->viewMatrix * modelTrans);
@@ -263,8 +268,8 @@ void Renderer::Draw(me::core::TransformData* trans, me::core::components::render
 	sp->SetSampler2D("albedoTexture", GL_TEXTURE0);
 	sp->SetVec4("color", color);
 	
-	glDrawElements(GL_TRIANGLES, mesh.Vertices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh.Elements.size(), GL_UNSIGNED_INT, 0);
 
-	VAO->UnbindVertexArray();
+	vao->UnbindVertexArray();
 	sp->StopShaderProgram();
 }
