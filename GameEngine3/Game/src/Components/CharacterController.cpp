@@ -23,6 +23,12 @@ void CharacterController::Start()
 	me::core::Core::Global()->Window()->SetEnableMouse(false);
 }
 
+void CharacterController::Update()
+{
+	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
+	std::cout << 1.f / dt << std::endl;
+}
+
 void CharacterController::BindInputs(me::core::input::Inputs* inputs)
 {
 	inputs->CreateInputAction("z", me::core::input::KeyCode::W)->BindPressAction([this]() { MoveZ(1.f);  });
@@ -62,9 +68,7 @@ void CharacterController::Rotate(float x, float y)
 	float dt = GetOwner()->GetScene()->GetHandleTimer().dt;
 	me::core::TransformData* trans = camera->Transform();
 
-	float rotXmovement = dy * rotateSpeed * dt * -1.f;
-	std::cout << abs(trans->GetLocalRotation().x + rotXmovement) << std::endl;
-	
+	float rotXmovement = dy * rotateSpeed * dt * -1.f;	
 	if (abs(trans->GetLocalRotation().x + glm::radians(rotXmovement)) < glm::radians(89.9f))
 		trans->Rotate(glm::vec3(1.f, 0.f, 0.f), rotXmovement);
 

@@ -19,7 +19,8 @@ public:
 	~CharacterController() noexcept = default;
 
 	void Start() override;
-
+	void Update() override;
+	
 	void BindInputs(me::core::input::Inputs* inputs) override;
 
 	void MoveZ(float scale);
