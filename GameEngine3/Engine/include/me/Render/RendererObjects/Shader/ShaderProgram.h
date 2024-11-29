@@ -15,6 +15,8 @@ namespace me::render::shader {
 		explicit ShaderProgram(Shader* vs, Shader* fs);
 		~ShaderProgram() noexcept;
 
+		int GetLocation(const char* name);
+		
 	public:
 		uint32_t GetShaderProgram() const;
 

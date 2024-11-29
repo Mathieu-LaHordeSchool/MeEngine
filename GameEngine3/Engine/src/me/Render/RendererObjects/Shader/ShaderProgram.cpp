@@ -1,6 +1,7 @@
 
 #include <me/Render/RendererObjects/Shader/ShaderProgram.h>
 #include <me/Render/RendererObjects/Shader/Shader.h>
+#include <map>
 
 #include <GL/glew.h>
 #include <iostream>
@@ -10,6 +11,7 @@ using namespace me::render::shader;
 struct ShaderProgram::Internal
 {
 	uint32_t shaderProgram;
+	std::map<const char*, int> knowLocation;
 };
 
 ShaderProgram::ShaderProgram(Shader* vs, Shader* fs)
@@ -39,6 +41,16 @@ ShaderProgram::~ShaderProgram() noexcept
 	glDeleteProgram(m_program->shaderProgram);
 }
 
+int ShaderProgram::GetLocation(const char* name)
+{
+	if (m_program->knowLocation.count(name))
+		return m_program->knowLocation[name];
+	
+	int location = glGetUniformLocation(GetShaderProgram(), name);
+	m_program->knowLocation[name] = location;
+	return location;
+}
+
 uint32_t ShaderProgram::GetShaderProgram() const
 {
 	return m_program->shaderProgram;
@@ -54,26 +66,21 @@ void ShaderProgram::StopShaderProgram()
 
 void ShaderProgram::SetMat4(const char* name, const glm::mat4& value)
 {
-	int location = glGetUniformLocation(GetShaderProgram(), name);
-	glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
+	glUniformMatrix4fv(GetLocation(name), 1, GL_FALSE, &value[0][0]);
 }
 void ShaderProgram::SetVec4(const char* name, const glm::vec4& value)
 {
-	int location = glGetUniformLocation(GetShaderProgram(), name);
-	glUniform4f(location, value.x, value.y, value.z, value.w);
+	glUniform4f(GetLocation(name), value.x, value.y, value.z, value.w);
 }
 void ShaderProgram::SetVec3(const char* name, const glm::vec3& value)
 {
-	int location = glGetUniformLocation(GetShaderProgram(), name);
-	glUniform3f(location, value.x, value.y, value.z);
+	glUniform3f(GetLocation(name), value.x, value.y, value.z);
 }
 void ShaderProgram::SetVec2(const char* name, const glm::vec2& value)
 {
-	int location = glGetUniformLocation(GetShaderProgram(), name);
-	glUniform2f(location, value.x, value.y);
+	glUniform2f(GetLocation(name), value.x, value.y);
 }
 void ShaderProgram::SetSampler2D(const char* name, int sampler)
 {
-	int location = glGetUniformLocation(GetShaderProgram(), name);
-	glUniform1i(location, sampler);
+	glUniform1i(GetLocation(name), sampler);
 }

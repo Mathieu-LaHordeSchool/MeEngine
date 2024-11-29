@@ -197,7 +197,7 @@ void Renderer::DrawImage(me::core::Entity* entity, me::core::ui::UIElement* elem
 	sp->SetVec4("uColor", element->color);
 	sp->SetMat4("uProjection", m_renderer->projectionMatrix);
 
-	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Vertices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, m_renderer->baseMesh.Elements.size(), GL_UNSIGNED_INT, 0);
 
 	vao->UnbindVertexArray();
 	sp->StopShaderProgram();
