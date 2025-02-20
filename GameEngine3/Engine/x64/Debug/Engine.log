@@ -1,7 +1,5 @@
-﻿  Button.cpp
-C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Core\Input\Inputs.h(29,34): warning C4099: 'GLFWwindow' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-  (compiler le fichier source 'src/me/Core/UIComponents/Button.cpp')
-  C:\LaHorde\GameEngine\GameEngine3\Engine\include\me\Render\Window\Window.h(5,8):
-  voir la déclaration de 'GLFWwindow'
-  
-  Engine.vcxproj -> C:\LaHorde\GameEngine\GameEngine3\bin\Engine.lib
+﻿  Renderer.cpp
+C:\Users\laval\Desktop\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(201,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\Users\laval\Desktop\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(252,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\Users\laval\Desktop\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(270,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+  Engine.vcxproj -> C:\Users\laval\Desktop\GameEngine\GameEngine3\bin\Engine.lib

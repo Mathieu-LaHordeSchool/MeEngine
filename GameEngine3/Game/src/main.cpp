@@ -33,11 +33,12 @@ int main(int argc, char** argv)
 	configs.windowSize = glm::vec2(700.f, 500.f);
 	configs.resezable = true;
 	me::core::Core::Global()->Initialize(configs);
-	
+
 	me::core::render::MeshLoader loader = me::core::render::MeshLoader();
 	me::core::render::Mesh pouleMesh = loader.LoadMesh("../Ressources/Models/boss.obj");
 	me::core::render::Mesh cubeMesh = loader.LoadMesh("../Ressources/Models/default.obj");
 	me::core::render::Mesh mapMesh = loader.LoadMesh("../Ressources/Models/Map.obj");
+	me::core::render::Mesh platfomr = loader.LoadMesh("../Ressources/Models/platforme2.obj");
 	
 	me::core::render::Texture* bg = new me::core::render::Texture("../Ressources/Textures/Test.png");
 	me::core::render::Texture* boss = new me::core::render::Texture("../Ressources/Textures/Boss.png");
@@ -54,16 +55,16 @@ int main(int argc, char** argv)
 
 	me::core::Entity* map = mainScene->CreateObject("map");
 
-	// me::core::components::ui::Button* btn = ui->AddComponent<me::core::components::ui::Button>();
-	// btn->SetOnClick([&]() {std::cout << "Click" << std::endl; });
-	// btn->SetOnEnter([&]() {std::cout << "Enter" << std::endl; });
-	// btn->SetOnExit([&]() {std::cout << "exit" << std::endl; });
+	me::core::components::ui::Button* btn = ui->AddComponent<me::core::components::ui::Button>();
+	btn->SetOnClick([&]() {std::cout << "Click" << std::endl; });
+	btn->SetOnEnter([&]() {std::cout << "Enter" << std::endl; });
+	btn->SetOnExit([&]() {std::cout << "exit" << std::endl; });
 
-	map->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(mapMesh);
-	map->AddComponent<me::core::components::render::Material>()->SetAlbedoTexture(mapTexture);
+	map->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(pouleMesh);
+	map->AddComponent<me::core::components::render::Material>()->SetAlbedoTexture(boss);
 	
 	ui->Transform()->SetLocalSize(glm::vec3(50.f));
-	ui->Transform()->SetLocalPosition(glm::vec3(25.f, 25.f, 0.f));
+	ui->Transform()->SetLocalPosition(glm::vec3(50.f, 50.f, 0.f));
 	
 	character->Transform()->SetLocalPosition(glm::vec3(0.f, 0.f, 5.f));
 	CharacterController* controller = character->AddComponent<CharacterController>();

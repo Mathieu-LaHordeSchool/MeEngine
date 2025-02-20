@@ -71,10 +71,12 @@ namespace detail
 		{
 			GLM_STATIC_ASSERT(std::numeric_limits<T>::is_iec559, "'cross' accepts only floating-point inputs");
 
-			return vec<3, T, Q>(
+			auto v = vec<3, T, Q>(
 				x.y * y.z - y.y * x.z,
 				x.z * y.x - y.z * x.x,
 				x.x * y.y - y.x * x.y);
+
+			return v;
 		}
 	};
 

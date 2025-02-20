@@ -106,15 +106,22 @@ namespace glm
 		Result[0][0] = s.x;
 		Result[1][0] = s.y;
 		Result[2][0] = s.z;
+
 		Result[0][1] = u.x;
 		Result[1][1] = u.y;
 		Result[2][1] = u.z;
+
 		Result[0][2] =-f.x;
 		Result[1][2] =-f.y;
 		Result[2][2] =-f.z;
-		Result[3][0] =-dot(s, eye);
-		Result[3][1] =-dot(u, eye);
-		Result[3][2] = dot(f, eye);
+
+		T a = -dot(s, eye);
+		T b = -dot(u, eye);
+		T c = dot(f, eye);
+
+		Result[3][0] = a;
+		Result[3][1] = b;
+		Result[3][2] = c;
 		return Result;
 	}
 
@@ -129,12 +136,15 @@ namespace glm
 		Result[0][0] = s.x;
 		Result[1][0] = s.y;
 		Result[2][0] = s.z;
+
 		Result[0][1] = u.x;
 		Result[1][1] = u.y;
 		Result[2][1] = u.z;
+
 		Result[0][2] = f.x;
 		Result[1][2] = f.y;
 		Result[2][2] = f.z;
+
 		Result[3][0] = -dot(s, eye);
 		Result[3][1] = -dot(u, eye);
 		Result[3][2] = -dot(f, eye);

@@ -42,7 +42,7 @@ namespace me::render {
 		void CalculTransformUI(me::core::Entity* trans, me::core::ui::UIElement* element);
 
 		void DrawGeometry();
-		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh, me::render::object::VertexArrayObject* vao);
-		void Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh, me::render::object::VertexArrayObject* vao);
+		void Draw(me::core::TransformData* trans, const me::core::render::Mesh& mesh);
+		void Draw(me::core::TransformData* trans, me::core::components::render::Material* material, const me::core::render::Mesh& mesh);
 	};
 }
