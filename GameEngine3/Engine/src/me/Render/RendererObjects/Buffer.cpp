@@ -6,6 +6,8 @@
 
 using namespace me::render::object;
 
+// other update
+
 Buffer::Buffer()
 {
 	glCreateBuffers(1, &buffer);
