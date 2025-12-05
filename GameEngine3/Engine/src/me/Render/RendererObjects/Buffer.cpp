@@ -6,7 +6,7 @@
 
 using namespace me::render::object;
 
-// other update a
+// other update b
 
 Buffer::Buffer()
 {
