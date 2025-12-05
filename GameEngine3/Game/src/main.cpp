@@ -35,19 +35,18 @@ int main(int argc, char** argv)
 	me::core::Core::Global()->Initialize(configs);
 
 	me::core::render::MeshLoader loader = me::core::render::MeshLoader();
-	me::core::render::Mesh pouleMesh = loader.LoadMesh("../Ressources/Models/boss.obj");
-	me::core::render::Mesh cubeMesh = loader.LoadMesh("../Ressources/Models/default.obj");
-	me::core::render::Mesh mapMesh = loader.LoadMesh("../Ressources/Models/Map.obj");
-	me::core::render::Mesh platfomr = loader.LoadMesh("../Ressources/Models/platforme2.obj");
+	me::core::render::Mesh pouleMesh = loader.LoadObjMesh("../Ressources/Models/boss.obj");
+	me::core::render::Mesh cubeMesh = loader.LoadObjMesh("../Ressources/Models/default.obj");
+	// me::core::render::Mesh mapMesh = loader.LoadObjMesh("../Ressources/Models/Map.obj");
+	me::core::render::Mesh platfomr = loader.LoadObjMesh("../Ressources/Models/platforme2.obj");
 	
 	me::core::render::Texture* bg = new me::core::render::Texture("../Ressources/Textures/Test.png");
-	me::core::render::Texture* boss = new me::core::render::Texture("../Ressources/Textures/Boss.png");
+	me::core::render::Texture* boss = new me::core::render::Texture("../Ressources/Textures/Boss.jpg");
 	me::core::render::Texture* mapTexture = new me::core::render::Texture("../Ressources/Textures/Map.png");
 	
 	me::core::Scene* mainScene = new me::core::Scene;
 
 	me::core::Entity* character = mainScene->CreateObject("Character");
-	me::core::Entity* parent = mainScene->CreateObject("pp");
 	me::core::Entity* cam = mainScene->CreateObject("Camera", character->Transform());
 
 	me::core::Entity* ui = mainScene->CreateObject("button");
@@ -62,7 +61,7 @@ int main(int argc, char** argv)
 
 	map->AddComponent<me::core::components::render::StaticMesh>()->SetMesh(pouleMesh);
 	map->AddComponent<me::core::components::render::Material>()->SetAlbedoTexture(boss);
-	
+
 	ui->Transform()->SetLocalSize(glm::vec3(50.f));
 	ui->Transform()->SetLocalPosition(glm::vec3(50.f, 50.f, 0.f));
 	
@@ -79,6 +78,8 @@ int main(int argc, char** argv)
 	return 0;
 }
 
+#pragma region DontTuchOrKYS
+
 #if NDEBUG
 #include <windows.h>
 
@@ -87,3 +88,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	return 0;
 }
 #endif
+
+#pragma endregion

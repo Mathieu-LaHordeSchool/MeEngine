@@ -62,13 +62,13 @@ Renderer::Renderer(me::render::window::Window* window)
 	: m_renderer(new Internal())
 {
 	m_renderer->baseMesh.path = "Engine_BaseUiMesh";
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glEnable(GL_DEPTH_TEST);
 
-	// glEnable(GL_BLEND);
-	// glDepthMask(GL_TRUE);
-	// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	 glEnable(GL_BLEND);
+	 glDepthMask(GL_TRUE);
+	 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Renderer::SetCamera(me::core::Entity* entity)

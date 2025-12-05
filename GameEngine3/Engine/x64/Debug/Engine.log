@@ -1,5 +1,54 @@
-﻿  Renderer.cpp
-C:\Users\laval\Desktop\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(201,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\Users\laval\Desktop\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(252,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\Users\laval\Desktop\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(270,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-  Engine.vcxproj -> C:\Users\laval\Desktop\GameEngine\GameEngine3\bin\Engine.lib
+﻿  main.cpp
+  Camera.cpp
+  Material.cpp
+  StaticMesh.cpp
+  Core.cpp
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244: 'argument' : conversion de 'T' en 'int', perte possible de données
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:         with
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:         [
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:             T=float
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,43): warning C4244:         ]
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244: 'argument' : conversion de 'T' en 'int', perte possible de données
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:         with
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:         [
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:             T=float
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Core.cpp(46,21): warning C4244:         ]
+  EnableObject.cpp
+  Entity.cpp
+  Inputs.cpp
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Input\Inputs.cpp(100,20): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Input\Inputs.cpp(101,20): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Input\Inputs.cpp(105,12): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\Input\Inputs.cpp(105,8): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+  Mesh.cpp
+  MeshLoader.cpp
+  Texture.cpp
+  Scene.cpp
+  TransformData.cpp
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\TransformData.cpp(300,35): warning C4267: 'return' : conversion de 'size_t' en 'int', perte possible de données
+  Button.cpp
+  Font.cpp
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Core\UIComponents\Font.cpp(88,41): warning C4838: la conversion de 'FT_Pos' en 'unsigned int' requiert une conversion restrictive
+  Image.cpp
+  Renderer.cpp
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(201,65): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(252,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Render\Renderer.cpp(270,49): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+  Buffer.cpp
+  InstancedMap.cpp
+  RenderObjectData.cpp
+C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\include\me\Render\RendererObjects\Buffer.h(22,28): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+  (compiler le fichier source 'src/me/Render/RendererObjects/RenderObjectData.cpp')
+      C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\include\me\Render\RendererObjects\Buffer.h(22,28):
+      le contexte d’instanciation du modèle (le plus ancien) est
+          C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\Engine\src\me\Render\RendererObjects\RenderObjectData.cpp(13,14):
+          voir la référence à l'instanciation de la fonction modèle 'void me::render::object::Buffer::InitBuffer<float>(std::vector<float,std::allocator<float>>)' en cours de compilation
+  
+  Génération de code en cours...
+  Compilation en cours...
+  Shader.cpp
+  ShaderProgram.cpp
+  VertexArray.cpp
+  Window.cpp
+  Génération de code en cours...
+  Engine.vcxproj -> C:\Users\laval\Documents\GitHub\GameEngine\GameEngine3\bin\Engine.lib

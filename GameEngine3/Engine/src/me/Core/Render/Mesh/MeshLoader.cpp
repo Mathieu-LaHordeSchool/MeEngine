@@ -5,10 +5,12 @@
 #include <unordered_map>
 #include <iostream>
 
+using namespace me::core::render;
+
+#pragma region OBJ
 #define TINYOBJLOADER_IMPLEMENTATION
 #include <tiny_obj_loader.h>
 
-using namespace me::core::render;
 
 // Update the VertexData structure to include color.
 struct VertexData {
@@ -34,7 +36,7 @@ namespace std {
     };
 }
 
-Mesh MeshLoader::LoadMesh(const char* modelPath)
+Mesh MeshLoader::LoadObjMesh(const char* modelPath)
 {
     std::string warn, err;
     tinyobj::attrib_t attrib;
@@ -95,3 +97,128 @@ Mesh MeshLoader::LoadMesh(const char* modelPath)
     newMesh.Elements.swap(indices);
     return newMesh;
 }
+#pragma endregion
+
+#pragma region GLTF
+
+#define TINYGLTF_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <tiny_gltf.h>
+
+Mesh MeshLoader::LoadGltfMesh(const char* modelPath)
+{
+    tinygltf::TinyGLTF loader;
+    tinygltf::Model model;
+    std::string err;
+    std::string warn;
+
+    bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, modelPath);
+    if (!warn.empty()) {
+        std::cout << "Warning: " << warn << std::endl;
+    }
+    if (!err.empty()) {
+        std::cout << "Error: " << err << std::endl;
+    }
+    if (!ret) {
+        std::cout << "Failed to load GLTF model" << std::endl;
+        return Mesh();
+    }
+    std::cout << "GLTF model loaded successfully" << std::endl;
+
+    std::vector<float> vertices;
+    std::vector<float> normals;
+    std::vector<float> uvs;
+    std::vector<unsigned int> elements;
+
+    for (const auto& mesh : model.meshes) {
+        for (const auto& primitive : mesh.primitives) {
+            // Vérifier les attributs de la primitive (Position, Normal, UV)
+            const auto& posAccessor = model.accessors[primitive.attributes.at("POSITION")];
+            const auto& normAccessor = model.accessors[primitive.attributes.at("NORMAL")];
+            const auto& uvAccessor = primitive.attributes.count("TEXCOORD_0") > 0
+                ? model.accessors[primitive.attributes.at("TEXCOORD_0")]
+                : posAccessor; // Utiliser la position si les UVs ne sont pas présents
+
+            const auto& posBufferView = model.bufferViews[posAccessor.bufferView];
+            const auto& normBufferView = model.bufferViews[normAccessor.bufferView];
+            const auto& uvBufferView = model.bufferViews[uvAccessor.bufferView];
+
+            const auto& posBuffer = model.buffers[posBufferView.buffer];
+            const auto& normBuffer = model.buffers[normBufferView.buffer];
+            const auto& uvBuffer = model.buffers[uvBufferView.buffer];
+
+            // Extraire les positions, normales et UVs
+            for (size_t i = 0; i < posAccessor.count; ++i) {
+                // Extraire les positions
+                float px = posBuffer.data[posBufferView.byteOffset + posAccessor.byteOffset + i * 3 + 0];
+                float py = posBuffer.data[posBufferView.byteOffset + posAccessor.byteOffset + i * 3 + 1];
+                float pz = posBuffer.data[posBufferView.byteOffset + posAccessor.byteOffset + i * 3 + 2];
+
+                // Extraire les normales
+                float nx = normBuffer.data[normBufferView.byteOffset + normAccessor.byteOffset + i * 3 + 0];
+                float ny = normBuffer.data[normBufferView.byteOffset + normAccessor.byteOffset + i * 3 + 1];
+                float nz = normBuffer.data[normBufferView.byteOffset + normAccessor.byteOffset + i * 3 + 2];
+
+                // Extraire les UVs
+                float u = uvBuffer.data[uvBufferView.byteOffset + uvAccessor.byteOffset + i * 2 + 0];
+                float v = uvBuffer.data[uvBufferView.byteOffset + uvAccessor.byteOffset + i * 2 + 1];
+
+                // Ajouter un vertex, normal et UV
+                vertices.push_back(px);
+                vertices.push_back(py);
+                vertices.push_back(pz);
+
+                normals.push_back(nx);
+                normals.push_back(ny);
+                normals.push_back(nz);
+
+                uvs.push_back(u);
+                uvs.push_back(v);
+
+                // Débogage pour vérifier les valeurs
+                std::cout << "Vertex " << i << ": (" << px << ", " << py << ", " << pz << ")\n";
+                std::cout << "Normal " << i << ": (" << nx << ", " << ny << ", " << nz << ")\n";
+                std::cout << "UV " << i << ": (" << u << ", " << v << ")\n";
+            }
+
+            // Gestion des indices
+            if (primitive.indices >= 0) {
+                const auto& indexAccessor = model.accessors[primitive.indices];
+                const auto& indexBufferView = model.bufferViews[indexAccessor.bufferView];
+                const auto& indexBuffer = model.buffers[indexBufferView.buffer];
+
+                // Vérification des indices et ajout
+                for (size_t i = 0; i < indexAccessor.count; ++i) {
+                    unsigned int index = 0;
+                    if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_SHORT) {
+                        index = *((unsigned short*)&indexBuffer.data[indexBufferView.byteOffset + indexAccessor.byteOffset + i * 2]);
+                    }
+                    else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT) {
+                        index = *((unsigned int*)&indexBuffer.data[indexBufferView.byteOffset + indexAccessor.byteOffset + i * 4]);
+                    }
+
+                    // Vérifier que l'indice est dans la plage des vertices
+                    if (index < vertices.size() / 3) {
+                        elements.push_back(index);
+                    }
+                    else {
+                        std::cout << "Indice invalide : " << index << ", il doit être inférieur à " << vertices.size() / 3 << "\n";
+                    }
+                }
+            }
+
+        }
+    }
+
+    Mesh mesh;
+    mesh.path = modelPath;
+
+    mesh.Vertices.swap(vertices);
+    mesh.Normals.swap(normals);
+    mesh.Uvs.swap(uvs);
+    mesh.Elements.swap(elements);
+
+    return mesh;
+}
+
+#pragma endregion

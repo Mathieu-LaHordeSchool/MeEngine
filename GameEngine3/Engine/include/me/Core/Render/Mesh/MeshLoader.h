@@ -4,6 +4,7 @@ namespace me::core::render {
 	class MeshLoader
 	{
 	public:
-		class Mesh LoadMesh(const char* modelPath);
+		class Mesh LoadObjMesh(const char* modelPath);
+		class Mesh LoadGltfMesh(const char* modelPath);
 	};
 }
