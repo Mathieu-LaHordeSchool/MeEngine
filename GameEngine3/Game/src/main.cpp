@@ -28,7 +28,7 @@
 
 int main(int argc, char** argv)
 {
-	// shop update
+	// shop update a
 	me::core::CoreConfigs configs;
 	configs.title = "A";
 	configs.windowSize = glm::vec2(700.f, 500.f);
